@@ -1,7 +1,5 @@
 // Read the data from CSV
-
 function readSingleFile(e) {
-    // console.log('contents....')
     var file = e.target.files[0];
     if (!file) {
         console.log('no contents....')
@@ -21,18 +19,15 @@ function readSingleFile(e) {
 }
 
 
-function dateWesternEurope(d_Date,period) {
-    const monthNames = ["01 January", "02 February", "03 March", "04 April", "05 May", "06 June",
-    "July", "August", "September", "October", "November", "December"]    
+function dateWesternEurope(d_Date,period) {       
     var myDate0 = d_Date      
     var dateParts = myDate0.split("/");                
     var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
-
+    
     var dayObject=dateObject.getDate()
     var weekObject=getWeekNumber(dateObject)
     var monthObject=dateObject.getMonth() 
     var yearObject=dateObject.getFullYear() 
-    // console.log("les dates:",dateObject,dayObject,weekObject,monthObject,yearObject)
     if (period=="Day") {return dayObject}
     if (period=="Week") {return weekObject}
     if (period=="Month") {return monthNames[monthObject]}
@@ -69,18 +64,16 @@ function getWeekNumber(d) {
 function checkwages(input){
     var validformat=/^\-?\d+(?:\,\d{0,2})$/;
     if ( validformat.test(input)) {
-        // alert("$:"+ input + " test");
         return true;
     }
     var validformat=/^\-?\d+(?:\.\d{0,2})$/;
     if ( validformat.test(input)) {
-        // alert("$:"+ input + " test");
         return true;
     }   
     return false;
 }
 
-function chartDataTestAdd(key,arrayx,arrayy) {
+function chartDataAdd(key,arrayx,arrayy) {
     return {                    
         x: arrayx,
         y: arrayy,
@@ -90,20 +83,30 @@ function chartDataTestAdd(key,arrayx,arrayy) {
     }                 
 }
 
+// Plot the stacked bar chart 
+function plotChartData(chartData) {
+    Plotly.newPlot('plot', chartData, 
+    layout
+    );             
+}
+
 var entete_montant="";
 var entete_date="";
 var entete_communication="";
 
-var chartDataTestDay = [];
-var chartDataTestWeek = [];
-var chartDataTestMonth = [];       
-var chartDataTestMonth2 = [];        
-var chartDataTestYear= [];
+var chartDataDay = [];
+var chartDataWeek = [];
+var chartDataMonth = [];             
+var chartDataYear= [];
 var layout = {
     hovermode: "closest",
     barmode: 'relative',
     height: 800,
 };
+const monthNames = ["01 January", "02 February", "03 March", "04 April", "05 May", "06 June",
+"July", "August", "September", "October", "November", "December"];
+
+
 
 function displayContents(contents) {
     
@@ -118,28 +121,13 @@ function displayContents(contents) {
     Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/ListCat2.csv",function(csv){processData2(csv)});
     
     function processData2(csv) {
-        // console.log("csv")
-        // console.log(csv)
         csv.map(function(d){
-            // console.log("libelle")
             list_cat_.push(d.libelle);
-            // field2.push(+d.value);
         })
         
         
-        var list_cat = [list_cat_,['Ethias','Acinapolis','Grogon','Delhaize','Decathlon']]
+        var list_cat = [list_cat_,['Ethias','Acinapolis','Grogon','Delhaize','Decathlon']]       
         
-        // console.log("csv_data 0000 loaded....");
-        
-        
-        
-        // Read the data from CSV
-        // Plotly.d3.csv('https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/FebMi_aleatoire2.csv', function(data) {
-        // Plotly.d3.csv("file:///C:/Users/P12050/Documents/_WORK_/_JAVASCRIPT_/CSV/FebMi_aleatoire2.csv", function(data) {
-        // console.log('contents data ....')
-        // console.log(contents)
-        // Plotly.d3.csv("FebMi_aleatoire2.csv",  function(data){ processData(data) } );
-        // Plotly.d3.csv(contents,  function(csv_data){ processData(csv_data) } );
         Plotly.d3.dsv(';')(contents,  function(csv_data){ processData(csv_data) } );
         
         
@@ -151,7 +139,6 @@ function displayContents(contents) {
             var headerNames = Plotly.d3.keys(csv_data[0]);
             headerNames.forEach(element => {         
                 
-                // var header_content=csv_data[0][element]
                 if (element=="Contrepartie"){
                     console.log("Communication.....")
                     entete_communication=element
@@ -162,7 +149,6 @@ function displayContents(contents) {
                 }
                 
                 var first_content=csv_data[0][element]
-                // console.log("first_content: ",first_content)
                 if (checkwages(first_content)){
                     console.log("Number.....")
                     console.log(first_content)
@@ -176,19 +162,9 @@ function displayContents(contents) {
                 }
             });
             
-            // var entete_montant="Montant";
-            // var entete_date="Date comptable";
-            // var entete_communication="Libellés";
             
             console.log('....les entetes:',entete_montant,entete_date,entete_communication)
             
-            // csv_data.columns.forEach(function(e) {
-            //     // if (e != "word" && e != "stamp") {
-            //     //     console.log(e)
-            //     //     d[e] = +d[e]
-            //     // }
-            //     console.log(csv_data[0][e])
-            // })
             
             
             
@@ -205,7 +181,6 @@ function displayContents(contents) {
                 //si pas encore cette communication  
                 if (!arrayMonth[str_api]) {
                     arrayMonth[str_api] = [[],[]];
-                    // console.log("created.....");
                 }                
                 arrayMonth[str_api][0].push(period);
                 arrayMonth[str_api][1].push(str_idy);                
@@ -221,13 +196,9 @@ function displayContents(contents) {
                 var str_idxWeek=dateWesternEurope(d[entete_date],"Week")
                 var str_idxMonth=dateWesternEurope(d[entete_date],"Month")
                 var str_idxYear=dateWesternEurope(d[entete_date],"Year")  
-
-                var str_idy=d[entete_montant]  
-                //case No Amount
-                // if (isNaN(str_idy)) { continue;}  
                 
-                // console.log(entete_communication)
-                // console.log(d[entete_communication])
+                var str_idy=d[entete_montant]  
+                
                 str_api=d[entete_communication].replace(/ /g,'')
                 if (str_api === null || str_api === '') {
                     str_api="...Tenue de cpte Performance Pack"
@@ -240,29 +211,19 @@ function displayContents(contents) {
             entete_date="";
             
             
-            // var chartDataTest = []
-
-            
-            
-            
-            
-            
-            // console.log("elem0")
-            // console.log(typeof arrayMonth)
             
             Object.keys(arrayDay).map(function(key, index) {                
-                chartDataTestDay.push(chartDataTestAdd(key,arrayDay[key][0],arrayDay[key][1]));                  
+                chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1]));                  
             });
             Object.keys(arrayWeek).map(function(key, index) {                
-                chartDataTestWeek.push(chartDataTestAdd(key,arrayWeek[key][0],arrayWeek[key][1]));                  
+                chartDataWeek.push(chartDataAdd(key,arrayWeek[key][0],arrayWeek[key][1]));                  
             });
             Object.keys(arrayMonth).map(function(key, index) {                
-                chartDataTestMonth.push(chartDataTestAdd(key,arrayMonth[key][0],arrayMonth[key][1]));                  
+                chartDataMonth.push(chartDataAdd(key,arrayMonth[key][0],arrayMonth[key][1]));                  
             });
             Object.keys(arrayYear).map(function(key, index) {                
-                chartDataTestYear.push(chartDataTestAdd(key,arrayYear[key][0],arrayYear[key][1]));                  
+                chartDataYear.push(chartDataAdd(key,arrayYear[key][0],arrayYear[key][1]));                  
             });
-            // console.log(chartDataTest2)
             
             
             // Define a chart layout
@@ -276,11 +237,8 @@ function displayContents(contents) {
                 // showspikes = True
             };
             
-            chartDataTestMonth2=chartDataTestMonth;
-            // Plot the stacked bar chart 
-            Plotly.newPlot('plot', chartDataTestDay, 
-            layout
-            );      
+            // Plot the stacked bar chart   
+            plotChartData(chartDataMonth);
             
             
             
@@ -304,32 +262,26 @@ function togglePopup(){
 
 function PlotlyPlot(period){
     console.log("La period", period)
-    console.log(entete_date)
-    console.log(chartDataTestMonth);
-    if (period=="Journalier") {Plotly.newPlot('plot', chartDataTestDay,layout);}
-    if (period=="Hebdomadaire") {Plotly.newPlot('plot', chartDataTestWeek,layout);}
-    if (period=="Mensuel") {Plotly.newPlot('plot', chartDataTestMonth2,layout);}
-    if (period=="Annuel") {Plotly.newPlot('plot', chartDataTestYear,layout);}
+    
+    if (period=="Journalier") {plotChartData(chartDataDay);}
+    if (period=="Hebdomadaire") {plotChartData(chartDataWeek);}
+    if (period=="Mensuel") {plotChartData(chartDataMonth);}
+    if (period=="Annuel") {plotChartData(chartDataYear);}
     
 }
-
-// document.getElementById('Annuel').addEventListener('change', PlotlyPlot("Annuel"), false);
-// document.getElementById('Mensuel').addEventListener('change', PlotlyPlot("Mensuel"), false);
-// document.getElementById('Hebdomadaire').addEventListener('change', PlotlyPlot("Hebdomadaire"), false);
-// document.getElementById('Journalier').addEventListener('change', PlotlyPlot("Journalier"), false);
 
 
 if (document.querySelector('input[name="exampleRadios"]')) {
     document.querySelectorAll('input[name="exampleRadios"]').forEach((elem) => {
-      elem.addEventListener("change", function(event) {
-        var item = event.target.value;
-        var name = event.target.getAttribute('id');
-        console.log(item);
-        console.log(typeof  name);
-        PlotlyPlot(name);
-      });
+        elem.addEventListener("change", function(event) {
+            var item = event.target.value;
+            var name = event.target.getAttribute('id');
+            console.log(item);
+            console.log(typeof  name);
+            PlotlyPlot(name);
+        });
     });
-  }
+}
 
 
 
