@@ -1,3 +1,5 @@
+
+
 // Read the data from CSV
 function readSingleFile(e) {
     var file = e.target.files[0];
@@ -103,7 +105,7 @@ var layout = {
     barmode: 'relative',
     height: 800,
 };
-const monthNames = ["01 January", "02 February", "03 March", "04 April", "05 May", "06 June",
+const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"];
 
 
@@ -197,8 +199,8 @@ function displayContents(contents) {
                 var str_idxMonth=dateWesternEurope(d[entete_date],"Month")
                 var str_idxYear=dateWesternEurope(d[entete_date],"Year")  
                 
-                var str_idy=d[entete_montant]  
-                
+                var str_idy=d[entete_montant]
+                str_idy = str_idy.replace(',', '.');              
                 str_api=d[entete_communication].replace(/ /g,'')
                 if (str_api === null || str_api === '') {
                     str_api="...Tenue de cpte Performance Pack"
