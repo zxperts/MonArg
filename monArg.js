@@ -92,6 +92,27 @@ function plotChartData(chartData) {
     );             
 }
 
+var removeUselessWords = function(txt) {
+    var uselessWordsArray = 
+        [
+            "achatbancontact", "mistercash", "belnum", "rodecartex", "achatmaestro",
+             "renceing", "retraitbancontact", "virementeurop", "domiciliationeurop",
+              "xxxxxxxx", "bruxelles", "visa", "bank", "retraitself", "avisenannexe",
+               "virement", "retraitmaestro", "xxxxxx", "fimaser"
+        ];
+			
+	  var expStr = uselessWordsArray.join("|");
+	  return txt.replace(new RegExp('\\b(' + expStr + ')\\b', 'gi'), ' ')
+                    .replace(/\s{2,}/g, ' ');
+  }
+
+function findLongestWord(str) {
+    var longestWord = str.split(' ').reduce(function(longest, currentWord) {
+        return currentWord.length > longest.length ? currentWord : longest;
+    }, "");
+    return longestWord;
+}
+
 var entete_montant="";
 var entete_date="";
 var entete_communication="";
@@ -181,11 +202,11 @@ function displayContents(contents) {
             
             function pushArrayPeriod(arrayMonth,period) {
                 //si pas encore cette communication  
-                if (!arrayMonth[str_api]) {
-                    arrayMonth[str_api] = [[],[]];
+                if (!arrayMonth[str_comm]) {
+                    arrayMonth[str_comm] = [[],[]];
                 }                
-                arrayMonth[str_api][0].push(period);
-                arrayMonth[str_api][1].push(str_idy);                
+                arrayMonth[str_comm][0].push(period);
+                arrayMonth[str_comm][1].push(str_idy);                
             }
             
             
@@ -201,9 +222,13 @@ function displayContents(contents) {
                 
                 var str_idy=d[entete_montant]
                 str_idy = str_idy.replace(',', '.');              
-                str_api=d[entete_communication].replace(/ /g,'')
-                if (str_api === null || str_api === '') {
-                    str_api="...Tenue de cpte Performance Pack"
+                str_comm=d[entete_communication].replace(/ /g,'').replace(/[^a-zA-Z]+/g, " ");
+                // console.log(str_comm)
+                str_comm=removeUselessWords(str_comm);
+                str_comm=findLongestWord(str_comm);
+                // console.log('str_comm: ',str_comm)
+                if (str_comm === null || str_comm === '') {
+                    str_comm="...Tenue de cpte Performance Pack"
                 }
                 pushArrayPeriod(arrayDay,str_idxDay);
                 pushArrayPeriod(arrayWeek,str_idxWeek);
