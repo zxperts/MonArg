@@ -12,6 +12,10 @@ body {
     max-width: 50%;
     height: auto;
   }
+  
+  .text-responsive {
+  font-size: calc(100% + 1vw + 1vh);
+}
 
 .nav-bk8{
  background: #5f2c82; 
@@ -25,12 +29,10 @@ background: -webkit-linear-gradient(to right, #49a09d, #49a09d);
 background: linear-gradient(to right, #49a09d, #49a09d); 
 }
 
-footer {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-  z-index: -1;
-}
-
+.footer {
+  position: relative;
+  margin-top: -150px; /* negative value of footer height */
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+} 
