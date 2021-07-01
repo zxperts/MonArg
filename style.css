@@ -14,11 +14,23 @@ body {
   }
 
 .nav-bk8{
- 
-background: #5f2c82; 
- 
+ background: #5f2c82; 
 background: -webkit-linear-gradient(to right, #49a09d, #5f2c82); 
- 
-background: linear-gradient(to right, #49a09d, #5f2c82);
- 
+background: linear-gradient(to right, #49a09d, #5f2c82); 
 }
+
+.nav-bk9{
+background: #5f2c82; 
+background: -webkit-linear-gradient(to right, #49a09d, #49a09d); 
+background: linear-gradient(to right, #49a09d, #49a09d); 
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: -1;
+}
+
