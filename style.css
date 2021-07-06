@@ -31,15 +31,20 @@ background: linear-gradient(to right, #49a09d, #49a09d);
 
 #page-container {
   position: relative;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 #content-wrap {
   padding-bottom: 2.5rem;    /* Footer height */
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 #footer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
 }
