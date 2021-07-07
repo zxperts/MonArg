@@ -98,7 +98,7 @@ var removeUselessWords = function(txt) {
             "achatbancontact", "mistercash", "belnum", "rodecartex", "achatmaestro",
              "renceing", "retraitbancontact", "virementeurop", "domiciliationeurop",
               "xxxxxxxx", "bruxelles", "visa", "bank", "retraitself", "avisenannexe",
-               "virement", "retraitmaestro", "xxxxxx", "fimaser"
+               "virement", "retraitmaestro", "xxxxxx", "fimaser","Bancontact","contactless"
         ];
 			
 	  var expStr = uselessWordsArray.join("|");
@@ -128,6 +128,8 @@ var layout = {
 };
 const monthNames = ["January", "February", "March", "April", "May", "June",
 "July", "August", "September", "October", "November", "December"];
+
+var headerNames;
 
 
 
@@ -159,28 +161,28 @@ function displayContents(contents) {
             console.log("csv_data loaded....");
             
             
-            var headerNames = Plotly.d3.keys(csv_data[0]);
+            headerNames = Plotly.d3.keys(csv_data[0]);
             headerNames.forEach(element => {         
                 
                 if (element=="Contrepartie"){
-                    console.log("Communication.....")
+                    // console.log("Communication.....")
                     entete_communication=element
                 }
-                if (element=="Libell�s"){
-                    console.log("Communication.....")
+                if (element=="Libellés"){
+                    // console.log("Communication.....")
                     entete_communication=element
                 }
                 
                 var first_content=csv_data[0][element]
                 if (checkwages(first_content)){
-                    console.log("Number.....")
-                    console.log(first_content)
+                    // console.log("Number.....")
+                    // console.log(first_content)
                     entete_montant=element    
                 }
-                console.log("entete_date:",entete_date)
+                // console.log("entete_date:",entete_date)
                 if (validateDateWE(first_content) && entete_date===""){
-                    console.log("Date.....")
-                    console.log(first_content)
+                    // console.log("Date.....")
+                    // console.log(first_content)
                     entete_date=element
                 }
             });
@@ -200,13 +202,16 @@ function displayContents(contents) {
             var arrayYear = [];
             
             
-            function pushArrayPeriod(arrayMonth,period) {
+            function pushArrayPeriod(arrayPeriod,period) {
                 //si pas encore cette communication  
-                if (!arrayMonth[str_comm]) {
-                    arrayMonth[str_comm] = [[],[]];
+                if (!arrayPeriod[communication_z]) {
+                    arrayPeriod[communication_z] = [[],[]];
                 }                
-                arrayMonth[str_comm][0].push(period);
-                arrayMonth[str_comm][1].push(str_idy);                
+                arrayPeriod[communication_z][0].push(period);
+                arrayPeriod[communication_z][1].push(montant_y);   
+                // console.log(period,montant_y)
+                // console.log(period,montant_y)
+                // console.log(arrayPeriod)           
             }
             
             
@@ -220,15 +225,19 @@ function displayContents(contents) {
                 var str_idxMonth=dateWesternEurope(d[entete_date],"Month")
                 var str_idxYear=dateWesternEurope(d[entete_date],"Year")  
                 
-                var str_idy=d[entete_montant]
-                str_idy = str_idy.replace(',', '.');              
-                str_comm=d[entete_communication].replace(/ /g,'').replace(/[^a-zA-Z]+/g, " ");
-                // console.log(str_comm)
-                str_comm=removeUselessWords(str_comm);
-                str_comm=findLongestWord(str_comm);
-                // console.log('str_comm: ',str_comm)
-                if (str_comm === null || str_comm === '') {
-                    str_comm="...Tenue de cpte Performance Pack"
+                var montant_y=d[entete_montant]
+                montant_y = montant_y.replace(',', '.');    
+                communication_z="";
+                headerNames.forEach(element => {    
+                    communication_z=communication_z+" "+d[element]
+                });          
+                communication_z=communication_z.replace(/[^a-zA-Z]+/g, " ");
+                // console.log(communication_z)
+                communication_z=removeUselessWords(communication_z);
+                communication_z=findLongestWord(communication_z);
+                // console.log('communication_z: ',communication_z)
+                if (communication_z === null || communication_z === '') {
+                    communication_z="...Tenue de cpte Performance Pack"
                 }
                 pushArrayPeriod(arrayDay,str_idxDay);
                 pushArrayPeriod(arrayWeek,str_idxWeek);
@@ -238,7 +247,7 @@ function displayContents(contents) {
             entete_date="";
             
             
-            
+            // création du dataset pour le plot
             Object.keys(arrayDay).map(function(key, index) {                
                 chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1]));                  
             });
@@ -279,16 +288,16 @@ function displayContents(contents) {
 
 document.getElementById('formFile').addEventListener('change', readSingleFile, false);
 
-document.getElementById('verInfo').addEventListener('change', togglePopup, false);
+// document.getElementById('verInfo').addEventListener('change', togglePopup, false);
 
 
 function togglePopup(){
-    console.log('verInfo')
+    // console.log('verInfo')
     document.getElementById("popup-1").classList.toggle("active");
 }
 
 function PlotlyPlot(period){
-    console.log("La period", period)
+    // console.log("La period", period)
     
     if (period=="Journalier") {plotChartData(chartDataDay);}
     if (period=="Hebdomadaire") {plotChartData(chartDataWeek);}
@@ -303,8 +312,8 @@ if (document.querySelector('input[name="exampleRadios"]')) {
         elem.addEventListener("change", function(event) {
             var item = event.target.value;
             var name = event.target.getAttribute('id');
-            console.log(item);
-            console.log(typeof  name);
+            // console.log(item);
+            // console.log(typeof  name);
             PlotlyPlot(name);
         });
     });
