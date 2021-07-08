@@ -1,4 +1,23 @@
+var entete_montant="";
+var entete_date="";
+var entete_communication="";
+var selectedPeriod="Mensuel";
+var minAmount=-10000;
+var maxAmount=10000;
 
+var chartDataDay = [];
+var chartDataWeek = [];
+var chartDataMonth = [];
+var chartDataYear= [];
+var layout = {
+    hovermode: "closest",
+    barmode: 'relative',
+    height: 800,
+};
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
+var headerNames;
 
 // Read the data from CSV
 function readSingleFile(e) {
@@ -87,24 +106,62 @@ function chartDataAdd(key,arrayx,arrayy) {
 
 // Plot the stacked bar chart 
 function plotChartData(chartData) {
-    Plotly.newPlot('plot', chartData, 
-    layout
-    );             
+    // plot sans filtre
+    // Plotly.newPlot('plot', chartData,layout); 
+    
+    var res = [];
+    var resx_filtered = [];
+    var resy_filtered = [];
+    var chartDataFiltered = [];
+    
+    for (var cd_i = 0; cd_i < chartData.length; cd_i++) {
+        for (var i = 0; i < chartData[cd_i].y.length; i++) {
+            checkAmount=Math.ceil(chartData[cd_i].y[i]);
+            if  (checkAmount >=minAmount && checkAmount <=maxAmount) {
+                if (!res[cd_i]) res[cd_i] = [];
+                res[cd_i].push(i);
+            }
+        }
+        if (res[cd_i]){
+            // Pour ne garder que les index du filtre
+            resx_filtered[cd_i] = chartData[cd_i].x.filter(function (eachElem, indexx) {
+                return res[cd_i].indexOf(indexx) >= 0
+            });
+            resy_filtered[cd_i] = chartData[cd_i].y.filter(function (eachElem, indexy) {
+                return res[cd_i].indexOf(indexy) >= 0
+            });
+        }
+        else {
+            resx_filtered[cd_i]=[];
+            resy_filtered[cd_i]=[];
+        }
+        // Plot avec les filtres
+        chartDataFiltered.push(chartDataAdd(chartData[cd_i].name,resx_filtered[cd_i],resy_filtered[cd_i]));
+    }
+    
+    Plotly.newPlot('plot', chartDataFiltered,layout); 
+    
 }
 
 var removeUselessWords = function(txt) {
     var uselessWordsArray = 
-        [
-            "achatbancontact", "mistercash", "belnum", "rodecartex", "achatmaestro",
-             "renceing", "retraitbancontact", "virementeurop", "domiciliationeurop",
-              "xxxxxxxx", "bruxelles", "visa", "bank", "retraitself", "avisenannexe",
-               "virement", "retraitmaestro", "xxxxxx", "fimaser","Bancontact","contactless"
-        ];
-			
-	  var expStr = uselessWordsArray.join("|");
-	  return txt.replace(new RegExp('\\b(' + expStr + ')\\b', 'gi'), ' ')
-                    .replace(/\s{2,}/g, ' ');
-  }
+    [
+        "achatbancontact", "mistercash", "belnum", "rodecartex", "achatmaestro",
+        "renceing", "retraitbancontact", "virementeurop", "domiciliationeurop",
+        "xxxxxxxx", "bruxelles", "bank", "retraitself", "avisenannexe",
+        "virement", "retraitmaestro", "xxxxxx", "fimaser","Bancontact","contactless",
+        "appointements","association","avantages","bar","belgrade","brussels","centre",
+        "champion","contrat","couleur","courses","crelan","domiciliation","ecommerce",
+        "economie","facture","flawinne","floreffe","gembloux","interruption","kuringen",
+        "mensuelle","oiseau","paiement","performance","permanent","salzinnes","schaerbeek",
+        "service","wallone","belgrad","bouge","brussel","carte","eur","faveur","loisirs",
+        "louvain","malonne","namur","precedent","suarlee","wemmel","votre"
+    ];
+    
+    var expStr = uselessWordsArray.join("|");
+    return txt.replace(new RegExp('\\b(' + expStr + ')\\b', 'gi'), ' ')
+    .replace(/\s{2,}/g, ' ');
+}
 
 function findLongestWord(str) {
     var longestWord = str.split(' ').reduce(function(longest, currentWord) {
@@ -112,24 +169,6 @@ function findLongestWord(str) {
     }, "");
     return longestWord;
 }
-
-var entete_montant="";
-var entete_date="";
-var entete_communication="";
-
-var chartDataDay = [];
-var chartDataWeek = [];
-var chartDataMonth = [];             
-var chartDataYear= [];
-var layout = {
-    hovermode: "closest",
-    barmode: 'relative',
-    height: 800,
-};
-const monthNames = ["January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December"];
-
-var headerNames;
 
 
 
@@ -209,7 +248,7 @@ function displayContents(contents) {
                 }                
                 arrayPeriod[communication_z][0].push(period);
                 arrayPeriod[communication_z][1].push(montant_y);   
-                // console.log(period,montant_y)
+                // console.log("montant_y",arrayPeriod[communication_z][1])
                 // console.log(period,montant_y)
                 // console.log(arrayPeriod)           
             }
@@ -227,11 +266,12 @@ function displayContents(contents) {
                 
                 var montant_y=d[entete_montant]
                 montant_y = montant_y.replace(',', '.');    
+                // console.log("montant_y",montant_y)
                 communication_z="";
                 headerNames.forEach(element => {    
                     communication_z=communication_z+" "+d[element]
                 });          
-                communication_z=communication_z.replace(/[^a-zA-Z]+/g, " ");
+                communication_z=communication_z.replace(/[^a-zA-Z&]+/g, " ");
                 // console.log(communication_z)
                 communication_z=removeUselessWords(communication_z);
                 communication_z=findLongestWord(communication_z);
@@ -274,7 +314,8 @@ function displayContents(contents) {
             };
             
             // Plot the stacked bar chart   
-            plotChartData(chartDataMonth);
+            // plotChartData(chartDataMonth);
+            PlotlyPlot("Mensuel");
             
             
             
@@ -296,28 +337,41 @@ function togglePopup(){
     document.getElementById("popup-1").classList.toggle("active");
 }
 
-function PlotlyPlot(period){
+function PlotlyPlot(selectedPeriod){
     // console.log("La period", period)
     
-    if (period=="Journalier") {plotChartData(chartDataDay);}
-    if (period=="Hebdomadaire") {plotChartData(chartDataWeek);}
-    if (period=="Mensuel") {plotChartData(chartDataMonth);}
-    if (period=="Annuel") {plotChartData(chartDataYear);}
+    if (selectedPeriod=="Journalier") {plotChartData(chartDataDay);}
+    if (selectedPeriod=="Hebdomadaire") {plotChartData(chartDataWeek);}
+    if (selectedPeriod=="Mensuel") {plotChartData(chartDataMonth);}
+    if (selectedPeriod=="Annuel") {plotChartData(chartDataYear);}
     
 }
 
 
-if (document.querySelector('input[name="exampleRadios"]')) {
-    document.querySelectorAll('input[name="exampleRadios"]').forEach((elem) => {
+if (document.querySelector('input[name="periodRadios"]')) {
+    document.querySelectorAll('input[name="periodRadios"]').forEach((elem) => {
         elem.addEventListener("change", function(event) {
             var item = event.target.value;
-            var name = event.target.getAttribute('id');
+            selectedPeriod = event.target.getAttribute('id');
             // console.log(item);
             // console.log(typeof  name);
-            PlotlyPlot(name);
+            PlotlyPlot(selectedPeriod);
         });
     });
 }
+
+document.getElementById('reversedRange').addEventListener('mouseup', function(e){
+    // alert(e.target.value);
+    tmp=e.target.value;
+    minAmount=-tmp*tmp
+    PlotlyPlot(selectedPeriod);
+});
+
+document.getElementById('positiveRange').addEventListener('mouseup', function(e){
+    tmp=e.target.value;
+    maxAmount=tmp*tmp
+    PlotlyPlot(selectedPeriod);
+});
 
 
 
