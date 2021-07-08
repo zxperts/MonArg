@@ -48,3 +48,7 @@ html {
   bottom: 0;
   width: 100%;
 }
+
+#reversedRange {
+  direction: ltr; 
+}
