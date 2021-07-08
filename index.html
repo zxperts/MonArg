@@ -15,10 +15,28 @@
   
   
   <script type = "text/javascript">
+    
     function about_info() {
-      alert (" Reste a faire: \n Tester d'autres comptes  \n Fait: \n Footer Update");
+      alert (" Reste a faire: \n Tester d'autres comptes  \n detecter la colonne de communication \n mettre js dans Git");
     }
+    
+    $(function fReversedRange() {
+      $("#negValue").text($("#reversedRange").val());      
+      $("#reversedRange").on('change input', function fReversedRange() {
+        $("#negValue").text(-$(this).val()*$(this).val());
+      });
+    });
+
+    $(function fPositiveRange() {
+      $("#posValue").text($("#positiveRange").val());      
+      $("#positiveRange").on('change input', function fPositiveRange() {
+        $("#posValue").text($(this).val()*$(this).val());
+      });
+    });
+    
+    
   </script> 
+  
   
 </head>
 <body>
@@ -91,25 +109,25 @@
             
             <div class="row">
               
-              <div class="col-md-6">
-                <label for="example-date-input" class="col-2 col-form-label">Montant</label>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend"><span class="input-group-text">€</span></div>
-                  <input type="number" class="form-control" aria-label="Somme arrondie">
-                  <input type="number" class="form-control" aria-label="Somme arrondie">
-                  <div class="input-group-append"><span class="input-group-text">,00</span></div>
+              <div class="col-md-12">
+                <label for="example-date-input" class="col-2 col-form-label"></label>
+                <div class="input-group">                 
+                  <div class="col-md-6">
+                    <div>Montant Min: <span id="negValue"></span></div>
+                    <input type="range" class="form-range" min="-100" max="0" value="0" id="reversedRange" >
+                  </div>
+                  <div class="col-md-6">
+                    <div>Max: <span id="posValue"></span></div>
+                    <input type="range" class="form-range" min="0" max="100" value="0" height="22" id="positiveRange">
+                  </div>
+                  
                 </div>
+                
               </div>
               
-              <div class="col-md-3">
-                <label for="example-date-input" class="col-2 col-form-label">Début</label>
-                <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-              </div>
               
-              <div class="col-md-3">
-                <label for="example-date-input" class="col-2 col-form-label">Fin</label>
-                <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-              </div>
+   
+              
             </div>
             
           </div>
@@ -121,26 +139,26 @@
             <label for="formFile" class="form-label ">P&eacute;riodicit&eacute;</label>
             
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="Annuel" value="option1" >
+              <input class="form-check-input" type="radio" name="periodRadios" id="Annuel" value="option1" >
               <label class="form-check-label" for="Annuel">
                 Annuel
               </label>
             </div>
             
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="Mensuel" value="option1">
+              <input class="form-check-input" type="radio" name="periodRadios" id="Mensuel" value="option1">
               <label class="form-check-label" for="Mensuel">
                 Mensuel
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="Hebdomadaire" value="option2">
+              <input class="form-check-input" type="radio" name="periodRadios" id="Hebdomadaire" value="option2">
               <label class="form-check-label" for="Hebdomadaire">
                 Hebdomadaire
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="Journalier" value="option3" >
+              <input class="form-check-input" type="radio" name="periodRadios" id="Journalier" value="option3" >
               <label class="form-check-label" for="Journalier">
                 Journalier
               </label>
@@ -151,16 +169,16 @@
         </form>
       </div>
     </div>
-
+    
     <!-- the chart -->
     <div id="plot"></div>
-
-
+    
+    
     
   </div>
-
-
-
+  
+  
+  
   
   
   
