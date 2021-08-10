@@ -49,7 +49,11 @@ function onLoadcheckCookie()
   }
   else
   {
-    alert("Vous n'avez pas encore encodé des KM" + "!!!");
+    if (!(testCoockies()))
+     {alert("Activez les Cookies afin d'utiliser cet outil" + "!!!");}
+    else
+    {alert("Vous n'avez pas encore encodé des KM" + "!!!");}
+    
     
     // num = prompt("How many days you want to store your name on your computer?");
     // num=1;
@@ -232,10 +236,26 @@ function updateCookie(){
     $.each( $('#tableKm tr'), function (i, row){
         $.each( $(row).find("td, th"), function(j, cell){
             var txt = $(cell).text().trim() || " ";
+            txt=txt.replace(/\W/g, '');
             var width = (j==4) ? 40 : 70; //make 4th column smaller
             pdf.cell(10, 50, width, 30, txt, i);
         });
     });
 
     pdf.save('sample-file.pdf');
+}
+
+
+function testCoockies(){
+  var enabled = false;
+  // Quick test if browser has cookieEnabled host property
+  if (navigator.cookieEnabled){
+   enabled = true;
+  }
+  // Create cookie test
+  document.cookie = "testcookie=1";
+  enabled = document.cookie.indexOf("testcookie=") != -1;
+  // Delete cookie test
+  document.cookie = "testcookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
+  return enabled;
 }

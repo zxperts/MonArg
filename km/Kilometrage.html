@@ -95,8 +95,8 @@
         
         
         <div class="col-md-4">
-          <label for="KmInput" class="form-label">Kilometrage</label>
-          <input type="text" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
+          <label for="KmInput" class="form-label">Kilom&eacute;trage</label>
+          <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
         </div>
         <div class="col-md-4">
           <label for="KmDateInput" class="col-2 col-form-label">Date</label>
@@ -117,7 +117,7 @@
         
         <!-- <div class="table-title">
           <div class="row">
-            <div class="col-sm-8"><h2>Historique des <b>Kilomètres</b></h2></div>
+            <div class="col-sm-8"><h2>Historique des <b>Kilom&eacute;tres</b></h2></div>
             <div class="col-sm-4">
               <button type="button" class="btn btn-primary add-new"><i class="fa fa-plus"></i> Ajouter</button>
             </div>
@@ -130,7 +130,7 @@
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
               <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Historique des Kilomètres
+                Historique
               </button>
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -141,17 +141,17 @@
                 <table class="table table-bordered" id="tableKm">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Department</th>
-                      <th>Phone</th>
+                      <th>Kilom&eacute;tres</th>
+                      <th>Date</th>
+                      <th>Ville</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody  id="tableKmBody">
                     <tr>
-                      <td>John Doe</td>
-                      <td>Administration</td>
-                      <td>(171) 555-2222</td>
+                      <td>100123</td>
+                      <td>10-05-2021</td>
+                      <td>Bruxelles</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -159,9 +159,9 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Peter Parker</td>
-                      <td>Customer Service</td>
-                      <td>(313) 555-5735</td>
+                      <td>100124</td>
+                      <td>10-05-2021</td>
+                      <td>Namur</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -169,9 +169,9 @@
                       </td>
                     </tr>
                     <tr>
-                      <td>Fran Wilson</td>
-                      <td>Human Resources</td>
-                      <td>(503) 555-9931</td>
+                      <td>100125</td>
+                      <td>10-05-2021</td>
+                      <td>Hasselt</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
