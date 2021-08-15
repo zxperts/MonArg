@@ -6,6 +6,7 @@ let click_button = document.querySelector("#click-photo");
 let canvas = document.querySelector("#canvas");
 let dataurl = document.querySelector("#dataurl");
 let dataurl_container = document.querySelector("#dataurl-container");
+let inputkm_container = document.querySelector("#inputkm-container");
 
 camera_button.addEventListener('click', async function() {
    	let stream = null;
@@ -19,10 +20,12 @@ camera_button.addEventListener('click', async function() {
     }
 
     video.srcObject = stream;
-
+    
+    hideButton();
     camera_stop.style.display = 'block';
     video.style.display = 'block';
     camera_button.style.display = 'none';
+    inputkm_container.style.display = 'none';
     click_button.style.display = 'block';
 });
 
@@ -45,5 +48,10 @@ function hideButton() {
     canvas.style.display = 'none';
     dataurl.style.display = 'none';
     dataurl_container.style.display = 'none';
+    inputkm_container.style.display = 'none';
+}
+function encoder() {
+    hideButton();
+    inputkm_container.style.display = 'block';
 }
 
