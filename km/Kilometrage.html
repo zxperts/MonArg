@@ -95,9 +95,10 @@
         </div>
         
         
-        <div class="btn-group" data-toggle="buttons">
-          <button class="btn btn-primary btn-block" type='button'  onclick="encoder();" >Encoder manuellement</button>
-          <button id="start-camera"  type='button' btn-block class="btn btn-outline-info btn-block">Start Camera</button>
+        <div class="btn-group" data-toggle="buttons">          
+          <!-- <button class="btn btn-primary btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
+          <button class="btn btn-primary btn-block" type='button' id="manuelInput">Encoder manuellement</button>
+          <button type='button' btn-block class="btn btn-outline-info btn-block" id="start-camera">Start/Stop Camera</button>
           <button class="btn btn-primary btn-block " type="submit"  onclick="demoFromHTML();" >Imprimer</button>  
         </div>
         
@@ -138,11 +139,13 @@
           </div>
         </div> -->
         
+        <div class="container overflow-hidden" id="cam-container">
+          <!-- <button id="stop-camera">Stop Camera</button> -->
+          <video id="video" width="320" height="240" autoplay></video>
+          <button id="click-photo"  type='button' class="btn btn-primary btn-block">Take a Photo</button>          
+        </div>
         
-        <button id="stop-camera">Stop Camera</button>
-        <video id="video" width="320" height="240" autoplay></video>
-        <button id="click-photo"  type='button'>Click Photo</button>
-        <div id="dataurl-container">
+        <div id="dataurl-container" id="url-container">
           <canvas id="canvas" width="320" height="240"></canvas>
           <div id="dataurl-header">Image Data URL</div>
           <textarea id="dataurl" readonly></textarea>
