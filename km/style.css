@@ -1,4 +1,4 @@
-<style>
+
 body {
     color: #404E67;
     background: #F5F7FA;
@@ -82,4 +82,40 @@ table.table .form-control.error {
 table.table td .add {
     display: none;
 }
-</style>
+
+
+.nav-bk8{
+    background: #5f2c82; 
+   background: -webkit-linear-gradient(to right, #49a09d, #5f2c82); 
+   background: linear-gradient(to right, #49a09d, #5f2c82); 
+   }
+   
+   .nav-bk9{
+   background: #5f2c82; 
+   background: -webkit-linear-gradient(to right, #49a09d, #49a09d); 
+   background: linear-gradient(to right, #49a09d, #49a09d); 
+   }
+   
+   #page-container {
+     position: relative;
+     /* min-height: 100vh; */
+   }
+   
+   #content-wrap {
+     padding-bottom: 2.5rem;    /* Footer height */
+   }
+   
+   html {
+     position: relative;
+     min-height: 100%;
+   }
+   
+   #footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+   }
+   
+   #reversedRange {
+     direction: ltr; 
+   }

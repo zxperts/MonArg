@@ -1,12 +1,12 @@
 
-let camera_button = document.querySelector("#start-camera");
-let camera_stop = document.querySelector("#stop-camera");
+let camera_button = document.querySelector("#start_camera");
+let camera_stop = document.querySelector("#stop_camera");
 let video = document.querySelector("#video");
-let click_button = document.querySelector("#click-photo");
+let click_button = document.querySelector("#click_photo");
 let canvas = document.querySelector("#canvas");
 let dataurl = document.querySelector("#dataurl");
-let dataurl_container = document.querySelector("#dataurl-container");
-let inputkm_container = document.querySelector("#inputkm-container");
+let dataurl_container = document.querySelector("#dataurl_container");
+let inputkm_container = document.querySelector("#inputkm_container");
 
 camera_button.addEventListener('click', async function() {
     let stream = null;
@@ -22,8 +22,8 @@ camera_button.addEventListener('click', async function() {
     video.srcObject = stream;
     
     // hideButton();
-    // $("#inputkm-container").hide(250);
-    // $("#cam-container").show(500);
+    // $("#inputkm_container").hide(250);
+    // $("#cam_container").show(500);
     // camera_stop.style.display = 'block';
     // video.style.display = 'block';
     // camera_button.style.display = 'none';
@@ -33,7 +33,7 @@ camera_button.addEventListener('click', async function() {
 
 click_button.addEventListener('click', function() {
 
-    $("#dataurl-container").show();
+    $("#dataurl_container").show();
 
     canvas.style.display = 'block';
     dataurl.style.display = 'block';
@@ -54,9 +54,9 @@ function hideButton() {
     // dataurl.style.display = 'none';
     // dataurl_container.style.display = 'none';
     // inputkm_container.style.display = 'none';
-    $("#inputkm-container").hide()
-    $("#cam-container").hide()
-    $("#dataurl-container").hide()
+    $("#inputkm_container").hide();
+    $("#cam_container").hide();
+    $("#dataurl_container").hide();
 }
 function encoder() {
     // hideButton();
@@ -64,13 +64,17 @@ function encoder() {
 }
 
 $("#manuelInput").click(function(){
-    $("#cam-container").hide()
-    $("#dataurl-container").hide()
-    $("#inputkm-container").toggle(500);
+    $("#cam_container").hide()
+    $("#dataurl_container").hide()
+    $("#inputkm_container").toggle(500);
 });
 
-$("#start-camera").click(function(){
-    $("#inputkm-container").hide()
-    $("#dataurl-container").hide()
-    $("#cam-container").toggle(500);
+$("#start_camera").click(function(){
+    $("#inputkm_container").hide()
+    $("#dataurl_container").hide()
+    $("#cam_container").toggle(500);
 });
+
+$('#exampleModalCenter').on('shown.bs.modal', function () {
+    $('#exampleModalCenter').trigger('focus')
+  })

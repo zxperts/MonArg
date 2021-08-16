@@ -31,7 +31,7 @@ function onLoadcheckCookie()
   var arrKm = accessCookie("KmCookie");
   todayDate=new Date().toISOString().substring(0, 10);
   if (arrKm!="")
-  {
+  {$("#km_Alert").hide();
     // arrKm = [];
     
     // arrKm = [[1, todayDate],[2, todayDate],[3, todayDate],[4, todayDate]];
@@ -51,10 +51,14 @@ function onLoadcheckCookie()
   }
   else
   {
-    if (!(testCoockies()))
-     {alert("Activez les Cookies afin d'utiliser cet outil" + "!!!");}
+    if (testCoockies())    
+    { $("#cookie_Alert").hide(); }
     else
-    {alert("Vous n'avez pas encore encodé des KM" + "!!!");}
+    {
+      // $("#exampleModal").fadeIn('slow');
+      
+      // alert("Activez les Cookies afin d'utiliser cet outil" + "!!!");
+    }
     
     
     // num = prompt("How many days you want to store your name on your computer?");
@@ -97,7 +101,7 @@ function createTable(tableData) {
     // rowData.forEach(function(cellData,idx) {
     //   var cell = document.createElement('td');
     //   cell.appendChild(document.createTextNode(cellData));
-      
+    
     //   if (idx === rowData.length - 1){ 
     //     var btn = document.createElement('input');
     //     btn.type = "button";
@@ -106,8 +110,8 @@ function createTable(tableData) {
     //     cell.appendChild(btn);
     //     cell.appendChild(document.createElement('br'));
     //   }
-      // console.log(cellData);
-      // row.appendChild(cell);
+    // console.log(cellData);
+    // row.appendChild(cell);
     // });    
     // tableBody.appendChild(row);
     
@@ -216,35 +220,35 @@ function table2Array(){
 }
 
 function updateCookie(){
-
+  
   var arrKm = table2Array();    
   createCookie("KmCookie", arrKm, 1);  
   // Displaying the value
   alert('Value Modified: ');
   animateValue("kmDash", 0, arrKm[0][0], 1000);
-
-  // demoFromHTML();
-
   
-  }
+  // demoFromHTML();
+  
+  
+}
 
 
 
-  function demoFromHTML() {
-    var pdf = new jsPDF('p', 'pt', 'letter');
-
-    pdf.cellInitialize();
-    pdf.setFontSize(10);
-    $.each( $('#tableKm tr'), function (i, row){
-        $.each( $(row).find("td, th"), function(j, cell){
-            var txt = $(cell).text().trim() || " ";
-            txt=txt.replace(/\W/g, '');
-            var width = (j==4) ? 40 : 70; //make 4th column smaller
-            pdf.cell(10, 50, width, 30, txt, i);
-        });
+function demoFromHTML() {
+  var pdf = new jsPDF('p', 'pt', 'letter');
+  
+  pdf.cellInitialize();
+  pdf.setFontSize(10);
+  $.each( $('#tableKm tr'), function (i, row){
+    $.each( $(row).find("td, th"), function(j, cell){
+      var txt = $(cell).text().trim() || " ";
+      txt=txt.replace(/\W/g, '');
+      var width = (j==4) ? 40 : 70; //make 4th column smaller
+      pdf.cell(10, 50, width, 30, txt, i);
     });
-
-    pdf.save('sample-file.pdf');
+  });
+  
+  pdf.save('sample-file.pdf');
 }
 
 
@@ -252,7 +256,7 @@ function testCoockies(){
   var enabled = false;
   // Quick test if browser has cookieEnabled host property
   if (navigator.cookieEnabled){
-   enabled = true;
+    enabled = true;
   }
   // Create cookie test
   document.cookie = "testcookie=1";
