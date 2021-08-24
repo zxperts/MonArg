@@ -161,7 +161,7 @@ function saveInputValue(){
   arrKm.unshift([inputVal,inputDate,inputCity]);
   // console.log('91: '+arrKm)
   
-  createCookie("KmCookie", arrKm, 1);
+  createCookie("KmCookie", arrKm, 100);
   createTable(arrKm);
   
   // Displaying the value
@@ -222,7 +222,7 @@ function table2Array(){
 function updateCookie(){
   
   var arrKm = table2Array();    
-  createCookie("KmCookie", arrKm, 1);  
+  createCookie("KmCookie", arrKm, 100);  
   // Displaying the value
   alert('Value Modified: ');
   animateValue("kmDash", 0, arrKm[0][0], 1000);

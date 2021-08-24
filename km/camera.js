@@ -32,9 +32,9 @@ camera_button.addEventListener('click', async function() {
 });
 
 click_button.addEventListener('click', function() {
-
+    
     $("#dataurl_container").show();
-
+    
     canvas.style.display = 'block';
     dataurl.style.display = 'block';
     dataurl_container.style.display = 'block';
@@ -43,6 +43,14 @@ click_button.addEventListener('click', function() {
     
     dataurl.value = image_data_url;
     dataurl_container.style.display = 'block';
+    
+    var $img = $('#canvas');
+    var context = document.createElement('canvas').getContext('2d');
+    context.drawImage($img[0], 0, 0);
+    var imageData = context.getImageData(0, 0, $img.width(), $img.height());
+
+    var string = OCRAD(imageData);
+    alert(string);
 });
 
 
@@ -77,4 +85,5 @@ $("#start_camera").click(function(){
 
 $('#exampleModalCenter').on('shown.bs.modal', function () {
     $('#exampleModalCenter').trigger('focus')
-  })
+})
+
