@@ -242,16 +242,19 @@ function demoFromHTML() {
   
   pdf.cellInitialize();
   pdf.setFontSize(10);
+  pdf.text(20, 30, 'Historique des kilomètres');
   $.each( $('#tableKm tr'), function (i, row){
     $.each( $(row).find("td, th"), function(j, cell){
       var txt = $(cell).text().trim() || " ";
-      txt=txt.replace(/\W/g, '');
+      txt=txt.replace(/\W/g, ' ');
       var width = (j==4) ? 40 : 70; //make 4th column smaller
       pdf.cell(10, 50, width, 30, txt, i);
     });
   });
   
   pdf.save('sample-file.pdf');
+  
+  
 }
 
 

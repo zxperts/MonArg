@@ -1,3 +1,24 @@
+$(document).ready(function() {
+    $('#tableKm').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+
+// $(document).ready(function() {
+//     $('#tableKm').DataTable( {
+//         dom: 'Bfrtip',
+//         buttons: [
+//             'copyHtml5',
+//             'excelHtml5',
+//             'csvHtml5',
+//             'pdfHtml5'
+//         ]
+//     } );
+// } );
+
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     var actions = $("table td:last-child").html();
