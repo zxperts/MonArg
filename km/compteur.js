@@ -31,7 +31,9 @@ function onLoadcheckCookie()
   var arrKm = accessCookie("KmCookie");
   todayDate=new Date().toISOString().substring(0, 10);
   if (arrKm!="")
-  {$("#km_Alert").hide();
+  {
+    $('#km_Alert').slideUp(500);
+    $("#cookie_Alert").slideUp(500);
     // arrKm = [];
     
     // arrKm = [[1, todayDate],[2, todayDate],[3, todayDate],[4, todayDate]];
@@ -52,7 +54,7 @@ function onLoadcheckCookie()
   else
   {
     if (testCoockies())    
-    { $("#cookie_Alert").hide(); }
+    { $("#cookie_Alert").slideUp(500); }
     else
     {
       // $("#exampleModal").fadeIn('slow');
