@@ -54,7 +54,8 @@ click_button.addEventListener('click', function() {
 });
 
 
-function hideButton() {
+function hideButton() {    
+    $("#start_camera").hide();
     // camera_stop.style.display = 'none';
     // video.style.display = 'none';
     // click_button.style.display = 'none';
@@ -62,6 +63,7 @@ function hideButton() {
     // dataurl.style.display = 'none';
     // dataurl_container.style.display = 'none';
     // inputkm_container.style.display = 'none';
+    
     $("#inputkm_container").hide();
     $("#cam_container").hide();
     $("#dataurl_container").hide();

@@ -165,9 +165,10 @@ function saveInputValue(){
   
   createCookie("KmCookie", arrKm, 100);
   createTable(arrKm);
+  updateCookie();
   
   // Displaying the value
-  alert('Vous venez d encodez: '+inputVal);
+  // alert('Vous venez d encodez: '+inputVal);
 }
 
 // createTable([["row 1, cell 1", "row 1, cell 2"], ["row 2, cell 1", "row 2, cell 2"]]);
@@ -226,7 +227,7 @@ function updateCookie(){
   var arrKm = table2Array();    
   createCookie("KmCookie", arrKm, 100);  
   // Displaying the value
-  alert('Value Modified: ');
+  // alert('Value Modified: ');
   animateValue("kmDash", 0, arrKm[0][0], 1000);
   
   // demoFromHTML();
