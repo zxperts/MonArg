@@ -251,6 +251,7 @@ function demoFromHTML() {
       pdf.cell(10, 50, width, 30, txt, i);
     });
   });
+  pdf.text(450,30, 'Date Impression:'+ new Date().toISOString().substring(0, 10));
   
   pdf.save('sample-file.pdf');  
 }
