@@ -252,9 +252,7 @@ function demoFromHTML() {
     });
   });
   
-  pdf.save('sample-file.pdf');
-  
-  
+  pdf.save('sample-file.pdf');  
 }
 
 
