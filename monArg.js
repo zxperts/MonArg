@@ -94,14 +94,27 @@ function checkwages(input){
     return false;
 }
 
-function chartDataAdd(key,arrayx,arrayy) {
+function chartDataAdd(key,arrayx,arrayy,c_all) {    
+    let t = new Array(arrayx.length);
+    size=arrayx.length;
+    while(size--) t[size] = key;
+    console.log('key',key);
+    console.log('c_all',c_all);
+    console.log('t',t);
     return {                    
         x: arrayx,
         y: arrayy,
-        // color:  key,
+        text: c_all,
         name:  key,
-        type: 'bar'
-    }                 
+        customdata:t,
+        type: 'bar',
+        hovertemplate:
+            "<b>%{customdata}</b><br><br>" +
+            "%{yaxis.title.text}: %{y}<br>" +
+            "%{xaxis.title.text}: %{x}<br>" +
+            "Number Employed: %{text}" +
+            "<extra></extra>"
+    }
 }
 
 // Plot the stacked bar chart 
@@ -112,6 +125,7 @@ function plotChartData(chartData) {
     var res = [];
     var resx_filtered = [];
     var resy_filtered = [];
+    var rest_filtered = [];
     var chartDataFiltered = [];
     
     for (var cd_i = 0; cd_i < chartData.length; cd_i++) {
@@ -130,13 +144,17 @@ function plotChartData(chartData) {
             resy_filtered[cd_i] = chartData[cd_i].y.filter(function (eachElem, indexy) {
                 return res[cd_i].indexOf(indexy) >= 0
             });
+            rest_filtered[cd_i] = chartData[cd_i].text.filter(function (eachElem, indexy) {
+                return res[cd_i].indexOf(indexy) >= 0
+            });
         }
         else {
             resx_filtered[cd_i]=[];
             resy_filtered[cd_i]=[];
+            rest_filtered[cd_i]=[];
         }
         // Plot avec les filtres
-        chartDataFiltered.push(chartDataAdd(chartData[cd_i].name,resx_filtered[cd_i],resy_filtered[cd_i]));
+        chartDataFiltered.push(chartDataAdd(chartData[cd_i].name,resx_filtered[cd_i],resy_filtered[cd_i],rest_filtered[cd_i]));
     }
     
     Plotly.newPlot('plot', chartDataFiltered,layout); 
@@ -244,10 +262,11 @@ function displayContents(contents) {
             function pushArrayPeriod(arrayPeriod,period) {
                 //si pas encore cette communication  
                 if (!arrayPeriod[communication_z]) {
-                    arrayPeriod[communication_z] = [[],[]];
+                    arrayPeriod[communication_z] = [[],[],[]];
                 }                
                 arrayPeriod[communication_z][0].push(period);
-                arrayPeriod[communication_z][1].push(montant_y);   
+                arrayPeriod[communication_z][1].push(montant_y);
+                arrayPeriod[communication_z][2].push(communication_all); 
                 // console.log("montant_y",arrayPeriod[communication_z][1])
                 // console.log(period,montant_y)
                 // console.log(arrayPeriod)           
@@ -268,12 +287,14 @@ function displayContents(contents) {
                 montant_y = montant_y.replace(',', '.');    
                 // console.log("montant_y",montant_y)
                 communication_z="";
+                communication_all="";
                 headerNames.forEach(element => {    
                     communication_z=communication_z+" "+d[element]
                 });          
                 communication_z=communication_z.replace(/[^a-zA-Z&]+/g, " ");
                 // console.log(communication_z)
                 communication_z=removeUselessWords(communication_z);
+                communication_all=communication_z;
                 communication_z=findLongestWord(communication_z);
                 // console.log('communication_z: ',communication_z)
                 if (communication_z === null || communication_z === '') {
@@ -289,16 +310,16 @@ function displayContents(contents) {
             
             // création du dataset pour le plot
             Object.keys(arrayDay).map(function(key, index) {                
-                chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1]));                  
+                chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1],arrayDay[key][2]));
             });
             Object.keys(arrayWeek).map(function(key, index) {                
-                chartDataWeek.push(chartDataAdd(key,arrayWeek[key][0],arrayWeek[key][1]));                  
+                chartDataWeek.push(chartDataAdd(key,arrayWeek[key][0],arrayWeek[key][1],arrayWeek[key][2]));
             });
             Object.keys(arrayMonth).map(function(key, index) {                
-                chartDataMonth.push(chartDataAdd(key,arrayMonth[key][0],arrayMonth[key][1]));                  
+                chartDataMonth.push(chartDataAdd(key,arrayMonth[key][0],arrayMonth[key][1],arrayMonth[key][2]));
             });
             Object.keys(arrayYear).map(function(key, index) {                
-                chartDataYear.push(chartDataAdd(key,arrayYear[key][0],arrayYear[key][1]));                  
+                chartDataYear.push(chartDataAdd(key,arrayYear[key][0],arrayYear[key][1],arrayYear[key][2]));
             });
             
             
