@@ -112,7 +112,7 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
             "<b>%{customdata}</b><br><br>" +
             "%{yaxis.title.text}: %{y}<br>" +
             "%{xaxis.title.text}: %{x}<br>" +
-            "Number Employed: %{text}" +
+            "Communication: %{text}" +
             "<extra></extra>"
     }
 }
@@ -231,17 +231,22 @@ function displayContents(contents) {
                 }
                 
                 var first_content=csv_data[0][element]
-                if (checkwages(first_content)){
-                    // console.log("Number.....")
-                    // console.log(first_content)
-                    entete_montant=element    
-                }
+
                 // console.log("entete_date:",entete_date)
                 if (validateDateWE(first_content) && entete_date===""){
                     // console.log("Date.....")
                     // console.log(first_content)
                     entete_date=element
                 }
+                if (element=="Montant"){
+                    entete_montant=element
+                }
+                else if (checkwages(first_content) && entete_montant ===""){
+                    // console.log("Number.....")
+                    // console.log(first_content)
+                    entete_montant=element    
+                }
+
             });
             
             
