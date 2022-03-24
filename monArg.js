@@ -26,7 +26,7 @@ function readSingleFile(e) {
         console.log('no contents....')
         return;
     }
-    if (!file.type.includes("csv")) {
+    if (!file.type.includes("excel")) {
         alert("Le fichier n'est pas un csv...😱");
         return;
     }
