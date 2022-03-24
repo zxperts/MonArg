@@ -122,7 +122,7 @@ function plotChartData(chartData) {
     // plot sans filtre
     // Plotly.newPlot('plot', chartData,layout); 
 
-    if (!chartData) {
+    if (!chartData || chartData.length< 2) {
         console.log('no contents....')
         alert("Pas encore de fichier uploadé...😱");
         return;
