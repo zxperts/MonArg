@@ -121,6 +121,13 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
 function plotChartData(chartData) {
     // plot sans filtre
     // Plotly.newPlot('plot', chartData,layout); 
+
+    if (!chartData) {
+        console.log('no contents....')
+        alert("Pas encore de fichier uploadé...😱");
+        return;
+    }
+    
     
     var res = [];
     var resx_filtered = [];
@@ -249,6 +256,11 @@ function displayContents(contents) {
 
             });
             
+            if (!entete_montant || !entete_date || !entete_communication) {
+                console.log('Les entetes sont manquantes....')
+                alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱");
+                return;
+            }
             
             console.log('....les entetes:',entete_montant,entete_date,entete_communication)
             
