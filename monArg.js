@@ -26,6 +26,10 @@ function readSingleFile(e) {
         console.log('no contents....')
         return;
     }
+    if (!file.type.includes("csv")) {
+        alert("Le fichier n'est pas un csv...😱");
+        return;
+    }
     
     
     var reader = new FileReader();
