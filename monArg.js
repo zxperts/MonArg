@@ -232,11 +232,7 @@ function displayContents(contents) {
             headerNames = Plotly.d3.keys(csv_data[0]);
             headerNames.forEach(element => {         
                 
-                if (element=="Contrepartie"){
-                    // console.log("Communication.....")
-                    entete_communication=element
-                }
-                if (element=="Libellés"){
+                if (element=="Contrepartie" || element=="Libellés" ||element=="Communications"){
                     // console.log("Communication.....")
                     entete_communication=element
                 }
