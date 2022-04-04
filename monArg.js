@@ -46,7 +46,7 @@ function readSingleFile(e) {
 
 function dateWesternEurope(d_Date,period) {       
     var myDate0 = d_Date      
-    var dateParts = myDate0.split("/").split("-");                
+    var dateParts = myDate0.split(/[/-]+/);
     var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
     
     var dayObject=dateObject.getDate()
