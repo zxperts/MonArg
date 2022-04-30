@@ -99,7 +99,7 @@ function dateWesternEurope(d_Date,period) {
     
     var dayObject=dateObject.getDate()
     var weekObject=getWeekNumber(dateObject)
-    var monthObject=dateObject.getMonth() 
+    var monthObject=dateObject.getMonth()+1
     var yearObject=dateObject.getFullYear() 
     // if (period=="Month") {return [monthNames[monthObject],'-',dayObject].join('')}
     if (period=="Day") {return [yearObject,'-',monthObject,'-',dayObject].join('')}
