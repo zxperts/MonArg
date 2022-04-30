@@ -5,21 +5,33 @@ var selectedPeriod="Mensuel";
 var minAmount=-10000;
 var maxAmount=10000;
 
+const monthNames = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
 var chartDataDay = [];
 var chartDataWeek = [];
 var chartDataMonth = [];
 var chartDataYear= [];
 var layout = {
+    legend: {traceorder: 'normal',},
+
+    xaxis: {
+        tickformat:'%B %Y'
+    },
     hovermode: "closest",
     barmode: 'relative',
     height: 800,
 };
-const monthNames = ["January", "February", "March", "April", "May", "June",
-"July", "August", "September", "October", "November", "December"];
+
 
 var headerNames;
 
 // Read the data from CSV
+/**
+ * It reads the contents of the file and displays it in the browser.
+ * @param e - The event object.
+ * @returns The file contents are being returned as a base64 encoded string.
+ */
 function readSingleFile(e) {
     var file = e.target.files[0];
     if (!file) {
@@ -44,6 +56,42 @@ function readSingleFile(e) {
 }
 
 
+/**
+ * It compares two arrays and returns the one with the highest value.
+ * @param a - The first item to compare.
+ * @param b - The array to be sorted.
+ * @returns the value of the comparison.
+ */
+function Comparator(a, b) {
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  }
+
+  function sortObject(o) {
+    var sorted = {},
+    key, a = [];
+
+    for (key in o) {
+        if (o.hasOwnProperty(key)) {
+            a.push(key);
+        }
+    }
+
+    a.sort();
+
+    for (key = 0; key < a.length; key++) {
+        sorted[a[key]] = o[a[key]];
+    }
+    return sorted;
+}
+
+/**
+ * Given a date in the format "dd/mm/yyyy" return the day, week, month or year
+ * @param d_Date - The date to be converted.
+ * @param period - The period of time you want to group by.
+ * @returns the day, week, month, or year of the date.
+ */
 function dateWesternEurope(d_Date,period) {       
     var myDate0 = d_Date      
     var dateParts = myDate0.split(/[/-]+/);
@@ -53,14 +101,21 @@ function dateWesternEurope(d_Date,period) {
     var weekObject=getWeekNumber(dateObject)
     var monthObject=dateObject.getMonth() 
     var yearObject=dateObject.getFullYear() 
-    if (period=="Day") {return dayObject}
-    if (period=="Week") {return weekObject}
-    if (period=="Month") {return monthNames[monthObject]}
+    // if (period=="Month") {return [monthNames[monthObject],'-',dayObject].join('')}
+    if (period=="Day") {return [yearObject,'-',monthObject,'-',dayObject].join('')}
+    if (period=="Week") {return [yearObject,'-',weekObject].join('')}
+    if (period=="Month") {return [yearObject,'-',monthObject].join('')}
     if (period=="Year") {return yearObject}
-    else{return monthNames[monthObject]}
+    else{return [yearObject,'-',monthObject].join('')}
     
 }
 
+/**
+ * The function takes in a string and checks if it matches the format of a date in the form of
+ * MM/DD/YYYY
+ * @param input - The input string to be validated.
+ * @returns a boolean value.
+ */
 function validateDateWE (input){
     var reg = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)?\d\d/;
     if (input.match(reg)) {
@@ -71,6 +126,11 @@ function validateDateWE (input){
     }
 }
 
+/**
+ * Given a date, return the week number of the year
+ * @param d - The date to get the week number for.
+ * @returns The week number of the year.
+ */
 function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
@@ -86,6 +146,13 @@ function getWeekNumber(d) {
     return weekNo;
 }
 
+/**
+ * The function checks to see if the input is a valid number. 
+ * The function returns true if the input is a valid number. 
+ * The function returns false if the input is not a valid number. 
+ * @param input - The input string to be validated.
+ * @returns a boolean value.
+ */
 function checkwages(input){
     var validformat=/^\-?\d+(?:\,\d{0,2})$/;
     if ( validformat.test(input)) {
@@ -98,13 +165,30 @@ function checkwages(input){
     return false;
 }
 
+/**
+ * The function takes in a key, an array of x values, an array of y values, and an array of all the
+ * values. 
+ * It returns a dictionary with the x, y, text, name, customdata, type, and hovertemplate.
+ * @param key - The name of the data series.
+ * @param arrayx - the x-axis data
+ * @param arrayy - The y-axis values for the chart.
+ * @param c_all - the total number of communications for the given key
+ * @returns a dictionary with the following keys:
+ *     x: arrayx
+ *     y: arrayy
+ *     text: c_all
+ *     name:  key
+ *     customdata:t
+ *     type: 'bar'
+ *     hovertemplate:
+ */
 function chartDataAdd(key,arrayx,arrayy,c_all) {    
     let t = new Array(arrayx.length);
     size=arrayx.length;
     while(size--) t[size] = key;
-    console.log('key',key);
-    console.log('c_all',c_all);
-    console.log('t',t);
+    // console.log('key',key);
+    // console.log('c_all',c_all);
+    // console.log('t',t);
     return {                    
         x: arrayx,
         y: arrayy,
@@ -121,7 +205,12 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
     }
 }
 
-// Plot the stacked bar chart 
+/**
+ * Plot the stacked bar chart  and
+ * It filters the data according to the min and max amount.
+ * @param chartData - the data to be plotted.
+ * @returns the filtered data.
+ */
 function plotChartData(chartData) {
     // plot sans filtre
     // Plotly.newPlot('plot', chartData,layout); 
@@ -172,6 +261,7 @@ function plotChartData(chartData) {
     
 }
 
+/* Removing useless words from the text. */
 var removeUselessWords = function(txt) {
     var uselessWordsArray = 
     [
@@ -192,6 +282,11 @@ var removeUselessWords = function(txt) {
     .replace(/\s{2,}/g, ' ');
 }
 
+/**
+ * Find the longest word in a string
+ * @param str - The string to find the longest word in.
+ * @returns The longest word in the string.
+ */
 function findLongestWord(str) {
     var longestWord = str.split(' ').reduce(function(longest, currentWord) {
         return currentWord.length > longest.length ? currentWord : longest;
@@ -225,6 +320,10 @@ function displayContents(contents) {
         
         
         
+        /**
+         * It creates a dataset for the plotly chart.
+         * @param csv_data - The data to be processed.
+         */
         function processData(csv_data) {
             console.log("csv_data loaded....");
             
@@ -276,6 +375,11 @@ function displayContents(contents) {
             var arrayYear = [];
             
             
+            /* The code is creating a new array for each unique communication_z. The array contains
+            three sub-arrays:
+                - The first sub-array contains the period of each transaction
+                - The second sub-array contains the amount of each transaction
+                - The third sub-array contains the description of each transaction */
             function pushArrayPeriod(arrayPeriod,period) {
                 //si pas encore cette communication  
                 if (!arrayPeriod[communication_z]) {
@@ -325,7 +429,10 @@ function displayContents(contents) {
             entete_date="";
             
             
+            
             // création du dataset pour le plot
+            /* Creating a new array called chartDataDay and pushing the values from the arrayDay object
+            into it. */
             Object.keys(arrayDay).map(function(key, index) {                
                 chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1],arrayDay[key][2]));
             });
@@ -370,11 +477,20 @@ document.getElementById('formFile').addEventListener('change', readSingleFile, f
 // document.getElementById('verInfo').addEventListener('change', togglePopup, false);
 
 
+/**
+ * The function toggles the class of the div with the id of "popup-1" between active and not active
+ */
 function togglePopup(){
     // console.log('verInfo')
     document.getElementById("popup-1").classList.toggle("active");
 }
 
+/**
+ * The function is called when the user selects a period. 
+ * 
+ * It then calls the plotChartData function with the appropriate data
+ * @param selectedPeriod - The period selected by the user.
+ */
 function PlotlyPlot(selectedPeriod){
     // console.log("La period", period)
     
@@ -410,6 +526,5 @@ document.getElementById('positiveRange').addEventListener('mouseup', function(e)
     maxAmount=tmp*tmp
     PlotlyPlot(selectedPeriod);
 });
-
 
 
