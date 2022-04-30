@@ -57,17 +57,11 @@ function readSingleFile(e) {
 
 
 /**
- * It compares two arrays and returns the one with the highest value.
- * @param a - The first item to compare.
- * @param b - The array to be sorted.
- * @returns the value of the comparison.
+ * It takes an object, creates an array of its keys, sorts the array, and then creates a new object
+ * with the sorted keys and their associated values.
+ * @param o - the object to sort
+ * @returns An object with the keys sorted alphabetically.
  */
-function Comparator(a, b) {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  }
-
   function sortObject(o) {
     var sorted = {},
     key, a = [];
@@ -77,9 +71,10 @@ function Comparator(a, b) {
             a.push(key);
         }
     }
-
-    a.sort();
-
+    // a.sort();
+    a.sort(function (a, b) {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
     for (key = 0; key < a.length; key++) {
         sorted[a[key]] = o[a[key]];
     }
@@ -427,6 +422,11 @@ function displayContents(contents) {
                 pushArrayPeriod(arrayYear,str_idxYear);      
             }
             entete_date="";
+            arrayDay=sortObject(arrayDay);
+            arrayWeek=sortObject(arrayWeek);
+            arrayMonth=sortObject(arrayMonth);
+            arrayYear=sortObject(arrayYear);
+
             
             
             
