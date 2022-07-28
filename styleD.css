@@ -1,0 +1,88 @@
+.drag-box {
+  /* background: linear-gradient(to left, rgb(159, 242, 250), rgb(229, 253, 255));  */
+  float: left;
+  width: 120px;
+  min-height: 80px; /*lengthened the height slightly*/
+  padding-bottom: 30px;
+  height: auto;
+  margin: 30px;
+  cursor: move; /*added the 'cross' cursor*/
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; 
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  /* box-shadow: 20px 20px 50px 10px pink inset; */
+  /* background-color: brown; */
+  /* display: table; /* keep the background color wrapped tight */
+  /*margin: 0px auto 0px auto; /* keep the table centered */
+  /*padding:5px;font-size:20px;background-color:green;color:#ffffff; */
+}
+.drag-task {
+
+
+  /* background: linear-gradient(to right, white, rgb(229, 253, 255));  */
+  
+  margin: 10px;
+  padding: 5px; /*added padding to make tiles bigger*/
+  /* border:1px solid rgb(212, 212, 212); set an outline */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* https://getcssscan.com/css-box-shadow-examples */
+  /* color: azure; */
+  background-color: white;
+  
+  
+}
+
+.drop-active {
+  border: 1px dashed red;
+  cursor: pointer; /*change the pointer back to the default cursor while moving between lists*/
+}
+
+button {
+  display: none;
+}
+
+input:not(:placeholder-shown) + button{
+  display: block;
+}
+
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  top: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {top: 0; opacity: 0;} 
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {top: 30px; opacity: 1;} 
+  to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}
