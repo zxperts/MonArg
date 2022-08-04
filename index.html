@@ -35,14 +35,14 @@
     $(function fReversedRange() {
       $("#negValue").text($("#reversedRange").val());      
       $("#reversedRange").on('change input', function fReversedRange() {
-        $("#negValue").text(-$(this).val()*$(this).val());
+        $("#negValue").text($(this).val()*Math.abs($(this).val()));
       });
     });
     
     $(function fPositiveRange() {
       $("#posValue").text($("#positiveRange").val());      
       $("#positiveRange").on('change input', function fPositiveRange() {
-        $("#posValue").text($(this).val()*$(this).val());
+        $("#posValue").text($(this).val()*Math.abs($(this).val()));
       });
     });
     
@@ -97,7 +97,7 @@
   </div>
   
   
-  <div id="snackbarMain">"Les Filtres montants" \n "sont maintenant fonctionnels."</div>
+  <div id="snackbarMain"></div>
   <div id="page-container"class="container ">
     <div class="row">
       

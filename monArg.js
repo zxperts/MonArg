@@ -612,13 +612,13 @@ function plotChartData(chartData) {
         document.getElementById('reversedRange').addEventListener('mouseup', function(e){
             // alert(e.target.value);
             tmp=e.target.value;
-            minAmount=-tmp*tmp
+            minAmount=tmp*Math.abs(tmp);
             PlotlyPlot(selectedPeriod);
         });
         
         document.getElementById('positiveRange').addEventListener('mouseup', function(e){
             tmp=e.target.value;
-            maxAmount=tmp*tmp
+            maxAmount=tmp*Math.abs(tmp);
             PlotlyPlot(selectedPeriod);
         });
         
