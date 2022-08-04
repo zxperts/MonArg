@@ -65,7 +65,7 @@
   input[type="range"] {
     -webkit-appearance: none; 
     appearance: none;
-    height: 2px;
+    height: 4px;
     width: 100%;
     position: absolute;
     background-color: #C6C6C6;

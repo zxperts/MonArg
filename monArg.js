@@ -20,6 +20,19 @@ var listcat ={};
 
 var layout;
 
+
+window.onload = function() {
+    
+    var x = document.getElementById("snackbarMain");
+    x.innerText ="Les Filtres montants\n sont maintenant fonctionnels.";
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    document.getElementById("filre_param").style.visibility = "hidden";
+    
+}
+
+
+
 function setLayout(){
     layout = {    
         legend: {traceorder: 'normal',},
@@ -535,6 +548,9 @@ function plotChartData(chartData) {
                     PlotlyPlot("Mensuel");
 
                     generateAllTask();
+                    console.log(listcat);
+                    document.getElementById("filre_param").style.visibility = "visible";
+
                     
                     
                     

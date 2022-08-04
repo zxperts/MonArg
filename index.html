@@ -97,14 +97,14 @@
   </div>
   
   
-  
+  <div id="snackbarMain">"Les Filtres montants" \n "sont maintenant fonctionnels."</div>
   <div id="page-container"class="container ">
     <div class="row">
       
-      <div class="alert alert-primary">
+      <div class="alert alert-primary">        
         <p class="lead"><strong>Info!</strong> Importez vos extraits en format .csv et visualiser vos dépenses.</p>
       </div>
-      <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" hidden>
         <p class="lead">Les Filtres montants sont maintenant fonctionnels.</p>
       </div> 
       
@@ -113,16 +113,16 @@
       
       <form class="row">
         <!-- <div class="col-sm"> -->
-          <div class="col-sm">
+          <div class="col-sm" >
             
             
             <input class="form-control center" type="file" id="formFile">
             
             
-            <div class="row">
+            <div class="row" id="filre_param">
               
               
-              <div class="col-md-4">
+              <div class="col-md-6" id="sliders_montant">
                 <label for="example-date-input" class="col-2 col-form-label"></label>
                 <div class="input-group">                 
                   <div class="col">
@@ -272,7 +272,7 @@
                 <input id="InputAddCat" placeholder="Add une catégorie..." >
                 <input type="color" id="favcolor" name="favcolor" value="#ff0000">
                 <button type="button" id="btnAddCat" class="btn btn-light" onclick="createCategorie()">✔️</button>
-                <div id="snackbar">Some text some message..</div>
+                <div id="snackbar">Some text some message..for the Snackbar / Toast </div>
               </div>
             </div>
             
@@ -281,7 +281,7 @@
                 <input id="InputAddTask" placeholder="Add un libéllé..." >
                 <input type="color" id="favColorTask" name="favColorTask" value="#ff0000">
                 <button type="button" id="btnAddTask" class="btn btn-light" onclick="createTask()">✔️</button>
-                <div id="snackbar">Some text some message..</div>
+                <!-- <div id="snackbar02">Some text some message..</div> -->
               </div>
             </div>
             

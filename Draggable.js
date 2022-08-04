@@ -111,6 +111,10 @@ function RandomLightenDarkenColorOld() {
     return newColor.toString(16);
 }
 
+/**
+ * It takes a random hex color, and adds a random amount of red, green, and blue to it.
+ * @returns A random color.
+ */
 function RandomLightenDarkenColor() {
     var col = "#"+((1<<24)*Math.random()|0).toString(16);
     var amt =100;
@@ -163,7 +167,7 @@ window.onload = function() {
     var x = document.getElementById("snackbar");
     x.innerText =text;
     x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
 
     setDraggable();
 
