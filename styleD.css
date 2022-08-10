@@ -1,7 +1,7 @@
 .drag-box {
   /* background: linear-gradient(to left, rgb(159, 242, 250), rgb(229, 253, 255));  */
-  float: left;
-  width: 120px;
+  /* float: left; */
+  min-width: 120px;
   min-height: 80px; /*lengthened the height slightly*/
   padding-bottom: 30px;
   height: auto;
@@ -14,6 +14,8 @@
   /* display: table; /* keep the background color wrapped tight */
   /*margin: 0px auto 0px auto; /* keep the table centered */
   /*padding:5px;font-size:20px;background-color:green;color:#ffffff; */
+  display: inline-block;
+  text-align: center;
 }
 .drag-task {
 
@@ -27,6 +29,8 @@
   /* https://getcssscan.com/css-box-shadow-examples */
   /* color: azure; */
   background-color: white;
+  display: inline-block;
+  text-align: center;
   
   
 }

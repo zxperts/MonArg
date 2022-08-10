@@ -48,7 +48,7 @@ function createCategorie(categorieName) {
     var divv = document.createElement("div");
     divv.id=document.getElementById("InputAddCat").value||categorieName||"No Value";
     divv.className = 'drag-box';
-    divv.innerHTML = document.getElementById("InputAddCat").value||categorieName||"No Value";
+    divv.innerHTML = document.getElementById("InputAddCat").value||categorieName+"&#9776"||"No Value";
     divv.style.backgroundColor=document.getElementById("favcolor").value;
     //   divv.style.opacity=0.1;
     document.getElementById("drop-target").appendChild(divv);
@@ -132,8 +132,7 @@ function RandomLightenDarkenColorOld() {
  */
 function RandomLightenDarkenColor() {
     var col = "#"+((1<<24)*Math.random()|0).toString(16);
-    var amt =100;
-    
+    var amt =150;    
     
     var usePound = false;
     if ( col[0] == "#" ) {
@@ -143,18 +142,15 @@ function RandomLightenDarkenColor() {
     
     var num = parseInt(col,16); 
     
-    var r = (num >> 16) + amt;
-    
+    var r = (num >> 16) + amt;    
     if ( r > 255 ) r = 255;
     else if  (r < 0) r = 0;
     
     var b = ((num >> 8) & 0x00FF) + amt;
-    
     if ( b > 255 ) b = 255;
     else if  (b < 0) b = 0;
     
     var g = (num & 0x0000FF) + amt;
-    
     if ( g > 255 ) g = 255;
     else if  ( g < 0 ) g = 0;
     
