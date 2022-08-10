@@ -14,9 +14,9 @@ var chartDataDay = [];
 var chartDataWeek = [];
 var chartDataMonth = [];
 var chartDataYear= [];
-// var listcat = new Object();
-var listcat ={};
-// let listcat = [];
+// var listCategorie = new Object();
+var listCategorie ={};
+// let listCategorie = [];
 
 var layout;
 
@@ -27,7 +27,29 @@ window.onload = function() {
     x.innerText ="Les Filtres montants\n sont maintenant fonctionnels.";
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    document.getElementById("filre_param").style.visibility = "hidden";
+    // document.getElementById("filre_param").style.visibility = "hidden";
+    
+    document.getElementById('favcolor').value=RandomLightenDarkenColor();
+    createCategorie("Loisirs");
+    createCategorie("Frais financiers");
+    createCategorie("Shopping");
+    createCategorie("Nourritures & Boissons");
+    createCategorie("Salaire");
+    createCategorie("Logement");
+    createCategorie("Véhicule");
+    createCategorie("Transports");
+    createCategorie("Multimedia & PC");
+    createCategorie("Santé");
+    createCategorie("Bricolage");
+    createCategorie("Vêtement");
+    createCategorie("Investisement");
+    createCategorie("Education");
+    createCategorie("Education");
+    
+    setDraggable();
+
+    // console.log("getStoredValue: ", getStoredValue(listCategorie));
+    
     
 }
 
@@ -206,7 +228,8 @@ function checkwages(input){
 *     type: 'bar'
 *     hovertemplate:
 */
-function chartDataAdd(key,arrayx,arrayy,c_all) {    
+function chartDataAdd(key,arrayx,arrayy,c_all) {
+    key= key.toUpperCase();
     let t = new Array(arrayx.length);
     size=arrayx.length;
     while(size--) t[size] = key;
@@ -214,12 +237,12 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
     // console.log('c_all',c_all);
     // console.log('t',t);
     
-    // listcat["one"] = 1;.
-    // listcat = {label:key,categorie:"Pas de Cat."};
-    // listcat = {name:"John", age:31, city:"New York"}
-    // listcat.push([key,"Pas de Cat."]);
-    listcat[key] = "Pas de Cat.";
-    console.log("listcat: " + listcat);
+    // listCategorie["one"] = 1;.
+    // listCategorie = {label:key,categorie:"Pas de Cat."};
+    // listCategorie = {name:"John", age:31, city:"New York"}
+    // listCategorie.push([key,"Pas de Cat."]);
+    listCategorie[key] = "Pas de catégorie";
+    // console.log("listCategorie: " + listCategorie);
     
     return {                    
         x: arrayx,
@@ -290,7 +313,7 @@ function plotChartData(chartData) {
             rest_filtered[cd_i]=[];
         }
         // Plot avec les filtres
-        // let replaced = chartData[cd_i].name.map(el => listcat[el]);
+        // let replaced = chartData[cd_i].name.map(el => listCategorie[el]);
         // console.log("replaced: "+replaced);
         
         var libelle2Replace=chartData[cd_i].name;
@@ -368,7 +391,7 @@ function plotChartData(chartData) {
         
         
         function replaceByCategory(libelle2Replace){
-            return replaced = libelle2Replace.replace(/(\w+)/g, (match,key)=>listcat[key]||match);
+            return replaced = libelle2Replace.replace(/(\w+)/g, (match,key)=>listCategorie[key]||match);
         }
         
         
@@ -382,7 +405,7 @@ function plotChartData(chartData) {
             var list_cat=[];
             // var field2=[];
             
-            // Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/ListCat2.csv",function(csv){processData2(csv)});
+            // Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/listCategorie2.csv",function(csv){processData2(csv)});
             
             processData2();
             // function processData2(csv) {
@@ -546,11 +569,12 @@ function plotChartData(chartData) {
                     // Plot the stacked bar chart   
                     // plotChartData(chartDataMonth);
                     PlotlyPlot("Mensuel");
-
-                    generateAllTask();
-                    console.log(listcat);
+                    console.log(categManuellle());
+                    listCategorie=categManuellle();
+                    // console.log(listCategorie);
+                    
                     document.getElementById("filre_param").style.visibility = "visible";
-
+                    
                     
                     
                     
@@ -590,7 +614,7 @@ function plotChartData(chartData) {
             if (selectedPeriod=="Annuel") {plotChartData(chartDataYear);}
             
         }
-
+        
         function setCategoriser(varCategoriser){
             categoriser=varCategoriser;
             PlotlyPlot(selectedPeriod);
@@ -622,5 +646,340 @@ function plotChartData(chartData) {
             PlotlyPlot(selectedPeriod);
         });
         
+        function categManuellle(){
+
+            // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
+
+            $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorie) {
+                // listCategorie=JSON.parse(listCategorie0);
+                console.log("listCategorie...",listCategorie); // this will show the info it in firebug console                
+                generateAllTask(listCategorie);
+                setStoredValue(listCategorie, listCategorie);
+            });
+            
+            return listCategorie;
+
+
+            // listCategorie["ABBAYEDEVILLERS"]="Loisirs";
+            // listCategorie["ABBEVILLE"]="Loisirs";
+            // listCategorie["ACOMPTE"]="Frais financiers";
+            // listCategorie["ACTION"]="Shopping";
+            // listCategorie["ADELINE"]="Loisirs";
+            // listCategorie["ADIFA"]="Nourritures & Boissons";
+            // listCategorie["ADMINISTRATION"]="Frais financiers";
+            // listCategorie["ADSL"]="Loisirs";
+            // listCategorie["AETERNA"]="Loisirs";
+            // listCategorie["AGATSUKAN"]="Loisirs";
+            // listCategorie["AGRICOVERT"]="Nourritures & Boissons";
+            // listCategorie["ALDI"]="Nourritures & Boissons";
+            // listCategorie["ALIMENTERRE"]="Nourritures & Boissons";
+            // listCategorie["ALLOCATION"]="Salaire";
+            // listCategorie["ALLOCATIONS"]="Salaire";
+            // listCategorie["ALPISPORT"]="Loisirs";
+            // listCategorie["ALTEZZA"]="Nourritures & Boissons";
+            // listCategorie["AMANDINE"]="Loisirs";
+            // listCategorie["AMRIT"]="Nourritures & Boissons";
+            // listCategorie["ANCOR"]="Nourritures & Boissons";
+            // listCategorie["ANDENNANDENNE"]="Loisirs";
+            // listCategorie["ANDENNE"]="Salaire";
+            // listCategorie["ANDERLECHT"]="Nourritures & Boissons";
+            // listCategorie["ANNIVERSAIRE"]="Loisirs";
+            // listCategorie["APPROVISIONNEMENT"]="Salaire";
+            // listCategorie["ARCHITECT"]="Logement";
+            // listCategorie["ASINERIE"]="Loisirs";
+            // listCategorie["ASSURANCE"]="Frais financiers";
+            // listCategorie["ASTERIA"]="Nourritures & Boissons";
+            // listCategorie["ATELIER"]="Loisirs";
+            // listCategorie["ATTRACTIE"]="Loisirs";
+            // listCategorie["AUDERGHEM"]="Véhicule";
+            // listCategorie["AUSTRALIAN"]="Nourritures & Boissons";
+            // listCategorie["AUTO"]="Véhicule";
+            // listCategorie["AUTOROUTE"]="Transports";
+            // listCategorie["AUTOROUTES"]="Transports";
+            // listCategorie["AUTOSECURITE"]="Véhicule";
+            // listCategorie["AUVELAIS"]="Nourritures & Boissons";
+            // listCategorie["AXA"]="Frais financiers";
+            // listCategorie["BALADINS"]="Loisirs";
+            // listCategorie["BE"]="Nourritures & Boissons";
+            // listCategorie["BEAUCOUP"]="Loisirs";
+            // listCategorie["BELBELGRADE"]="Nourritures & Boissons";
+            // listCategorie["BELFIUS"]="Frais financiers";
+            // listCategorie["BELGE"]="Nourritures & Boissons";
+            // listCategorie["BELGIUM"]="Multimedia & PC";
+            // listCategorie["BELGRADBELGRADE"]="Nourritures & Boissons";
+            // listCategorie["BELGRBELGRADE"]="Nourritures & Boissons";
+            // listCategorie["BELGRNAMUR"]="Nourritures & Boissons";
+            // listCategorie["BENEDICTE"]="Loisirs";
+            // listCategorie["BENJAMINE"]="Loisirs";
+            // listCategorie["BERDIFF"]="Loisirs";
+            // listCategorie["BERNARD"]="Nourritures & Boissons";
+            // listCategorie["BETE"]="Nourritures & Boissons";
+            // listCategorie["BIENVENUE"]="Loisirs";
+            // listCategorie["BIERWART"]="Nourritures & Boissons";
+            // listCategorie["BIGARD"]="Logement";
+            // listCategorie["BIO"]="Nourritures & Boissons";
+            // listCategorie["BIOCAP"]="Nourritures & Boissons";
+            // listCategorie["BLAIMONT"]="Nourritures & Boissons";
+            // listCategorie["BORREJAMBES"]="Multimedia & PC";
+            // listCategorie["BOUABSA"]="Nourritures & Boissons";
+            // listCategorie["BOULANGERIE"]="Nourritures & Boissons";
+            // listCategorie["BOVERIE"]="Nourritures & Boissons";
+            // listCategorie["BRANDEN"]="Santé";
+            // listCategorie["BRESSOUX"]="Nourritures & Boissons";
+            // listCategorie["BRICO"]="Bricolage";
+            // listCategorie["BRICOLAGE"]="Bricolage";
+            // listCategorie["BRUGELETTE"]="Loisirs";
+            // listCategorie["BUNGALOW"]="Loisirs";
+            // listCategorie["BVBA"]="Nourritures & Boissons";
+            // listCategorie["BVBAKNOKKE"]="Loisirs";
+            // listCategorie["C&A"]="Vêtement";
+            // listCategorie["CALIMERO"]="Vêtement";
+            // listCategorie["CAMEO"]="Vêtement";
+            // listCategorie["CARAVANING"]="Loisirs";
+            // listCategorie["CARBURANT"]="Transports";
+            // listCategorie["CERTINERGIE"]="Logement";
+            // listCategorie["CHAMPIONCHAMPION"]="Shopping";
+            // listCategorie["CHANGEMENT"]="Investisement";
+            // listCategorie["CHARLIER"]="Logement";
+            // listCategorie["CHARLOTTE"]="Nourritures & Boissons";
+            // listCategorie["CHR"]="Santé";
+            // listCategorie["CHRETIENNE"]="Santé";
+            // listCategorie["CIRQUE"]="Loisirs";
+            // listCategorie["CITADELLE"]="Loisirs";
+            // listCategorie["COLRUYT"]="Nourritures & Boissons";
+            // listCategorie["COMMUNALE"]="Education";
+            // listCategorie["COMMUNALWANZE"]="Education";
+            // listCategorie["COMMUNICATION"]="Frais financiers";
+            // listCategorie["COMPLETS"]="Education";
+            // listCategorie["CONSULTANT"]="Logement";
+            // listCategorie["CORBAIS"]="Vêtement";
+            // listCategorie["COTISATION"]="Loisirs";
+            // listCategorie["COURAN"]="Education";
+            // listCategorie["COUTURIER"]="Vêtement";
+            // listCategorie["CREAM"]="Nourritures & Boissons";
+            // listCategorie["CRF"]="Nourritures & Boissons";
+            // listCategorie["CUISINE"]="Logement";
+            // listCategorie["CUTABLE"]="Salaire";
+            // listCategorie["DECATHLON"]="Vêtement";
+            // listCategorie["DELHAIZE"]="Nourritures & Boissons";
+            // listCategorie["DEMA"]="Bricolage";
+            // listCategorie["DENTISTES"]="Santé";
+            // listCategorie["DENTNAMUR"]="Santé";
+            // listCategorie["DEPLACEMENTS"]="Transports";
+            // listCategorie["DIRECT"]="Nourritures & Boissons";
+            // listCategorie["DOMININAMECHE"]="Nourritures & Boissons";
+            // listCategorie["DOZIER"]="Logement";
+            // listCategorie["DREAMBABY"]="Shopping";
+            // listCategorie["DREAMLAND"]="Shopping";
+            // listCategorie["DRONGEN"]="Nourritures & Boissons";
+            // listCategorie["DUCHENE"]="Nourritures & Boissons";
+            // listCategorie["DUMONT"]="Nourritures & Boissons";
+            // listCategorie["EGHEZEE"]="Nourritures & Boissons";
+            // listCategorie["ELECTRABEL"]="facture";
+            // listCategorie["EPARGNE"]="Investisement";
+            // listCategorie["ERPENT"]="Nourritures & Boissons";
+            // listCategorie["ESPRIT"]="Vêtement";
+            // listCategorie["ETHIAS"]="Assuraces";
+            // listCategorie["ETTERBEEK"]="Vêtement";
+            // listCategorie["EUROPEAN"]="Nourritures & Boissons";
+            // listCategorie["EUROPEANFORECOURTR"]="Nourritures & Boissons";
+            // listCategorie["EXPO"]="Nourritures & Boissons";
+            // listCategorie["EXPRESS"]="Transports";
+            // listCategorie["FARMLLN"]="Nourritures & Boissons";
+            // listCategorie["FELICIEN"]="Nourritures & Boissons";
+            // listCategorie["FINANCE"]="Frais financiers";
+            // listCategorie["FISCALITE"]="Fiscalité";
+            // listCategorie["FLAFLAWINNE"]="Nourritures & Boissons";
+            // listCategorie["FLAWINNENAMUR"]="Vêtement";
+            // listCategorie["FLAWINNFLAWINNE"]="Vêtement";
+            // listCategorie["FLOREFFLOREFFE"]="Loisirs";
+            // listCategorie["FLORIAN"]="Logement";
+            // listCategorie["FLYING"]="Nourritures & Boissons";
+            // listCategorie["FONDAIRE"]="Logement";
+            // listCategorie["FOOTBALL"]="Loisirs";
+            // listCategorie["FRANCOISE"]="Investisement";
+            // listCategorie["GEOMETRE"]="Logement";
+            // listCategorie["GOURMAND"]="Nourritures & Boissons";
+            // listCategorie["H&M"]="Vêtement";
+            // listCategorie["HARVENGT"]="Nourritures & Boissons";
+            // listCategorie["HASSEHASSELT"]="Bricolage";
+            // listCategorie["HASSELT"]="Shopping";
+            // listCategorie["HERSTAL"]="Nourritures & Boissons";
+            // listCategorie["HOESELT"]="Transports";
+            // listCategorie["HUBO"]="Bricolage";
+            // listCategorie["IMAGINARIUM"]="Loisirs";
+            // listCategorie["IMPOSITION"]="Investisement";
+            // listCategorie["INSCRIPTION"]="Loisirs";
+            // listCategorie["INSTANTAN"]="Loisirs";
+            // listCategorie["INSURANCE"]="Assuraces";
+            // listCategorie["INTERMARCHE"]="Nourritures & Boissons";
+            // listCategorie["JAMBEJAMBES"]="Transports";
+            // listCategorie["JAMBES"]="Nourritures & Boissons";
+            // listCategorie["JAMJAMMEKE"]="Nourritures & Boissons";
+            // listCategorie["JANVIER"]="Education";
+            // listCategorie["JARDIN"]="Bricolage";
+            // listCategorie["JBC"]="Vêtement";
+            // listCategorie["JEUNESSES"]="Loisirs";
+            // listCategorie["KAZIDOMI"]="Loisirs";
+            // listCategorie["KEMSEKE"]="Loisirs";
+            // listCategorie["KOKSIJDE"]="Loisirs";
+            // listCategorie["KRUIDVAT"]="Shopping";
+            // listCategorie["LB"]="Loisirs";
+            // listCategorie["LIBRAIRIE"]="Loisirs";
+            // listCategorie["LIDL"]="Nourritures & Boissons";
+            // listCategorie["LILIBULLE"]="Loisirs";
+            // listCategorie["LORENT"]="Nourritures & Boissons";
+            // listCategorie["LORIS"]="Investisement";
+            // listCategorie["LORISPAYER"]="Investisement";
+            // listCategorie["LOVINFOSSE"]="Santé";
+            // listCategorie["MAASMECHELE"]="Loisirs";
+            // listCategorie["MAASMECHELEN"]="Loisirs";
+            // listCategorie["MADUELECTRO"]="Multimedia & PC";
+            // listCategorie["MAESTRO"]="Shopping";
+            // listCategorie["MAILLARD"]="Shopping";
+            // listCategorie["MALMALONNE"]="Nourritures & Boissons";
+            // listCategorie["MALO"]="Nourritures & Boissons";
+            // listCategorie["MALONMALONNE"]="Shopping";
+            // listCategorie["MALONN"]="Bricolage";
+            // listCategorie["MANIAS"]="Loisirs";
+            // listCategorie["MARCHEMARCHE"]="Nourritures & Boissons";
+            // listCategorie["MARTENS"]="Logement";
+            // listCategorie["MATERNITE"]="Santé";
+            // listCategorie["MAXI"]="Loisirs";
+            // listCategorie["MOBILE"]="Assuraces";
+            // listCategorie["MULTIPHARMA"]="Santé";
+            // listCategorie["MUNSI"]="Investisement";
+            // listCategorie["MUTUALISTE"]="Assuraces";
+            // listCategorie["NAD"]="Nourritures & Boissons";
+            // listCategorie["NAMJAMBES"]="Nourritures & Boissons";
+            // listCategorie["NAMTATION"]="Sport";
+            // listCategorie["NAMURNAMUR"]="Nourritures & Boissons";
+            // listCategorie["NANINNE"]="Loisirs";
+            // listCategorie["NATUREL"]="Loisirs";
+            // listCategorie["NEUVILLE"]="Loisirs";
+            // listCategorie["NIKALAICHANKA"]="Shopping";
+            // listCategorie["NOEMIE"]="Investisement";
+            // listCategorie["NOTTIGNIES"]="Transports";
+            // listCategorie["OHGREEN"]="Loisirs";
+            // listCategorie["OLIVIEGHEZEE"]="Nourritures & Boissons";
+            // listCategorie["OLIVIER"]="Nourritures & Boissons";
+            // listCategorie["ONLINE"]="Loisirs";
+            // listCategorie["OOSTDUINKERKE"]="Loisirs";
+            // listCategorie["OTTIGNIES"]="Transports";
+            // listCategorie["OTTIGNOTTIGNIES"]="Transports";
+            // listCategorie["PANIER"]="Nourritures & Boissons";
+            // listCategorie["PAPYRUS"]="Loisirs";
+            // listCategorie["PARKING"]="Transports";
+            // listCategorie["PATISSERIE"]="Nourritures & Boissons";
+            // listCategorie["PATRICIA"]="Loisirs";
+            // listCategorie["PATRICK"]="Investisement";
+            // listCategorie["PEDIATRIE"]="Santé";
+            // listCategorie["PERCEPTION"]="Frais financiers";
+            // listCategorie["PIROUETTE"]="Loisirs";
+            // listCategorie["PISCINE"]="Loisirs";
+            // listCategorie["PIZZARIA"]="Nourritures & Boissons";
+            // listCategorie["PIZZERIA"]="Nourritures & Boissons";
+            // listCategorie["POLICE"]="Transports";
+            // listCategorie["PONANT"]="Santé";
+            // listCategorie["PRECOMPTE"]="Frais financiers";
+            // listCategorie["PROVINCIE"]="Loisirs";
+            // listCategorie["PROVISION"]="Investisement";
+            // listCategorie["PSYCHOMOTRICITE"]="Santé";
+            // listCategorie["PTJ"]="Nourritures & Boissons";
+            // listCategorie["PUBLICANNEE"]="Frais financiers";
+            // listCategorie["PUMBO"]="Loisirs";
+            // listCategorie["QUICK"]="Nourritures & Boissons";
+            // listCategorie["RAMBURES"]="Nourritures & Boissons";
+            // listCategorie["RAPHAEL"]="Nourritures & Boissons";
+            // listCategorie["RECONFORT"]="Loisirs";
+            // listCategorie["RECURRING"]="Frais financiers";
+            // listCategorie["REGION"]="Frais financiers";
+            // listCategorie["REMBOURSEMENBT"]="Loisirs";
+            // listCategorie["REMBOURSEMENT"]="Santé";
+            // listCategorie["REMUNERATION"]="Salaire";
+            // listCategorie["RENFLOUEMENT"]="Investisement";
+            // listCategorie["RENMANS"]="Nourritures & Boissons";
+            // listCategorie["RESEARCH"]="Salaire";
+            // listCategorie["RESERVATION"]="Loisirs";
+            // listCategorie["RETRAIT"]="Frais financiers";
+            // listCategorie["REVES"]="Loisirs";
+            // listCategorie["ROLE"]="Investisement";
+            // listCategorie["ROSERAIE"]="Loisirs";
+            // listCategorie["SAINTE"]="Education";
+            // listCategorie["SAINTGILLES"]="Nourritures & Boissons";
+            // listCategorie["SALNAMUR"]="Nourritures & Boissons";
+            // listCategorie["SAMBRE"]="Nourritures & Boissons";
+            // listCategorie["SANSDEMELVD"]="Investisement";
+            // listCategorie["SANTE"]="Santé";
+            // listCategorie["SCANDALES"]="Loisirs";
+            // listCategorie["SCARLET"]="Multimedia & PC";
+            // listCategorie["SCHEINS"]="Shopping";
+            // listCategorie["SCOLAIRE"]="Education";
+            // listCategorie["SEBASTIEN"]="Loisirs";
+            // listCategorie["SEPTEMBER"]="Education";
+            // listCategorie["SERVICES"]="Nourritures & Boissons";
+            // listCategorie["SNCB"]="Transports";
+            // listCategorie["SPECIALISTE"]="Santé";
+            // listCategorie["SPERANZA"]="Loisirs";
+            // listCategorie["SPORTIVE"]="Loisirs";
+            // listCategorie["SPY"]="Nourritures & Boissons";
+            // listCategorie["STARBUCKS"]="Nourritures & Boissons";
+            // listCategorie["STATION"]="Transports";
+            // listCategorie["STEPHANE"]="Santé";
+            // listCategorie["SUN"]="Nourritures & Boissons";
+            // listCategorie["SUPERMARCH"]="Nourritures & Boissons";
+            // listCategorie["SURGELES"]="Nourritures & Boissons";
+            // listCategorie["TAO"]="Nourritures & Boissons";
+            // listCategorie["TELEPHERIQUE"]="Loisirs";
+            // listCategorie["TEMPLOUX"]="Loisirs";
+            // listCategorie["TENDANCE"]="Nourritures & Boissons";
+            // listCategorie["TENUE"]="Shopping";
+            // listCategorie["TERROIRS"]="Shopping";
+            // listCategorie["TOTALDALTYSA"]="Transports";
+            // listCategorie["TRAFIC"]="Shopping";
+            // listCategorie["TRAIN"]="Transports";
+            // listCategorie["TRAITEMENT"]="Frais financiers";
+            // listCategorie["TRAMPOLINE"]="Loisirs";
+            // listCategorie["TRANSACTION"]="Frais financiers";
+            // listCategorie["TRAVAUX"]="Logement";
+            // listCategorie["TRONOME"]="Nourritures & Boissons";
+            // listCategorie["VACANCES"]="Loisirs";
+            // listCategorie["VALOPHAR"]="Loisirs";
+            // listCategorie["VANDERSMISSEN"]="Loisirs";
+            // listCategorie["VERITAS"]="Shopping";
+            // listCategorie["VERLAINE"]="Transports";
+            // listCategorie["VERLAIVERLAINE"]="Transports";
+            // listCategorie["VERVALDAG"]="Frais financiers";
+            // listCategorie["VILLE"]="Frais financiers";
+            // listCategorie["VILLERS"]="Nourritures & Boissons";
+            // listCategorie["VISA"]="Frais financiers";
+            // listCategorie["VOTTEM"]="Nourritures & Boissons";
+            // listCategorie["WALLON"]="Investisement";
+            // listCategorie["WALLONIE"]="Frais financiers";
+            // listCategorie["WALLONNE"]="Frais financiers";
+            // listCategorie["WESTHOEK"]="Loisirs";
+            // listCategorie["WETTEREN"]="Loisirs";
+            // listCategorie["WIBRA"]="Shopping";
+            // listCategorie["YR"]="Loisirs";
+        }
         
         
+        function getStoredValue(key) {
+            if (localStorage) {
+                // return localStorage.getItem(key);
+                // return JSON.parse(window.localStorage.getItem("listCategorie"));
+                return JSON.parse(window.localStorage.getItem(key));
+            } else {
+                return $.cookies.get(key);
+            }
+        }
+
+        function setStoredValue(key, value) {
+            if (localStorage) {
+                // localStorage.setItem(key, value);
+                //Convert object to JSON strings, and back in get
+                window.localStorage.setItem(key, JSON.stringify(value));
+            } else {
+                $.cookies.set(key, value);
+            }
+        }

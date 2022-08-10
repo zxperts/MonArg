@@ -1,6 +1,5 @@
 
-function setDraggable() {
-    
+function setDraggable() {    
     // Tells the other side what data is being passed (e.g. the ID is targeted)
     var dropTarget = document.querySelector(".drop-target");
     var draggables = document.querySelectorAll(".drag-task");
@@ -8,7 +7,7 @@ function setDraggable() {
     
     // Tells the other side what data is being passed (e.g. the ID is targeted)
     draggables.forEach(item => {
-        console.log("Here: "+item.id+"-"+item.parentNode.id);
+        // console.log("Here: "+item.id+"-"+item.parentNode.id);
         item.addEventListener("dragstart", function(ev) {
             ev.dataTransfer.setData("srcId", ev.target.id);
         });
@@ -29,7 +28,7 @@ function setDraggable() {
             ev.target.appendChild(document.getElementById(srcId));
             // console.log(target.innerText+' '+srcId);
             // console.log(srcId.parentNode+' '+srcId);
-            listcat[srcId] = target.id;//Nouvelle assignation de la catégorie👌
+            listCategorie[srcId] = target.id;//Nouvelle assignation de la catégorie👌
             
             var x = document.getElementById("snackbar");
             var xText="👍"+target.id+'\n'+srcId;
@@ -59,7 +58,7 @@ function createCategorie(categorieName) {
 
 }
 
-function createTask(taskName) {
+function createTask(taskName, boxName) {
     // alert("You must write something!");
     
     var divTask = document.createElement("div");
@@ -68,12 +67,28 @@ function createTask(taskName) {
     divTask.innerHTML = document.getElementById("InputAddTask").value||taskName||"No Value";
     divTask.draggable="true";
     divTask.style.backgroundColor=document.getElementById("favColorTask").value;
-    document.getElementById("Pas de catégorie").appendChild(divTask);
+    // var boxName=listCategorie[taskName]||"Pas de catégorie";
+    // var boxName="Pas de catégorie";
+    // console.log(boxName);
+    document.getElementById("filre_param").style.visibility = "visible";
+
+    if (!document.getElementById(boxName)){
+        createCategorie(boxName);
+    }
+
+    document.getElementById(boxName).appendChild(divTask);
     setDraggable();
 
     document.getElementById("InputAddTask").value = "";
     document.getElementById("favColorTask").value = RandomLightenDarkenColor();
+    console.log(" :",taskName,"-", boxName);
 }
+
+function removeTask(taskName) {
+    document.getElementsByTagName.removeChild(taskName);
+}
+
+
 
 
 
@@ -147,29 +162,7 @@ function RandomLightenDarkenColor() {
 }
 
 window.onload = function() {
-    document.getElementById('favcolor').value=RandomLightenDarkenColor();
-    createCategorie("Salaire");
-    createCategorie("Nourritures & Boissons");
-    createCategorie("Shopping");
-    createCategorie("Assuraces");
-    createCategorie("Logement");
-    createCategorie("Transports");
-    createCategorie("Véhicule");
-    createCategorie("Loisirs");
-    createCategorie("Multimedia & PC");
-    createCategorie("Frais financiers");
-    createCategorie("Investisement");
-    createCategorie("Retyrait Cash");
-    createCategorie("facture");
-    
-    var text = document.getElementById("Pas de catégorie").firstChild.nodeValue.trim();
-    
-    var x = document.getElementById("snackbar");
-    x.innerText =text;
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 6000);
 
-    setDraggable();
 
     
     
@@ -189,10 +182,10 @@ function extractCategory() {
     console.log(res)
 }
 
-function generateAllTask() {    
-    for (const [key, value] of Object.entries(listcat)) {
-        // console.log(key, value);
-        createTask(key);
+function generateAllTask(listCategorie) {    
+    for (const [key, value] of Object.entries(listCategorie)) {
+        console.log("--",key, value);
+        createTask(key, value);
     }
     
 }
