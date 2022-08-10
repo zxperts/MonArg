@@ -27,7 +27,7 @@ window.onload = function() {
     x.innerText ="Les Filtres montants\n sont maintenant fonctionnels.";
     x.className = "show";
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    // document.getElementById("filre_param").style.visibility = "hidden";
+    document.getElementById("filre_param").style.visibility = "hidden";
     
     document.getElementById('favcolor').value=RandomLightenDarkenColor();
     createCategorie("Loisirs");
