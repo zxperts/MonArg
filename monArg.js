@@ -16,6 +16,7 @@ var chartDataMonth = [];
 var chartDataYear= [];
 // var listCategorie = new Object();
 var listCategorie ={};
+var listCategorieMan={};
 // let listCategorie = [];
 
 var layout;
@@ -47,6 +48,9 @@ window.onload = function() {
     createCategorie("Education");
     
     setDraggable();
+    
+    getCategManuellle();
+    
 
     // console.log("getStoredValue: ", getStoredValue(listCategorie));
     
@@ -241,7 +245,8 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
     // listCategorie = {label:key,categorie:"Pas de Cat."};
     // listCategorie = {name:"John", age:31, city:"New York"}
     // listCategorie.push([key,"Pas de Cat."]);
-    listCategorie[key] = "Pas de catégorie";
+    console.log("listCategorieMan:",listCategorieMan);
+    listCategorie[key] = listCategorieMan[key]||"Pas de catégorie";
     // console.log("listCategorie: " + listCategorie);
     
     return {                    
@@ -653,14 +658,31 @@ function plotChartData(chartData) {
             // $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorie) {
             //     // listCategorie=JSON.parse(listCategorie0);
             //     console.log("listCategorie...",listCategorie); // this will show the info it in firebug console                
-            //     generateAllTask(listCategorie);
-            //     setStoredValue(listCategorie, listCategorie);
+            //     // generateAllTask(listCategorie);
+            //     // setStoredValue(listCategorie, listCategorie);
             // });
 
             generateAllTask(listCategorie);
             setStoredValue(listCategorie, listCategorie);
             
             return listCategorie;
+
+
+        }
+
+        function getCategManuellle(){
+            var listCategorieMan2={};
+            // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
+
+            $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorieMan2) {
+                // listCategorie=JSON.parse(listCategorie0);
+                console.log("listCategorieMan...",listCategorieMan2); // this will show the info it in firebug console
+                listCategorieMan=listCategorieMan2;
+                // generateAllTask(listCategorie);
+                // setStoredValue(listCategorie, listCategorie);
+            });
+            
+            // return listCategorieMan2;
 
 
         }
