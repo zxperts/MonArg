@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Visual Budget</title>
   <link rel="icon" href="https://financer.com/app/uploads/sites/17/2017/12/if_finance_loan_money_1889199-150x150.png "/>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="styleD.css">
-  <link rel="stylesheet" href="style_2D.css">
-  <link rel="stylesheet" href="styleSliders.css">
+  <link rel="stylesheet" href="styles/styleD.css">
+  <link rel="stylesheet" href="styles/style_2D.css">
+  <link rel="stylesheet" href="styles/styleSliders.css">
   
   <!-- <script src="script.js"></script> -->
   
@@ -23,6 +22,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.5.207/pdf.min.js"defer> </script> 
+  
+  
+  
+  <link rel="stylesheet" href="styles/dark.css" id="dark-theme">
+  <link rel="stylesheet" href="styles/light.css" id="light-theme">
+  <link rel="stylesheet" href="styles/style.css">
   
   
   
@@ -79,7 +85,10 @@
   
   
   <div class="text-center ">
+    
   </div>
+  
+  
   
   
   <div class="container">
@@ -97,16 +106,38 @@
   </div>
   
   
-  <div id="snackbarMain"></div>
-  <div id="page-container"class="container ">
-    <div class="row">
-      
-      <div class="alert alert-primary">        
-        <p class="lead"><strong>Info!</strong> Importez vos extraits en format .csv et visualiser vos dépenses.</p>
+  <div id="snackbarMain">
+    
+  </div>
+  <div id="page-container"class="container">
+    
+    <div class="row">      
+      <div class="row" id="file_import">
+        
+        <div class="col-xs-12">
+          <!-- <button class="btn btn-primary " type="button" id="xxx" onclick="toggleTheme()">Toggle theme</button> -->
+          
+          <div class="alert alert-primary row">        
+            <p class="lead"><strong>Info!</strong> Importez vos extraits en format .csv et visualiser vos dépenses.</p>
+          </div>
+          
+          <div class="alert alert-warning row" role="alert" hidden>
+            <p class="lead">Les Filtres montants sont maintenant fonctionnels.</p>
+          </div> 
+        </div>
+        
+        
+        <div class="col-xs-11">                
+          <input class="form-control" type="file" id="formFile">
+        </div>
+        <div class="col-xs-1">
+
+          <!-- <button class="btn btn-3" id="xxx2" onclick="toggleTheme()">Demo</button> -->
+          <button class="btn btn-3" id="xxx2" onclick="demoProcessing()">Demo</button>
+        </div>
       </div>
-            <div class="alert alert-warning" role="alert" hidden>
-        <p class="lead">Les Filtres montants sont maintenant fonctionnels.</p>
-      </div> 
+      
+      
       
       
       
@@ -116,7 +147,8 @@
           <div class="col-sm" >
             
             
-            <input class="form-control center" type="file" id="formFile">
+            
+            
             
             
             <div class="row" id="filre_param">
@@ -314,8 +346,12 @@
                 <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div>
               </div>
               
-              <script src="Draggable.js"></script>
-              <script src="controlSlider.js"></script>
+              <script src="scripts/Draggable.js"></script>
+              <script src="scripts/controlSlider.js"></script>
+              <script src="scripts/pdf.min.js"></script>
+              <script src="scripts/pdfjs.js"></script>
+              <script src="scripts/pdf2file.js"></script>
+              
               
             </div><div class="as-console-wrapper"><div class="as-console">
               
@@ -349,7 +385,7 @@
 
 <!-- the plot script -->
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="monArg.js"></script>
+<script src="scripts/monArg.js"></script>
 
 
 <footer id="footer" class="bg-dark text-center text-white"> 

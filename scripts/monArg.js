@@ -49,9 +49,9 @@ window.onload = function() {
     
     setDraggable();
     
-    getCategManuellle();
+    getCategManuellle(); 
     
-
+    
     // console.log("getStoredValue: ", getStoredValue(listCategorie));
     
     
@@ -88,26 +88,30 @@ var headerNames;
 * @returns The file contents are being returned as a base64 encoded string.
 */
 function readSingleFile(e) {
-    var file = e.target.files[0];
-    if (!file) {
+    var fileIn = e.target.files[0];
+    if (!fileIn) {
         console.log('no contents....')
         return;
     }
-    if (!(file.type.includes("excel") || file.type.includes("csv"))) {
+    if (!(fileIn.type.includes("excel") || fileIn.type.includes("csv")||fileIn.type.includes("pdf"))) {
         alert("Le fichier n'est pas un csv...😱");
         return;
-    }
+    }    
     
-    
-    var reader = new FileReader();
-    
+    var reader = new FileReader();    
     reader.onload = function(e) {
         var contents = e.target.result;
         
-        displayContents(e.target.result);
+        if (fileIn.type.includes("pdf")) { 
+            //setTimeout(readPdf(contents), 2000);
+            readMyPdf(contents);
+        }
+        else {
+            startProcessing(e.target.result);
+        }   
         
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(fileIn);
 }
 
 
@@ -245,7 +249,7 @@ function chartDataAdd(key,arrayx,arrayy,c_all) {
     // listCategorie = {label:key,categorie:"Pas de Cat."};
     // listCategorie = {name:"John", age:31, city:"New York"}
     // listCategorie.push([key,"Pas de Cat."]);
-    console.log("listCategorieMan:",listCategorieMan);
+    //console.log("listCategorieMan:",listCategorieMan);
     listCategorie[key] = listCategorieMan[key]||"Pas de catégorie";
     // console.log("listCategorie: " + listCategorie);
     
@@ -374,7 +378,8 @@ function plotChartData(chartData) {
                 "economie","facture","flawinne","floreffe","gembloux","interruption","kuringen",
                 "mensuelle","oiseau","paiement","performance","permanent","salzinnes","schaerbeek",
                 "service","wallone","belgrad","bouge","brussel","carte","eur","faveur","loisirs",
-                "louvain","malonne","namur","precedent","suarlee","wemmel","votre"
+                "louvain","malonne","namur","precedent","suarlee","wemmel","votre",
+                "undefined","Virement","donneur","NOTPROVIDED","Communication"
             ];
             
             var expStr = uselessWordsArray.join("|");
@@ -400,196 +405,181 @@ function plotChartData(chartData) {
         }
         
         
-        function displayContents(contents) {
-            
-            var list_cat_=[];
-            
-            
-            
+        function startProcessing(contents) {            
+            var list_cat_=[];        
             var list_cat_=[];
             var list_cat=[];
             // var field2=[];
-            
             // Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/listCategorie2.csv",function(csv){processData2(csv)});
+        
+            var list_cat = [list_cat_,['Ethias','Acinapolis','Grogon','Delhaize','Decathlon']]       
+            Plotly.d3.dsv(';')(contents,  function(csv_data){ processData(csv_data) } );
+        }
+
+        function demoProcessing() {            
+            Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/FebMi_aleatoire2.csv"
+            ,function(csv_data){processData(csv_data)});      
+
+        }
+        
+        
+        
+        /**
+        * It creates a dataset for the plotly chart.
+        * @param csv_data - The data to be processed.
+        */
+        function processData(csv_data) {
+            console.log("csv_data loaded....",csv_data);
             
-            processData2();
-            // function processData2(csv) {
-            function processData2() {
-                // csv.map(function(d){
-                //     list_cat_.push(d.libelle);
-                // })
+            
+            headerNames = Plotly.d3.keys(csv_data[0]);
+            headerNames.forEach(element => {         
                 
-                
-                var list_cat = [list_cat_,['Ethias','Acinapolis','Grogon','Delhaize','Decathlon']]       
-                
-                Plotly.d3.dsv(';')(contents,  function(csv_data){ processData(csv_data) } );
-                
-                
-                
-                /**
-                * It creates a dataset for the plotly chart.
-                * @param csv_data - The data to be processed.
-                */
-                function processData(csv_data) {
-                    console.log("csv_data loaded....");
-                    
-                    
-                    headerNames = Plotly.d3.keys(csv_data[0]);
-                    headerNames.forEach(element => {         
-                        
-                        if (element=="Contrepartie" || element=="Libellés" ||element=="Communications"){
-                            // console.log("Communication.....")
-                            entete_communication=element
-                        }
-                        
-                        var first_content=csv_data[0][element]
-                        
-                        // console.log("entete_date:",entete_date)
-                        if (validateDateWE(first_content) && entete_date===""){
-                            // console.log("Date.....")
-                            // console.log(first_content)
-                            entete_date=element
-                        }
-                        if (element=="Montant"){
-                            entete_montant=element
-                        }
-                        else if (checkwages(first_content) && entete_montant ===""){
-                            // console.log("Number.....")
-                            // console.log(first_content)
-                            entete_montant=element    
-                        }
-                        
-                    });
-                    
-                    if (!entete_montant || !entete_date || !entete_communication) {
-                        console.log('Les entetes sont manquantes....')
-                        alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱");
-                        return;
-                    }
-                    
-                    console.log('....les entetes:',entete_montant,entete_date,entete_communication)
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    var arrayDay = [];
-                    var arrayWeek = [];
-                    var arrayMonth = [];
-                    var arrayYear = [];
-                    
-                    
-                    /* The code is creating a new array for each unique communication_z. The array contains
-                    three sub-arrays:
-                    - The first sub-array contains the period of each transaction
-                    - The second sub-array contains the amount of each transaction
-                    - The third sub-array contains the description of each transaction */
-                    function pushArrayPeriod(communication_z,arrayPeriod,period) {
-                        //si pas encore cette communication  
-                        if (!arrayPeriod[communication_z]) {
-                            arrayPeriod[communication_z] = [[],[],[]];
-                        }                
-                        arrayPeriod[communication_z][0].push(period);
-                        arrayPeriod[communication_z][1].push(montant_y);
-                        arrayPeriod[communication_z][2].push(communication_all); 
-                        // console.log("montant_y",arrayPeriod[communication_z][1])
-                        // console.log(period,montant_y)
-                        // console.log(arrayPeriod)           
-                    }
-                    
-                    
-                    
-                    
-                    
-                    // Loop through all rows of the csv_data
-                    for(var i = 0; i < csv_data.length; i++) {
-                        
-                        d=csv_data[i]    
-                        var str_idxDay=dateWesternEurope(d[entete_date],"Day")
-                        var str_idxWeek=dateWesternEurope(d[entete_date],"Week")
-                        var str_idxMonth=dateWesternEurope(d[entete_date],"Month")
-                        var str_idxYear=dateWesternEurope(d[entete_date],"Year")  
-                        
-                        var montant_y=d[entete_montant]
-                        montant_y = montant_y.replace(',', '.');    
-                        // console.log("montant_y",montant_y)
-                        communication_z="";
-                        communication_all="";
-                        headerNames.forEach(element => {    
-                            communication_z=communication_z+" "+d[element]
-                        });          
-                        communication_z=communication_z.replace(/[^a-zA-Z&]+/g, " ");
-                        // console.log(communication_z)
-                        communication_z=removeUselessWords(communication_z);
-                        communication_all=communication_z;
-                        communication_z=findLongestWord(communication_z);
-                        // console.log('communication_z: ',communication_z)
-                        if (communication_z === null || communication_z === '') {
-                            communication_z="...Tenue de cpte Performance Pack"
-                        }
-                        pushArrayPeriod(communication_z,arrayDay,str_idxDay);
-                        pushArrayPeriod(communication_z,arrayWeek,str_idxWeek);
-                        pushArrayPeriod(communication_z,arrayMonth,str_idxMonth);
-                        pushArrayPeriod(communication_z,arrayYear,str_idxYear);      
-                    }
-                    entete_date="";
-                    arrayDay=sortObject(arrayDay);
-                    arrayWeek=sortObject(arrayWeek);
-                    arrayMonth=sortObject(arrayMonth);
-                    arrayYear=sortObject(arrayYear);
-                    
-                    
-                    
-                    
-                    // création du dataset pour le plot
-                    /* Creating a new array called chartDataDay and pushing the values from the arrayDay object
-                    into it. */
-                    Object.keys(arrayDay).map(function(key, index) {                
-                        chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1],arrayDay[key][2]));
-                    });
-                    Object.keys(arrayWeek).map(function(key, index) {                
-                        chartDataWeek.push(chartDataAdd(key,arrayWeek[key][0],arrayWeek[key][1],arrayWeek[key][2]));
-                    });
-                    Object.keys(arrayMonth).map(function(key, index) {                
-                        chartDataMonth.push(chartDataAdd(key,arrayMonth[key][0],arrayMonth[key][1],arrayMonth[key][2]));
-                    });
-                    Object.keys(arrayYear).map(function(key, index) {                
-                        chartDataYear.push(chartDataAdd(key,arrayYear[key][0],arrayYear[key][1],arrayYear[key][2]));
-                    });
-                    
-                    
-                    // Define a chart layout
-                    var layout = {
-                        hovermode: "closest",
-                        // hovermode: "y",
-                        // barmode: 'stack',
-                        barmode: 'relative',
-                        // width: 1200,
-                        height: 800,
-                        // showspikes = True
-                    };
-                    
-                    // Plot the stacked bar chart   
-                    // plotChartData(chartDataMonth);
-                    PlotlyPlot("Mensuel");
-                    // console.log(categManuellle());
-                    listCategorie=categManuellle();
-                    // console.log(listCategorie);
-                    
-                    document.getElementById("filre_param").style.visibility = "visible";
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                if (element=="Contrepartie" || element=="Libellés" ||element=="Communications"){
+                    // console.log("Communication.....")
+                    entete_communication=element
                 }
+                
+                var first_content=csv_data[0][element]
+                
+                // console.log("entete_date:",entete_date)
+                if (validateDateWE(first_content) && entete_date===""){
+                    // console.log("Date.....")
+                    // console.log(first_content)
+                    entete_date=element
+                }
+                if (element=="Montant"){
+                    entete_montant=element
+                }
+                else if (checkwages(first_content) && entete_montant ===""){
+                    // console.log("Number.....")
+                    // console.log(first_content)
+                    entete_montant=element    
+                }
+                
+            });
+            
+            if (!entete_montant || !entete_date || !entete_communication) {
+                console.log('Les entetes sont manquantes....')
+                alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱",entete_montant+entete_date+entete_communication);
+                return;
             }
             
+            console.log('....les entetes:',entete_montant,entete_date,entete_communication)
+            var arrayDay = [];
+            var arrayWeek = [];
+            var arrayMonth = [];
+            var arrayYear = [];
+            
+            
+            /* The code is creating a new array for each unique communication_z. The array contains
+            three sub-arrays:
+            - The first sub-array contains the period of each transaction
+            - The second sub-array contains the amount of each transaction
+            - The third sub-array contains the description of each transaction */
+            function pushArrayPeriod(communication_z,arrayPeriod,period) {
+                //si pas encore cette communication  
+                if (!arrayPeriod[communication_z]) {
+                    arrayPeriod[communication_z] = [[],[],[]];
+                }                
+                arrayPeriod[communication_z][0].push(period);
+                arrayPeriod[communication_z][1].push(montant_y);
+                arrayPeriod[communication_z][2].push(communication_all); 
+                // console.log("montant_y",arrayPeriod[communication_z][1])
+                // console.log(period,montant_y)
+                // console.log(arrayPeriod)           
+            }
+            
+            
+            
+            
+            
+            // Loop through all rows of the csv_data
+            for(var i = 0; i < csv_data.length; i++) {
+                
+                d=csv_data[i]    
+                var str_idxDay=dateWesternEurope(d[entete_date],"Day")
+                var str_idxWeek=dateWesternEurope(d[entete_date],"Week")
+                var str_idxMonth=dateWesternEurope(d[entete_date],"Month")
+                var str_idxYear=dateWesternEurope(d[entete_date],"Year")  
+                
+                var montant_y=d[entete_montant]
+                montant_y = montant_y.replace(',', '.');    
+                // console.log("montant_y",montant_y)
+                communication_z="";
+                communication_all="";
+                headerNames.forEach(element => {    
+                    communication_z=communication_z+" "+d[element]
+                });          
+                communication_z=communication_z.replace(/[^a-zA-Z&]+/g, " ");
+                // console.log(communication_z)
+                communication_z=removeUselessWords(communication_z);
+                communication_all=communication_z;
+                communication_z=findLongestWord(communication_z);
+                // console.log('communication_z: ',communication_z)
+                if (communication_z === null || communication_z === '') {
+                    communication_z="...Tenue de cpte Performance Pack"
+                }
+                pushArrayPeriod(communication_z,arrayDay,str_idxDay);
+                pushArrayPeriod(communication_z,arrayWeek,str_idxWeek);
+                pushArrayPeriod(communication_z,arrayMonth,str_idxMonth);
+                pushArrayPeriod(communication_z,arrayYear,str_idxYear);      
+            }
+            entete_date="";
+            arrayDay=sortObject(arrayDay);
+            arrayWeek=sortObject(arrayWeek);
+            arrayMonth=sortObject(arrayMonth);
+            arrayYear=sortObject(arrayYear);
+            
+            
+            
+            
+            // création du dataset pour le plot
+            /* Creating a new array called chartDataDay and pushing the values from the arrayDay object
+            into it. */
+            Object.keys(arrayDay).map(function(key, index) {                
+                chartDataDay.push(chartDataAdd(key,arrayDay[key][0],arrayDay[key][1],arrayDay[key][2]));
+            });
+            Object.keys(arrayWeek).map(function(key, index) {                
+                chartDataWeek.push(chartDataAdd(key,arrayWeek[key][0],arrayWeek[key][1],arrayWeek[key][2]));
+            });
+            Object.keys(arrayMonth).map(function(key, index) {                
+                chartDataMonth.push(chartDataAdd(key,arrayMonth[key][0],arrayMonth[key][1],arrayMonth[key][2]));
+            });
+            Object.keys(arrayYear).map(function(key, index) {                
+                chartDataYear.push(chartDataAdd(key,arrayYear[key][0],arrayYear[key][1],arrayYear[key][2]));
+            });
+            
+            
+            // Define a chart layout
+            var layout = {
+                hovermode: "closest",
+                // hovermode: "y",
+                // barmode: 'stack',
+                barmode: 'relative',
+                // width: 1200,
+                height: 800,
+                // showspikes = True
+            };
+            
+            // Plot the stacked bar chart   
+            // plotChartData(chartDataMonth);
+            PlotlyPlot("Mensuel");
+            // console.log(categManuellle());
+            listCategorie=categManuellle();
+            // console.log(listCategorie);
+            
+            document.getElementById("filre_param").style.visibility = "visible";
+            
+            
+            
+            
+            
+            
+            
         }
+        
+        
         
         document.getElementById('formFile').addEventListener('change', readSingleFile, false);
         
@@ -652,58 +642,71 @@ function plotChartData(chartData) {
         });
         
         function categManuellle(){
-
+            
             // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
-
+            
             // $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorie) {
             //     // listCategorie=JSON.parse(listCategorie0);
             //     console.log("listCategorie...",listCategorie); // this will show the info it in firebug console                
             //     // generateAllTask(listCategorie);
             //     // setStoredValue(listCategorie, listCategorie);
             // });
-
+            
             generateAllTask(listCategorie);
             setStoredValue(listCategorie, listCategorie);
             
             return listCategorie;
-
-
+            
+            
         }
-
+        
         function getCategManuellle(){
             var listCategorieMan2={};
             // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
-
-            $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorieMan2) {
-                // listCategorie=JSON.parse(listCategorie0);
-                console.log("listCategorieMan...",listCategorieMan2); // this will show the info it in firebug console
-                listCategorieMan=listCategorieMan2;
-                // generateAllTask(listCategorie);
-                // setStoredValue(listCategorie, listCategorie);
-            });
             
-            // return listCategorieMan2;
-
-
-        }
+            $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorieMan2) {
+            // listCategorie=JSON.parse(listCategorie0);
+            //console.log("listCategorieMan...",listCategorieMan2); // this will show the info it in firebug console
+            listCategorieMan=listCategorieMan2;
+            // generateAllTask(listCategorie);
+            // setStoredValue(listCategorie, listCategorie);
+        });
+        
+        // return listCategorieMan2;
         
         
-        function getStoredValue(key) {
-            if (localStorage) {
-                // return localStorage.getItem(key);
-                // return JSON.parse(window.localStorage.getItem("listCategorie"));
-                return JSON.parse(window.localStorage.getItem(key));
-            } else {
-                return $.cookies.get(key);
-            }
+    }
+    
+    
+    function getStoredValue(key) {
+        if (localStorage) {
+            // return localStorage.getItem(key);
+            // return JSON.parse(window.localStorage.getItem("listCategorie"));
+            return JSON.parse(window.localStorage.getItem(key));
+        } else {
+            return $.cookies.get(key);
         }
+    }
+    
+    function setStoredValue(key, value) {
+        if (localStorage) {
+            // localStorage.setItem(key, value);
+            //Convert object to JSON strings, and back in get
+            window.localStorage.setItem(key, JSON.stringify(value));
+        } else {
+            $.cookies.set(key, value);
+        }
+    }
 
-        function setStoredValue(key, value) {
-            if (localStorage) {
-                // localStorage.setItem(key, value);
-                //Convert object to JSON strings, and back in get
-                window.localStorage.setItem(key, JSON.stringify(value));
-            } else {
-                $.cookies.set(key, value);
-            }
+    function toggleTheme() {
+        var lightThemeLink = document.getElementById('light-theme');
+        var darkThemeLink = document.getElementById('dark-theme');
+        if (lightThemeLink.getAttribute('href') === 'styles/light.css') {
+          lightThemeLink.setAttribute('href', 'styles/dark.css');
+          darkThemeLink.setAttribute('href', 'styles/light.css');
+        } else {
+          lightThemeLink.setAttribute('href', 'styles/light.css');
+          darkThemeLink.setAttribute('href', 'styles/dark.css');
         }
+      }
+      
