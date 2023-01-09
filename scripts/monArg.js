@@ -435,7 +435,7 @@ function plotChartData(chartData) {
             headerNames = Plotly.d3.keys(csv_data[0]);
             headerNames.forEach(element => {         
                 
-                if (element=="Contrepartie" || element=="Libellés" ||element=="Communications"){
+                if (element=="Contrepartie" || element.includes("Libell") ||element=="Communications"){
                     // console.log("Communication.....")
                     entete_communication=element
                 }
