@@ -73,3 +73,7 @@ html {
 #reversedRange {
   direction: ltr; 
 }
+
+#filre_param {
+  display: none;
+}
