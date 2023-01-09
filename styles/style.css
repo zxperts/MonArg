@@ -21,12 +21,14 @@ body {
  background: #5f2c82; 
 background: -webkit-linear-gradient(to right, #49a09d, #5f2c82); 
 background: linear-gradient(to right, #49a09d, #5f2c82); 
+border-radius: 0px;
 }
 
 .nav-bk9{
 background: #5f2c82; 
 background: -webkit-linear-gradient(to right, #49a09d, #49a09d); 
 background: linear-gradient(to right, #49a09d, #49a09d); 
+border-radius: 0px;
 }
 
 .btn {
@@ -34,8 +36,8 @@ background: linear-gradient(to right, #49a09d, #49a09d);
 /*   margin: 10px;
   padding: 30px; */
   text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
+  /* text-transform: uppercase; */
+  transition: 11.5s;
   background-size: 200% auto;
   color: white;
  /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
