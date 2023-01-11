@@ -81,7 +81,7 @@ function createTask(taskName, boxName) {
 
     document.getElementById("InputAddTask").value = "";
     document.getElementById("favColorTask").value = RandomLightenDarkenColor();
-    console.log(" :",taskName,"-", boxName);
+    //console.log(" :",taskName,"-", boxName);
 }
 
 function removeTask(taskName) {
@@ -175,12 +175,12 @@ function extractCategory() {
         name: 'Arun'
     }
     const res = string.replace(/:([a-zA-Z]+)/g, (m, i) => i in data ? data[i] : m)
-    console.log(res)
+    //console.log(res)
 }
 
 function generateAllTask(listCategorie) {    
     for (const [key, value] of Object.entries(listCategorie)) {
-        console.log("--",key, value);
+        //console.log("--",key, value);
         createTask(key, value);
     }
     

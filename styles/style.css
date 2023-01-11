@@ -74,6 +74,10 @@ html {
   direction: ltr; 
 }
 
-#filre_param {
-  display: none;
+#accordionFiltres {
+  display:none;
+}
+
+#btn_close01 {
+  text-align: right;
 }

@@ -52,6 +52,13 @@
       });
     });
     
+    $(document).ready(function() {
+      $("#btn_close01").click(function(){
+        $(this).parent().parent().hide();
+      }); 
+    });
+    
+    
     
   </script> 
   
@@ -69,7 +76,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav">
           <a href="#" class="nav-item nav-link active">Home</a>
-          <a href="../MonArg/km/Kilometrage.html" class="nav-item nav-link">Services</a>
+          <a href="km/Kilometrage.html" class="nav-item nav-link">Services</a>
           <a href="#" class="nav-item nav-link" onclick="about_info();">About</a>
           <a href=contact.html class="nav-item nav-link" >Contact</a>
         </div>
@@ -117,9 +124,19 @@
         <div class="col-xs-12">
           <!-- <button class="btn btn-primary " type="button" id="xxx" onclick="toggleTheme()">Toggle theme</button> -->
           
-          <div class="alert alert-primary row">        
-            <p class="lead"><strong>Info!</strong> Importez vos extraits en format .csv et visualiser vos dépenses.</p>
+ 
+          <div class="alert alert-primary alert-dismissible" role="info" id="km_Alert">
+            <strong>Info!</strong> 
+              Importez des extraits en format .csv .pdf et visualiser vos dépenses.
+
+            <button type="button" class="close" data-dismiss="info" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <button class="btn ml-auto" id="btn_close01">X</button>
+
           </div>
+          
+          
           
           <div class="alert alert-warning row" role="alert" hidden>
             <p class="lead">Les Filtres montants sont maintenant fonctionnels.</p>
@@ -131,241 +148,221 @@
           <input class="form-control" type="file" id="formFile">
         </div>
         <div class="col-xs-1">
-
+          
           <!-- <button class="btn btn-3" id="xxx2" onclick="toggleTheme()">Demo</button> -->
           <button class="btn btn-3" id="xxx2" onclick="demoProcessing()">Demo</button>
         </div>
       </div>
       
-      
-      
-      
-      
-      
-      <form class="row">
-        <!-- <div class="col-sm"> -->
-          <div class="col-sm" >
+      <div class="accordion" id="accordionFiltres">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Filtres
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionFiltres">
             
-            
-            
-            
-            
-            
-            <div class="row" id="filre_param">
-              
-              
-              <div class="col-md-6" id="sliders_montant">
-                <label for="example-date-input" class="col-2 col-form-label"></label>
-                <div class="input-group">                 
-                  <div class="col">
-                    <div>Montant Min: <span id="negValue"></span>   Montant Max: <span id="posValue"></span> </div>
-                    
-                    <div class="range_container col-md-12">
-                      <div class="sliders_control">
-                        <input type="range"  min="-100" max="100" value="-30" id="reversedRange" >
-                        <input type="range"  min="-100" max="100" value="30" height="22" id="positiveRange">
-                      </div>                
+            <form class="row">
+              <div class="col-sm" >
+                
+                <div class="row" id="filre_param">
+                  
+                  
+                  <div class="col-md-6" id="sliders_montant">
+                    <label for="example-date-input" class="col-2 col-form-label"></label>
+                    <div class="input-group">                 
+                      <div class="col">
+                        <div>Montant Min: <span id="negValue"></span>   Montant Max: <span id="posValue"></span> </div>
+                        
+                        <div class="range_container col-md-12">
+                          <div class="sliders_control">
+                            <input type="range"  min="-100" max="100" value="-30" id="reversedRange" >
+                            <input type="range"  min="-100" max="100" value="30" height="22" id="positiveRange">
+                          </div>                
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              
-              
-              <div class="custom-control custom-switch col-md-2">
-                <!-- <label for="formFile" class="form-label ">Granularité</label>
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Vue détaillé</label>
-                  <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Vue par catégories</label> -->
-                  <label for="formFile" class="form-label ">Groupement</label>
                   
-                  <div class="dropdown">
-                    <button class="btn btn-primary col  btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      Catégoriser
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#" onclick="setCategoriser('false')">Vue détaillée</a></li>
-                      <li><a class="dropdown-item" href="#"onclick="setCategoriser('true')">Vue par catégories </a></li>
-                      <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#inputkm_modal">
-                        Editer les catégories ⚙️
-                      </a></li>
-                    </ul>
-                  </div>
                   
-                </div>
-                
-                
-                <div class="col-md-2">
-                  <!-- <label for="example-date-input" class="col-2 col-form-label">Categories</label> -->                
-                  <div class="row">
-                    <!-- <label class="custom-control-label" for="customSwitch1">Vue par catégories</label> -->
-                    <!-- Button trigger modal -->
+                  
+                  <div class="custom-control custom-switch col-md-2">
+                    <!-- <label for="formFile" class="form-label ">Granularité</label>
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label" for="customSwitch1">Vue détaillé</label>
+                      <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                      <label class="custom-control-label" for="customSwitch1">Vue par catégories</label> -->
+                      <label for="formFile" class="form-label ">Groupement</label>
+                      
+                      <div class="dropdown">
+                        <button class="btn btn-primary col  btn-lg dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Catégoriser
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="#" onclick="setCategoriser('false')">Vue détaillée</a></li>
+                          <li><a class="dropdown-item" href="#"onclick="setCategoriser('true')">Vue par catégories </a></li>
+                          <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#inputkm_modal">
+                            Editer les catégories ⚙️
+                          </a></li>
+                        </ul>
+                      </div>
+                      
+                    </div>
                     
-                    <!-- <button class="btn btn-primary col  btn-lg" type='button' id="manuelInput"  data-toggle="modal" data-target="#inputkm_modal" onclick="generateAllTask()">
-                      Editer les Categories
-                    </button> -->
+                    
+                    <div class="col-md-2">
+                      <!-- <label for="example-date-input" class="col-2 col-form-label">Categories</label> -->                
+                      <div class="row">
+                        <!-- <label class="custom-control-label" for="customSwitch1">Vue par catégories</label> -->
+                        <!-- Button trigger modal -->
+                        
+                        <!-- <button class="btn btn-primary col  btn-lg" type='button' id="manuelInput"  data-toggle="modal" data-target="#inputkm_modal" onclick="generateAllTask()">
+                          Editer les Categories
+                        </button> -->
+                        
+                      </div>
+                      
+                      
+                    </div>
+                    
+                    <div class="col-md-2">        
+                      <label for="formFile" class="form-label ">P&eacute;riodicit&eacute;</label>
+                      
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="periodRadios" id="Annuel" value="option1" >
+                        <label class="form-check-label" for="Annuel">
+                          Annuel
+                        </label>
+                      </div>
+                      
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="periodRadios" id="Mensuel" value="Mensuel" checked>
+                        <label class="form-check-label" for="Mensuel">
+                          Mensuel
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="periodRadios" id="Hebdomadaire" value="option2">
+                        <label class="form-check-label" for="Hebdomadaire">
+                          Hebdomadaire
+                        </label>
+                      </div>
+                      
+                    </div>
                     
                   </div>
                   
                   
-                </div>
-                
-                <div class="col-md-2">        
-                  <label for="formFile" class="form-label ">P&eacute;riodicit&eacute;</label>
                   
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="periodRadios" id="Annuel" value="option1" >
-                    <label class="form-check-label" for="Annuel">
-                      Annuel
-                    </label>
-                  </div>
-                  
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="periodRadios" id="Mensuel" value="option1">
-                    <label class="form-check-label" for="Mensuel">
-                      Mensuel
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" name="periodRadios" id="Hebdomadaire" value="option2">
-                    <label class="form-check-label" for="Hebdomadaire">
-                      Hebdomadaire
-                    </label>
-                  </div>
-                  <!-- <div class="form-check">
-                    <input class="form-check-input" type="radio" name="periodRadios" id="Journalier" value="option3" >
-                    <label class="form-check-label" for="Journalier">
-                      Journalier
-                    </label>
-                  </div>  -->
-                  
-                  <!-- <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                      P&eacute;riodicit&eacute;
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#">Vue détaillé</a></li>
-                      <li><a class="dropdown-item" href="#">Vue par catégories</a></li>
-                      <li><a class="dropdown-item" href="#">Vue détaillé</a></li>
-                      <li><a class="dropdown-item" href="#">Vue par catégories</a></li>
-                    </ul>
-                  </div> -->
                   
                 </div>
                 
               </div>
               
-              
-              
-              
             </div>
             
-            
-            
-            
-            
-            
-          </div>
-          
-        </div>
-        
-        
-        
-        
-        
-        
-      </form>
-    </div>
-  </div>
-  
-  
-  
-  <!-- bootstrap Modal -->
-  
-  
-  <!-- Modal -->
-  <div class="modal fade " id="inputkm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="min-width: 80%;" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close col-md-1" data-dismiss="modal">&times;</button>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          
-          <div id="page-container"class="container col-md-12 col-lg-12 col-xl-12">
-            
-            <div class="row">
-              <div class="search-container">
-                <input id="InputAddCat" placeholder="Add une catégorie..." >
-                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
-                <button type="button" id="btnAddCat" class="btn btn-light" onclick="createCategorie()">✔️</button>
-                <div id="snackbar">Some text some message..for the Snackbar / Toast </div>
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="search-container">
-                <input id="InputAddTask" placeholder="Add un libéllé..." >
-                <input type="color" id="favColorTask" name="favColorTask" value="#ff0000">
-                <button type="button" id="btnAddTask" class="btn btn-light" onclick="createTask()">✔️</button>
-                <!-- <div id="snackbar02">Some text some message..</div> -->
-              </div>
-            </div>
-            
-            
-            <div id="drop-target"  class="drop-target">
-              <div class="drag-box" id ="Pas de catégorie ">Pas de catégorie &#9776;
-                
-                <div class="drag-card">
-                  <!-- <div draggable="true" id="Test Card 2" class="drag-task">Test Card 2</div> -->
-                </div>
-                
-                <div draggable="true" id="Test Card 2" class="drag-task">Test Card 2</div>
-                <div draggable="true" id="Pear" class="drag-task">Pear</div>
-                <div draggable="true" id="Test Card 1" class="drag-task">Test Card 1</div>
-                <div draggable="true" id="Test Card 3" class="drag-task">The longuest Honorificabilitudinitatibus</div>
-                <div draggable="true" id="Apple" class="drag-task">Apple</div>
-              </div>
-              
-              <!-- added tiles to the 2nd list (and deleted 3rd box)-->
-              <div class="drag-box" id="Alimentaires">Alimentaires &#9776;
-                <div class="drag-card">
-                  <!-- <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div> -->
-                </div>
-                <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div>
-              </div>
-              <div class="drag-box" id="Santé">Santé &#9776;
-                <div class="drag-card">
-                  <!-- <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div> -->
-                </div>
-                <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div>
-              </div>
-              
-              <script src="scripts/Draggable.js"></script>
-              <script src="scripts/controlSlider.js"></script>
-              <script src="scripts/pdf.min.js"></script>
-              <script src="scripts/pdfjs.js"></script>
-              <script src="scripts/pdf2file.js"></script>
-              
-              
-            </div><div class="as-console-wrapper"><div class="as-console">
-              
-            </div>
-          </div>
+          </form>
           
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+    
+    
+    
+    
+    
+    
+  </div>
+</div>
+
+
+
+<!-- bootstrap Modal -->
+
+
+<!-- Modal -->
+<div class="modal fade " id="inputkm_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" style="min-width: 80%;" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close col-md-1" data-dismiss="modal">&times;</button>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        
+        <div id="page-container"class="container col-md-12 col-lg-12 col-xl-12">
+          
+          <div class="row">
+            <div class="search-container">
+              <input id="InputAddCat" placeholder="Add une catégorie..." >
+              <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+              <button type="button" id="btnAddCat" class="btn btn-light" onclick="createCategorie()">✔️</button>
+              <div id="snackbar">Some text some message..for the Snackbar / Toast </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="search-container">
+              <input id="InputAddTask" placeholder="Add un libéllé..." >
+              <input type="color" id="favColorTask" name="favColorTask" value="#ff0000">
+              <button type="button" id="btnAddTask" class="btn btn-light" onclick="createTask()">✔️</button>
+              <!-- <div id="snackbar02">Some text some message..</div> -->
+            </div>
+          </div>
+          
+          
+          <div id="drop-target"  class="drop-target">
+            <div class="drag-box" id ="Pas de catégorie ">Pas de catégorie &#9776;
+              
+              <div class="drag-card">
+                <!-- <div draggable="true" id="Test Card 2" class="drag-task">Test Card 2</div> -->
+              </div>
+              
+              <div draggable="true" id="Test Card 2" class="drag-task">Test Card 2</div>
+              <div draggable="true" id="Pear" class="drag-task">Pear</div>
+              <div draggable="true" id="Test Card 1" class="drag-task">Test Card 1</div>
+              <div draggable="true" id="Test Card 3" class="drag-task">The longuest Honorificabilitudinitatibus</div>
+              <div draggable="true" id="Apple" class="drag-task">Apple</div>
+            </div>
+            
+            <!-- added tiles to the 2nd list (and deleted 3rd box)-->
+            <div class="drag-box" id="Alimentaires">Alimentaires &#9776;
+              <div class="drag-card">
+                <!-- <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div> -->
+              </div>
+              <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div>
+            </div>
+            <div class="drag-box" id="Santé">Santé &#9776;
+              <div class="drag-card">
+                <!-- <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div> -->
+              </div>
+              <div draggable="true" id="Alimentaire" class="drag-task">Alimentaire</div>
+            </div>
+            
+            <script src="scripts/Draggable.js"></script>
+            <script src="scripts/controlSlider.js"></script>
+            <script src="scripts/pdf.min.js"></script>
+            <script src="scripts/pdfjs.js"></script>
+            <script src="scripts/pdf2file.js"></script>
+            
+            
+          </div><div class="as-console-wrapper"><div class="as-console">
+            
+          </div>
+        </div>
+        
+      </div>
     </div>
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+  </div>
+</div>
 </div>
 </div>
 

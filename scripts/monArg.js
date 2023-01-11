@@ -15,6 +15,8 @@ var chartDataDay = [];
 var chartDataWeek = [];
 var chartDataMonth = [];
 var chartDataYear = [];
+
+
 // var listCategorie = new Object();
 var listCategorie = {};
 var listCategorieMan = {};
@@ -31,7 +33,8 @@ window.onload = function() {
     setTimeout(function() {
         x.className = x.className.replace("show", "");
     }, 3000);
-    document.getElementById("filre_param").style.visibility = "hidden";
+    //document.getElementById("filre_param").style.visibility = "hidden";
+    
 
     document.getElementById('favcolor').value = RandomLightenDarkenColor();
     createCategorie("Loisirs");
@@ -296,6 +299,7 @@ function plotChartData(chartData) {
         alert("Pas encore de fichier uploadé...😱");
         return;
     }
+    console.log('chartData length',chartData.length);
 
 
     var res = [];
@@ -361,7 +365,7 @@ function plotChartData(chartData) {
 
     setLayout();
     Plotly.newPlot('plot', chartDataFiltered2, layout);
-    console.log(chartDataFiltered2);
+    //console.log(chartDataFiltered2);
 
 }
 
@@ -446,7 +450,7 @@ function demoProcessing() {
  * @param csv_data - The data to be processed.
  */
 function processData(csv_data) {
-    console.log("csv_data loaded....", csv_data);
+    //console.log("csv_data loaded....", csv_data);
 
 
     headerNames = Plotly.d3.keys(csv_data[0]);
@@ -482,10 +486,19 @@ function processData(csv_data) {
     }
 
     console.log('....les entetes:', entete_montant, entete_date, entete_communication)
+    console.log(arrayMonth);
+
     var arrayDay = [];
     var arrayWeek = [];
     var arrayMonth = [];
     var arrayYear = [];
+
+    chartDataDay.length = 0;
+    chartDataWeek.length = 0;
+    chartDataMonth.length = 0;
+    chartDataYear.length = 0;
+    
+    console.log('arrayMonth',arrayMonth);
 
 
     /* The code is creating a new array for each unique communication_z. The array contains
@@ -588,7 +601,7 @@ function processData(csv_data) {
     listCategorie = categManuellle();
     // console.log(listCategorie);
 
-    document.getElementById("filre_param").style.visibility = "visible";
+    document.getElementById("accordionFiltres").style.display = "block";
 
 
 
