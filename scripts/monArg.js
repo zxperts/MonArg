@@ -294,7 +294,7 @@ function plotChartData(chartData) {
     // plot sans filtre
     // Plotly.newPlot('plot', chartData,layout); 
 
-    if (!chartData || chartData.length < 2) {
+    if (!chartData || chartData.length < 1) {
         console.log('no contents....')
         alert("Pas encore de fichier uploadé...😱");
         return;
@@ -414,6 +414,7 @@ function findLongestWord(str) {
     var longestWord = str.split(' ').reduce(function(longest, currentWord) {
         return currentWord.length > longest.length ? currentWord : longest;
     }, "");
+    return longestWord;
 }
 
 
