@@ -37,10 +37,26 @@
     function about_info() {
       alert (" Reste a faire: \n About Contact \n Register \n Login");
     }
-
+    
     
     
   </script> 
+  <script>
+    function changeLanguage() {
+      var descriptionFR = document.getElementById("descriptionFR");
+      var descriptionEngl = document.getElementById("descriptionEngl");
+      
+      
+      if (descriptionFR.style.display === "none") {
+        descriptionFR.style.display = "block";
+        descriptionEngl.style.display = "none";
+      } else {
+        descriptionFR.style.display = "none";
+        descriptionEngl.style.display = "block";
+      }
+      
+    }
+  </script>
   
   
 </head>
@@ -57,10 +73,10 @@
         <div class="navbar-nav">
           <a href="index.html"  class="nav-item nav-link active">Home</a>
           <a href="km/Kilometrage.html" class="nav-item nav-link">Services</a>
-          <a href="about.html " class="nav-item nav-link" >About</a>
+          <a href="about.html" class="nav-item nav-link" >About</a>
           <a href="contact.html" class="nav-item nav-link" >Contact</a>
         </div>
-<!--         <div class="navbar-nav ml-auto">
+        <!--         <div class="navbar-nav ml-auto">
           <a href="#" class="nav-item nav-link" onclick="about_info();">Register</a>
           <a href="#" class="nav-item nav-link" onclick="about_info();">Login</a>
         </div> -->
@@ -96,29 +112,45 @@
   <div id="snackbarMain">
     
   </div>
-
+  
   <div class="container">
     <div class="row">
-      <div class="col-sm-4">  
-        <!-- <a class="navbar-brand" href="index.html">VisualBudget</a>   -->
+      
+      <div>
+        <button class="btn btn-3" id="changeLanguage" onclick="changeLanguage()">Fr/Engl</button>
       </div>
-      <div class="col-sm-4 text-center">
-        <h1>Contact Us</h1>
-        <p>Please use the form below to contact us:</p>
-        <form action="/submit-form" method="post">
-          <label for="name">Name:</label><br>
-          <input type="text" id="name" name="name"><br>
-          <label for="email">Email:</label><br>
-          <input type="email" id="email" name="email"><br>
-          <label for="message">Message:</label><br>
-          <textarea id="message" name="message"></textarea><br>
-          <input type="submit" value="Submit" onsubmit="window.location.replace('index.html');return false;">
-        </form>    
-    </div>
+      
+      <div>
+        <h1 id="header">visualBudget.be</h1>
 
+        <p id="descriptionFR">
+          <br>VisualBudget.be est une application gratuite.
+          <br>Elle est conçue pour fonctionner de manière autonome, sans aucun échange de donnée avec internet.
+              Elle vous permet de visualiser facilement vos transactions bancaires en générant des graphes à partir de vos fichiers Excel ou PDF.
+              Il vous suffit de charger vos fichiers de transactions, et l'application les analysera automatiquement pour créer des graphiques de vos dépenses et recettes.
+              Vous pourrez également filtrer les données pour une meilleure analyse et utiliser des fonctionnalités avancées pour mettre en évidence les tendances et les anomalies.
+              <br>
+              Gardez un œil sur vos finances en toute simplicité avec VisualBudget.be.</p> 
+        </p>
+
+        <p id="descriptionEngl">
+          <br>VisualBudget.be is a free application.
+          <br>It is designed to work independently, without any data exchange with the internet. 
+            It allows you to easily visualize your bank transactions by generating graphs from your Excel or PDF files.
+            All you have to do is upload your transaction files and the application will automatically analyze them to create charts of your expenses and income.
+            You can also filter the data for better analysis and use advanced features to highlight trends and anomalies. 
+            <br>
+            Keep an eye on your finances with ease with VisualBudget.be.
+        </p>
+        
+      </div>
+      
+      
+      
+      
     </div>
   </div>
-
+  
   <!-- Copyright -->
 </footer>
 

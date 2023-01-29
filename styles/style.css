@@ -78,6 +78,10 @@ html {
   display:none;
 }
 
+#descriptionEngl {
+  display:none;
+}
+
 #btn_close01 {
   text-align: right;
 }
