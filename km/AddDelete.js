@@ -1,11 +1,12 @@
-$(document).ready(function() {
+/* A jQuery function that is called when the document is ready. */
+/* $(document).ready(function() {
     $('#tableKm').DataTable( {
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
         ]
     } );
-} );
+} ); */
 
 // $(document).ready(function() {
 //     $('#tableKm').DataTable( {
