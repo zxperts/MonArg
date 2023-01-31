@@ -66,7 +66,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav">
           <a href="../index.html" class="nav-item nav-link active">Home</a>
-          <a href="../km/Kilometrage.html" class="nav-item nav-link">Services</a>
+          <a href="../Feuille2Temps/Feuille2temps.html" class="nav-item nav-link">Services</a>
           <a href="about.html " class="nav-item nav-link" >About</a>
           <a href="../contact.html" class="nav-item nav-link" >Contact</a>
         </div>
@@ -87,8 +87,8 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="alert alert-warning alert-dismissible" role="alert" id="km_Alert">
-    <strong>Bonjour </strong>Vous n'avez pas encore encodé des KM.
+  <div class="alert alert-warning alert-dismissible" role="alert" id="Feuille2temps_Alert">
+    <strong>Bonjour </strong>Vous n'avez pas encore encodé de Feuille de temps.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -103,10 +103,10 @@
           <div class="row gy-5">
             
             <div class="col-md-4">
-              <h1 style="color: cadetblue; font-size:75px" id="kmDash">251266</h1>
+              <h1 style="color: cadetblue; font-size:75px" id="Feuille2tempsDash">251266</h1>
             </div>
-            <div class="col-md-2">
-              <h1 style="color:black; font-size:35px">km</h1>
+            <div class="col-md-8">
+              <h1 style="color:black; font-size:35px">Feuille de temps</h1>
             </div>
           </div>
         </div>
@@ -115,7 +115,7 @@
         <!-- <div class="btn-group" data-toggle="buttons">           -->
           <!-- <button class="btn btn-info btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
           
-          <button class="btn btn-primary col  btn-lg" type='button' id="manuelInput"  data-toggle="modal" data-target="#inputkm_modal">Encoder manuellement</button>
+          <button class="btn btn-primary col  btn-lg" type='button' id="manuelInput"  data-toggle="modal" data-target="#inputFeuille2temps_modal">Encoder manuellement</button>
           <!-- <div class="col-lg-2 col-md-1"></div> -->
           <button type='button' btn-block class="btn btn-danger col  btn-lg" id="start_camera">Start/Stop ticket scan</button>
           <div class="col-lg-2 col-md-1"></div>
@@ -124,28 +124,27 @@
           
           
           <!-- Modal -->
-          <div class="modal fade" id="inputkm_modal" role="dialog">
+          <div class="modal fade" id="inputFeuille2temps_modal" role="dialog">
             <div class="modal-dialog">
               
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <!-- <h4 class="modal-title">Encoder vos Kilomètre</h4> -->
                   <button type="button" class="close col-md-1" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                   <div class="row">
                     <div class="col-md-4">
-                      <label for="KmInput" class="form-label">Kilom&eacute;trage</label>
-                      <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
+                      <label for="Feuille2tempsInput" class="form-label">Durée(h1)</label>
+                      <input type="number" pattern="\d*" class="form-control" id="Feuille2tempsInput" min="1" max="500000" value=9999 required>
                     </div>
                     <div class="col-md-4">
-                      <label for="KmDateInput" class="form-label">Date</label>
-                      <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
+                      <label for="Feuille2tempsDateInput" class="form-label">Date</label>
+                      <input class="form-control" type="date" value="2011-08-19" id="Feuille2tempsDateInput">
                     </div>
                     <div class="col-md-4">
-                      <label for="KmDateInput" class="form-label">Ville</label>
-                      <input class="form-control" type="text" value="Namur" id="KmCityInput">
+                      <label for="Feuille2tempsDateInput" class="form-label">Taches</label>
+                      <input class="form-control" type="text" value="Lecture" id="Feuille2tempsCityInput">
                     </div>
                   </div>
                 </div>
@@ -158,36 +157,7 @@
           </div>
         </div>
         
-        
-        <!-- <div class="modal fade" id="inputkm_modal" role="dialog">
-          <div class="container overflow-hidden" id="inputkm_container">
-            <div class="row">
-              <div class="col-md-4">
-                <label for="KmInput" class="form-label">Kilom&eacute;trage</label>
-                <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
-              </div>
-              <div class="col-md-4">
-                <label for="KmDateInput" class="form-label">Date</label>
-                <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
-              </div>
-              <div class="col-md-4">
-                <label for="KmDateInput" class="form-label">Ville</label>
-                <input class="form-control" type="text" value="Namur" id="KmCityInput">
-              </div>
-            </div>
-            <button class="btn btn-info col-12  btn-lg" type="submit"  onclick="saveInputValue();" >Enregistrer</button>
-          </div>
-        </div> -->
-        
-        <!-- <div class="table-title">
-          <div class="row">
-            <div class="col-sm-8"><h2>Historique des <b>Kilom&eacute;tres</b></h2></div>
-            <div class="col-sm-4">
-              <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Ajouter</button>
-            </div>
-          </div>
-        </div> -->
-        
+
         <div class="container overflow-hidden" id="cam_container">
           <!-- <button id="stop-camera">Stop Camera</button> -->
           <video id="video" width="320" height="240" autoplay></video>
@@ -219,20 +189,20 @@
                 <!-- <strong>Voici l'historique:</strong> 	 -->
                 <!-- <br> -->
                 
-                <table class="table table-bordered" id="tableKm">
+                <table class="table table-bordered" id="tableFeuille2temps">
                   <thead>
                     <tr>
-                      <th>Kilom&eacute;tres</th>
+                      <th>Durée(h)</th>
                       <th>Date</th>
-                      <th>Ville</th>
+                      <th>Taches</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody  id="tableKmBody">
+                  <tbody  id="tableFeuille2tempsBody">
                     <tr>
                       <td>100123</td>
                       <td>10-05-2021</td>
-                      <td>Bruxelles</td>
+                      <td>Etude</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -242,7 +212,7 @@
                     <tr>
                       <td>100124</td>
                       <td>10-05-2021</td>
-                      <td>Namur</td>
+                      <td>Lecture</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -252,7 +222,7 @@
                     <tr>
                       <td>100125</td>
                       <td>10-05-2021</td>
-                      <td>Hasselt</td>
+                      <td>Exercices</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
                         <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
@@ -286,7 +256,7 @@
 
 <script  type = "text/javascript" async=false>
   
-  document.getElementById('KmDateInput').value = new Date().toISOString().substring(0, 10);
+  document.getElementById('Feuille2tempsDateInput').value = new Date().toISOString().substring(0, 10);
   
   var rows = [{
     name: "John",
@@ -328,4 +298,4 @@
     <script src="scripts/AddDelete.js"></script>
     <script src="scripts/camera.js"></script>
     <script src="scripts/ocrad.js"></script>
-    <script src="scripts/kmChart.js"></script>
+    <script src="scripts/Feuille2tempsChart.js"></script>

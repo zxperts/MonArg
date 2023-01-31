@@ -1,0 +1,149 @@
+Compte;Date de comptabilisation;Numéro d'extrait;Numéro de transaction;Compte contrepartie;Nom contrepartie contient;Rue et numéro;Code postal et localité;Transaction;Date valeur;Montant;Devise;BIC;Code pays;Communications
+BE22 0000 0000 0000;31-03-22;;;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2208410052734617                    REF. : 0801G3P014725 VAL. 31-03;31-03-22;2637,71;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;31-01-22;2;98;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2202811090691402                    REF. : 0801H1S007046 VAL. 31-01;31-01-22;2608,45;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;28-02-22;3;153;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2205610100971566                    REF. : 0801G2P024189 VAL. 28-02;28-02-22;2583,95;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;15-02-22;3;132;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2204510040001907                    REF. : 0801J2E002568 VAL. 15-02;15-02-22;1695,62;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;15-03-22;;;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2207010065451051                    REF. : 0801I3B004394 VAL. 15-03;15-03-22;972,25;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;23-03-22;;;BE88 0837 4513 8441;John Cooper;Rue de la greve 48;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090549203M461 VAL. 22-03;22-03-22;800;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;14-01-22;2;78;BE72 0910 0078 4416;MineCorp SA;Rue de la paie 55;1000 Bruxelles;VERSEMENT VIREMENT URGENT BE72 0910 0078 4416 MineCorp   SA - /A/ 1LE0285-14-0011942                            1LE0285-14-0011942-2201310065685901                    REF. : 0801J1D018294 VAL. 14-01;14-01-22;500;EUR;GKCCBEBB;BE;BBQQ
+BE22 0000 0000 0000;23-03-22;;;BE88 0837 4513 8441;John Cooper;Rue de la greve 48;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090546493M504 VAL. 22-03;22-03-22;200;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;26-01-22;2;87;BE88 0837 4513 8441;John Cooper;Rue de la greve 48;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090544441Q166 VAL. 26-01;26-01-22;200;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;27-01-22;2;92;BE88 0837 4513 8441;John Cooper;Rue de la greve 48;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090548441R342 VAL. 27-01;27-01-22;110;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;24-03-22;;;BE88 0837 4513 8441;John Cooper;Rue de la greve 48;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090546603O228 VAL. 24-03;24-03-22;100;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;07-03-22;3;166;BE60 0018 9583 3270;Diana James;Rue des Jeans 55;;VERSEMENT INSTANTANE DE BE60 0018 9583 3270            Diana James REF. :                            7229094ca29340b291d42b72cb67cf6b VERS                  BE22 0635 5242 5947 John Cooper                    REF. : 080G734219780 VAL. 04-03;04-03-22;100;EUR;GEBABEBB;BE;
+BE22 0000 0000 0000;28-02-22;3;154;BE60 0018 9583 3270;Diana James;Rue des Jeans 55;;VERSEMENT INSTANTANE DE BE60 0018 9583 3270            Diana James mariage Leonel REF. :             579d1248421b44edbf96a52a8dd71357 VERS                  BE22 0635 5242 5947 John Cooper                    REF. : 080G72S032523 VAL. 28-02;28-02-22;100;EUR;GEBABEBB;BE;Mariage
+BE22 0000 0000 0000;07-02-22;3;115;BE52 0635 9208 5409;Prince Jean;Rue de dave 11;2000 Antwerp;VERSEMENT DU BE52 0635 9208 5409 BOUENDEU KOUEBOU      CAROLE                                                 REF. : 0905428825014 VAL. 05-02;05-02-22;100;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;07-03-22;3;169;BE79 3770 7909 3433;Lionel Ritcher;Rue de dave 12;2000 Antwerp;VERSEMENT INSTANTANE DE BE79 3770 7909 3433 M YANNICK  SIEWE FANSI Mariage Leonel VERS BE22 0635 5242 5947    Constantin                                             REF. : 080G735152312 VAL. 05-03;05-03-22;70;EUR;BBRUBEBB;BE;Mariage
+BE22 0000 0000 0000;04-03-22;3;162;BE90 7320 5935 2432;Joseph Alpha;Rue de dave 13;2000 Antwerp;VERSEMENT INSTANTANE DE BE90 7320 5935 2432 TCHUIMALEU KAMENI CALVAIN Mariage Leonel VERS BE22 0635 5242 5947 Constantin Sian                                        REF. : 080G734010294 VAL. 04-03;04-03-22;50;EUR;CREGBEBB;BE;Mariage
+BE22 0000 0000 0000;28-02-22;3;159;BE62 3771 3043 8361;Ariel DonDonre;Rue de dave 14;2000 Antwerp;VERSEMENT INSTANTANE DE BE62 3771 3043 8361 MME IRENE  KUETEDA ZOLEKO Mariage Leonel VERS BE22 0635 5242 5947 John Cooper                                        REF. : 080G72S106825 VAL. 28-02;28-02-22;50;EUR;BBRUBEBB;BE;Mariage
+BE22 0000 0000 0000;27-01-22;2;89;BE88 0837 4513 8441;John Cooper;Rue de dave 15;1000 Bruxelles;VERSEMENT DU BE88 0837 4513 8441 John Cooper       REF. : 090541521Q542 VAL. 26-01;26-01-22;50;EUR;GKCCBEBB;BE;
+BE22 0000 0000 0000;09-03-22;;;BE60 0018 9583 3270;Diana James;Rue de dave 16;;VERSEMENT INSTANTANE DE BE60 0018 9583 3270            Diana James REF. :                            79b577596f504466bc2cde0cfd960981 VERS                  BE22 0635 5242 5947 John Cooper                    REF. : 080G739189222 VAL. 09-03;09-03-22;31;EUR;GEBABEBB;BE;
+BE22 0000 0000 0000;16-02-22;3;137;BE66 0636 8747 8643;Simba Longfoos;Rue de dave 17;5000  NAMUR;VERSEMENT DU BE66 0636 8747 8643 DUMBU LOKOLONGO LOFE  Merci beaucoup mon frere que Dieu te benisse           abondamment.                                           REF. : 090548562G378 VAL. 16-02;16-02-22;30;EUR;GKCCBEBB;BE;Merci beaucoup mon frere.
+BE22 0000 0000 0000;21-02-22;3;144;370-1171382-97;BANKSYS;;;ARGENT RECU VIA VOTRE APP MOBILE BANKING OU VOTRE      BANCONTACT-APP LE 18/02 SUR VOTRE CARTE BANCAIRE.      REF. : 082552L533160 VAL. 21-02;21-02-22;10;EUR;BBRUBEBB;;ARGENT RECU VIA VOTRE APP MOBILE BANKING OU VOTRE      BANCONTACT-APP LE 18/02 SUR VOTRE CARTE BANCAIRE.      REF. : 082552L533160 VAL. 21-02
+BE22 0000 0000 0000;14-02-22;3;129;BE85 0635 8807 9006;Lore Courtermore;BOULEVARD D'AVROY    72/31;1000 Bruxelles;VERSEMENT DU BE85 0635 8807 9006 BOIRO AISSATOU Prix   cafe                                                   REF. : 090548372C071 VAL. 12-02;12-02-22;10;EUR;GKCCBEBB;BE;Prix cafe
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;

@@ -1,25 +1,10 @@
-/* A jQuery function that is called when the document is ready. */
-/* $(document).ready(function() {
-    $('#tableKm').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    } );
-} ); */
-
-// $(document).ready(function() {
-//     $('#tableKm').DataTable( {
-//         dom: 'Bfrtip',
-//         buttons: [
-//             'copyHtml5',
-//             'excelHtml5',
-//             'csvHtml5',
-//             'pdfHtml5'
-//         ]
-//     } );
-// } );
-
+/* The above code is creating a table with the following columns: 
+Name, Department, Phone, and Actions.
+The Actions column has two buttons: Edit and Delete. 
+The Edit button allows the user to edit the row
+and the Delete button allows the user to delete the row. 
+The user can also add a new row by clicking
+the Add New button. */
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
     var actions = $("table td:last-child").html();
