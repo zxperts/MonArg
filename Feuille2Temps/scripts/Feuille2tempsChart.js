@@ -6,9 +6,10 @@ function updateFeuille2tempsChart(data)  {
   ["100123", "10-05-2021", "Bruxelles"], ["100124", "10-05-2021", "Namur"], 
   ["100125", "10-05-2021", "Hasselt"]];
   */
-  var labels = [];
+  var taches = [];
   var values = [];
-  var locationColors = {};
+  var dates = [];
+  var tacheColors = {};
   var colorPool = ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)',
   'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)',
   'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'];
@@ -16,12 +17,13 @@ function updateFeuille2tempsChart(data)  {
 
   
   data.forEach(function(dat) {
-    labels.push(dat[2]);
+    taches.push(dat[2]);
+    dates.push(dat[1]);
     values.push(dat[0]);
-    if (!locationColors.hasOwnProperty(dat[2])) {
-      locationColors[dat[2]] = colorPool[Object.keys(locationColors).length % colorPool.length];
+    if (!tacheColors.hasOwnProperty(dat[2])) {
+      tacheColors[dat[2]] = colorPool[Object.keys(tacheColors).length % colorPool.length];
     }
-    colors.push(locationColors[dat[2]]);
+    colors.push(tacheColors[dat[2]]);
     
   });
   
@@ -29,9 +31,9 @@ function updateFeuille2tempsChart(data)  {
   var chart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: labels,
+      labels: dates,
       datasets: [{
-        label: labels,
+        label: taches,
         data: values,
         backgroundColor: /* 'rgba(54, 162, 235, 0.2)', */ colors, 
         /* borderColor: 'rgba(54, 162, 235, 1)', */
