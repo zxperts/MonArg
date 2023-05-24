@@ -42,7 +42,7 @@ function updateKmChart(data)  {
       scales: {
         yAxes: [{
           ticks: {
-            beginAtZero: true
+            beginAtZero: false
           }
         }]
       }
