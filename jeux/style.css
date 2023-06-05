@@ -1,0 +1,134 @@
+/* body {
+    font-family: Arial, sans-serif;
+  } */
+  
+  h1 {
+    text-align: center;
+  }
+  
+  #game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+  }
+  
+  #calligraphy {
+    font-size: 72px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #options {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .option {
+    padding: 20px;
+    margin: 5px;
+    background-color: #4CAF50;
+    cursor: pointer;
+  }
+  
+ .option.selected {
+    background-color: #ffcc00;
+    color: #fff;
+  } 
+  
+
+  button {
+    font-size: 4rem;
+    margin: 1rem;
+    padding: 1rem 2rem;
+    background-color: #29612a;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3E8E41;
+}
+  
+
+#options {
+    display: flex;
+    flex-wrap: wrap;
+    height: 10S0px; /* Hauteur fixe */
+    justify-content: center;
+    align-items: center;
+  }
+  
+
+  @font-face {
+    font-family: White_Dream;
+    src: url("fonts/White Dream.otf");
+  }
+  
+  @font-face {
+    font-family: Sweet_Romance;
+    src: url("fonts/Sweet Romance.otf");
+  }
+  
+  @font-face {
+    font-family: Sunday_Gallery;
+    src: url("fonts/Sunday Gallery.otf");
+  }
+  
+  @font-face {
+    font-family: Starkville;
+    src: url("fonts/Starkville.otf");
+  }
+  
+  @font-face {
+    font-family: Saturday_August;
+    src: url("fonts/Saturday August.otf");
+  }
+  
+  @font-face {
+    font-family: Samantha_Signature;
+    src: url("fonts/Samantha Signature.otf");
+  }
+  
+  @font-face {
+    font-family: Autography;
+    src: url("fonts/Autography.otf");
+  }
+  
+  @font-face {
+    font-family: Beautiful_Spring;
+    src: url("fonts/Beautiful Spring.otf");
+  }
+  
+  @font-face {
+    font-family: Bitcheese;
+    src: url("fonts/Bitcheese.otf");
+  }
+  
+  @font-face {
+    font-family: BlueSignature_PERSONAL_USE_ONLY;
+    src: url("fonts/BlueSignature_PERSONAL_USE_ONLY.otf");
+  }
+  
+  @font-face {
+    font-family: Delight_Mother;
+    src: url("fonts/Delight Mother.otf");
+  }
+  
+  @font-face {
+    font-family: Delight_Sunset;
+    src: url("fonts/Delight Sunset.otf");
+  }
+  
+  @font-face {
+    font-family: Rosaline_Signature;
+    src: url("fonts/Rosaline Signature.otf");
+  }
+  
+  @font-face {
+    font-family: RoyalWedding-Regular;
+    src: url("fonts/RoyalWedding-Regular.otf");
+  }
+  

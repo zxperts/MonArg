@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calligraphie aléatoire</title>
+  <style>
+    .calligraphy {
+      font-size: 48px;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Caveat&family=Italianno&family=Parisienne&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="calligraphy" id="letterContainer"></div>
+
+  <script>
+    function getRandomCalligraphy() {
+      const calligraphies = [
+        "Amatic SC, cursive",
+        "Caveat, cursive",
+        "Italianno, cursive",
+        "Parisienne, cursive"
+      ];
+
+      const randomIndex = Math.floor(Math.random() * calligraphies.length);
+      const selectedCalligraphy = calligraphies[randomIndex];
+
+
+      const randomChar = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+    letter = randomChar;
+    if (Math.random() >= 0.5) {
+        letter = randomChar.toUpperCase();
+    }
+
+      return `<span style="font-family: ${selectedCalligraphy}">${letter}</span>`;
+    }
+
+    // Exemple d'utilisation avec une lettre majuscule
+    // Générer une lettre majuscule ou minuscule aléatoire
+
+
+    //const letter = 'A';
+    const selectedCalligraphy = getRandomCalligraphy();
+    
+    document.getElementById('letterContainer').innerHTML = selectedCalligraphy;
+  </script>
+</body>
+</html>
