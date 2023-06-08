@@ -97,10 +97,6 @@ function checkAnswer(selectedAnswer,clickedOption) {
             tempAlert(comptJuste+' Bonnne(s) réponse(s) 👏',1000);
             clickedOption.style.backgroundColor = '#ffcc00';
 
-            scorePlusNbr=+scorePlusNbr
-            scorePlus = document.getElementById('scorePlus');
-            scorePlus.innerText = selectedLetter;
-
             if (comptage==comptJuste) {
                 tempAlert('👏 Félicitations, vous avez tout trouvé!🎉',2000);
                 // Réinitialiser le jeu
