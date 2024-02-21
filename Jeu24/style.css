@@ -1,0 +1,63 @@
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.number {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: 1px solid black;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.yellow-number {
+    background-color: rgba(54, 15, 183, 0.252);
+}
+
+#dropzone {
+    width: 780px;
+    height: 380px;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 20px;
+    background-color: #999;
+    background-image: url("https://cdn.pixabay.com/photo/2013/07/12/17/46/chalkboard-152414_1280.png");
+}
+
+.number {
+    display: inline-block;
+    border: 1px solid rgb(13, 141, 163);
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    font-size: 4rem;
+    margin: 1rem;
+    padding: 1rem 1rem;	
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.gradient-button {
+    transition: all 5s;
+    background-image: linear-gradient(to left, #f77524, #f7f024);
+}
+.gradient2-button {
+    transition: all 5s;
+    background-image: linear-gradient(to left, #e9f724, #24f7f4);
+}
+
+button {
+    transition: all 5s;
+    font-size: 4rem;
+    margin: 1rem;
+    padding: 1rem 2rem;
+    background-color: #29612a;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
