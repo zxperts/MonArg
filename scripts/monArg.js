@@ -1,6 +1,6 @@
 var entete_montant = "";
 var entete_date = "";
-var entete_communication = "";
+//var entete_communication = "";
 var selectedPeriod = "Mensuel";
 var minAmount = -10000;
 var maxAmount = 10000;
@@ -456,10 +456,10 @@ function processData(csv_data) {
     headerNames = Plotly.d3.keys(csv_data[0]);
     headerNames.forEach(element => {
 
-        if (element == "Contrepartie" || element.includes("Libell") || element == "Communications") {
+        /* if (element == "Contrepartie" || element.includes("Libell") || element == "Communications") {
             // console.log("Communication.....")
             entete_communication = element
-        }
+        } */
 
         var first_content = csv_data[0][element]
 
@@ -479,13 +479,13 @@ function processData(csv_data) {
 
     });
 
-    if (!entete_montant || !entete_date || !entete_communication) {
+    if (!entete_montant || !entete_date) {
         console.log('Les entetes sont manquantes....')
-        alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱", entete_montant + entete_date + entete_communication);
+        alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱", entete_montant + entete_date);
         return;
     }
 
-    console.log('....les entetes:', entete_montant, entete_date, entete_communication)
+    console.log('....les entetes:', entete_montant, entete_date)
     console.log(arrayMonth);
 
     var arrayDay = [];
