@@ -16,11 +16,10 @@ var chartDataWeek = [];
 var chartDataMonth = [];
 var chartDataYear = [];
 
-
-// var listCategorie = new Object();
 var listCategorie = {};
 var listCategorieMan = {};
-// let listCategorie = [];
+var textLibelleInit ="";
+var textCategorieInit = "";
 
 var layout;
 
@@ -37,29 +36,25 @@ window.onload = function() {
     
 
     document.getElementById('favcolor').value = RandomLightenDarkenColor();
-    createCategorie("Loisirs");
-    createCategorie("Frais financiers");
-    createCategorie("Shopping");
-    createCategorie("Nourritures & Boissons");
-    createCategorie("Salaire");
-    createCategorie("Logement");
-    createCategorie("Véhicule");
-    createCategorie("Transports");
-    createCategorie("Multimedia & PC");
-    createCategorie("Santé");
-    createCategorie("Bricolage");
-    createCategorie("Vêtement");
-    createCategorie("Investisement");
-    createCategorie("Education");
-    createCategorie("Education");
 
-    setDraggable();
+    // createCategorie("Loisirs");
+    // createCategorie("Frais financiers");
+    // createCategorie("Shopping");
+    // createCategorie("Nourritures & Boissons");
+    // createCategorie("Salaire");
+    // createCategorie("Logement");
+    // createCategorie("Véhicule");
+    // createCategorie("Transports");
+    // createCategorie("Multimedia & PC");
+    // createCategorie("Santé");
+    // createCategorie("Bricolage");
+    // createCategorie("Vêtement");
+    // createCategorie("Investisement");
+    // createCategorie("Education");
+    // createCategorie("Education");
 
-    getCategManuellle();
-
-
-    // console.log("getStoredValue: ", getStoredValue(listCategorie));
-
+    //setDraggable();
+    //getCategManuellle();
 
 }
 
@@ -90,15 +85,11 @@ setLayout();
 var headerNames;
 
 // Read the data from CSV
-/**
- * It reads the contents of the file and displays it in the browser.
- * @param e - The event object.
- * @returns The file contents are being returned as a base64 encoded string.
- */
+/**It reads the contents of the file and displays it in the browser.*/
 function readSingleFile(e) {
     var fileIn = e.target.files[0];
     if (!fileIn) {
-        console.log('no contents....')
+        //console.log('no contents....')
         return;
     }
     if (!(fileIn.type.includes("excel") || fileIn.type.includes("csv") || fileIn.type.includes("pdf"))) {
@@ -122,12 +113,6 @@ function readSingleFile(e) {
 }
 
 
-/**
- * It takes an object, creates an array of its keys, sorts the array, and then creates a new object
- * with the sorted keys and their associated values.
- * @param o - the object to sort
- * @returns An object with the keys sorted alphabetically.
- */
 function sortObject(o) {
     var sorted = {},
         key, a = [];
@@ -147,12 +132,6 @@ function sortObject(o) {
     return sorted;
 }
 
-/**
- * Given a date in the format "dd/mm/yyyy" return the day, week, month or year
- * @param d_Date - The date to be converted.
- * @param period - The period of time you want to group by.
- * @returns the day, week, month, or year of the date.
- */
 function dateWesternEurope(d_Date, period) {
     var myDate0 = d_Date
     var dateParts = myDate0.split(/[/-]+/);
@@ -183,8 +162,6 @@ function dateWesternEurope(d_Date, period) {
 /**
  * The function takes in a string and checks if it matches the format of a date in the form of
  * MM/DD/YYYY
- * @param input - The input string to be validated.
- * @returns a boolean value.
  */
 function validateDateWE(input) {
     var reg = /(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)?\d\d/;
@@ -197,8 +174,6 @@ function validateDateWE(input) {
 
 /**
  * Given a date, return the week number of the year
- * @param d - The date to get the week number for.
- * @returns The week number of the year.
  */
 function getWeekNumber(d) {
     // Copy date so don't modify original
@@ -219,8 +194,6 @@ function getWeekNumber(d) {
  * The function checks to see if the input is a valid number. 
  * The function returns true if the input is a valid number. 
  * The function returns false if the input is not a valid number. 
- * @param input - The input string to be validated.
- * @returns a boolean value.
  */
 function checkwages(input) {
     var validformat = /^\-?\d+(?:\,\d{0,2})$/;
@@ -252,34 +225,33 @@ function checkwages(input) {
  *     hovertemplate:
  */
 function chartDataAdd(key, arrayx, arrayy, c_all) {
-    key = key.toUpperCase();
+    key = key.toUpperCase()+"XX_XX";
     let t = new Array(arrayx.length);
     size = arrayx.length;
     while (size--) t[size] = key;
-    // console.log('key',key);
-    // console.log('c_all',c_all);
-    // console.log('t',t);
 
-    // listCategorie["one"] = 1;.
-    // listCategorie = {label:key,categorie:"Pas de Cat."};
-    // listCategorie = {name:"John", age:31, city:"New York"}
-    // listCategorie.push([key,"Pas de Cat."]);
-    //console.log("listCategorieMan:",listCategorieMan);
-    listCategorie[key] = listCategorieMan[key] || "Pas de catégorie";
-    // console.log("listCategorie: " + listCategorie);
+    var CatHover = listCategorieMan[key]|| "Pas de catégorie";
+    listCategorie[key] = CatHover;
 
     return {
         x: arrayx,
         y: arrayy,
+        z: CatHover,
         text: c_all,
         name: key,
+        CatHover:CatHover,
+        hovertext:CatHover,
         customdata: t,
         type: 'bar',
         hovertemplate: "<b>%{customdata}</b><br><br>" +
             "%{yaxis.title.text}: %{y}<br>" +
             "%{xaxis.title.text}: %{x}<br>" +
-            "Categorie XXX: %{name}<br>" +
+            "%{zaxis.title.text}: %{z}<br>" +
+            "Categorie XXX: %{name} %{CatHover} %{hovertext}<br>" +
             "Communication: %{text}" +
+            'Marker Color: %{marker.color}<br>' +
+            '[Hover Label: %{hovertext}]'+
+            'Custom Data: %{customdata[0]}'+
             "<extra></extra>"
     }
 }
@@ -295,11 +267,11 @@ function plotChartData(chartData) {
     // Plotly.newPlot('plot', chartData,layout); 
 
     if (!chartData || chartData.length < 1) {
-        console.log('no contents....')
+        //console.log('no contents....')
         alert("Pas encore de fichier uploadé...😱");
         return;
     }
-    console.log('chartData length',chartData.length);
+    //console.log('chartData length',chartData.length);
 
 
     var res = [];
@@ -337,7 +309,7 @@ function plotChartData(chartData) {
         }
         // Plot avec les filtres
         // let replaced = chartData[cd_i].name.map(el => listCategorie[el]);
-        // console.log("replaced: "+replaced);
+        //console.log("replaced: "+replaced);
 
         var libelle2Replace = chartData[cd_i].name;
 
@@ -365,7 +337,32 @@ function plotChartData(chartData) {
 
     setLayout();
     Plotly.newPlot('plot', chartDataFiltered2, layout);
-    //console.log(chartDataFiltered2);
+
+    document.getElementById('plot').on('plotly_click', function(data){
+        var pts = '';    
+        for(var i=0; i < data.points.length; i++){    
+            pts = 'x = '+data.points[i].x +'\n'+
+                  'y = '+data.points[i].y.toPrecision(4) +'\n'+  
+                  'Libelle = '+data.points[i].customdata+"-." + data.points[i].text + '\n\n';//" Mme Noemie Genin BE en Travaux maison BE "
+                  
+                  textLibelleInit=data.points[i].customdata.trim().toUpperCase();;
+                  textCategorieInit=data.points[i].name||"Pas de catégorie";                  
+                  set_valuexx(textLibelleInit,'textLibelle');
+                  set_valuexx(textCategorieInit,'textCategorie');
+
+
+                  document.getElementById("dragBoxLibelle").style.backgroundColor = RandomLightenDarkenColor();
+                  document.getElementById("CategorieSS").style.backgroundColor = RandomLightenDarkenColor();
+
+                  var generatedWordCategoryList= generateWordCategoryList(data.points[i].text , "dragBoxLibelle");
+                  generateAllTask(generatedWordCategoryList,"dropBoxEditTransaction");
+        }
+
+        $("#EditItemModal").modal("show");
+        alert('Changer le Libelle ou la Catégorie:\n\n'+pts);
+        console.log('my_data',data);
+
+    });
 
 }
 
@@ -407,8 +404,6 @@ var removeUselessWords = function(txt) {
 
 /**
  * Find the longest word in a string
- * @param str - The string to find the longest word in.
- * @returns The longest word in the string.
  */
 function findLongestWord(str) {
     var longestWord = str.split(' ').reduce(function(longest, currentWord) {
@@ -432,22 +427,24 @@ function startProcessing(contents) {
 
     var list_cat = [list_cat_, ['Ethias', 'Acinapolis', 'Grogon', 'Delhaize', 'Decathlon']]
     Plotly.d3.dsv(';')(contents, function(csv_data) {
-        processData(csv_data)
+        processData(csv_data);
+        generateAllTask(listCategorie,"dropTargetCat");
     });
 }
 
 function demoProcessing() {
     Plotly.d3.csv("https://raw.githubusercontent.com/zxperts/hellodjango/master/csv/FebMi_aleatoire2.csv", function(csv_data) {
-        processData(csv_data)
+        processData(csv_data);
+        //console.log('les données CSV',csv_data);
+        generateAllTask(listCategorie,"dropTargetCat");//processData() ne sera pas appelée de manière asynchrone
     });
-
+    
 }
 
 
 
 /**
  * It creates a dataset for the plotly chart.
- * @param csv_data - The data to be processed.
  */
 function processData(csv_data) {
     //console.log("csv_data loaded....", csv_data);
@@ -457,36 +454,33 @@ function processData(csv_data) {
     headerNames.forEach(element => {
 
         if (element == "Contrepartie" || element.includes("Libell") || element == "Communications") {
-            // console.log("Communication.....")
+            //console.log("Communication.....")
             entete_communication = element
         }
 
         var first_content = csv_data[0][element]
 
-        // console.log("entete_date:",entete_date)
+        //console.log("entete_date:",entete_date)
         if (validateDateWE(first_content) && entete_date === "") {
-            // console.log("Date.....")
-            // console.log(first_content)
+            //console.log("Date.....")
+            //console.log(first_content)
             entete_date = element
         }
         if (element == "Montant") {
             entete_montant = element
         } else if (checkwages(first_content) && entete_montant === "") {
-            // console.log("Number.....")
-            // console.log(first_content)
+            //console.log("Number.....")
+            //console.log(first_content)
             entete_montant = element
         }
 
     });
 
     if (!entete_montant || !entete_date || !entete_communication) {
-        console.log('Les entetes sont manquantes....')
+        //console.log('Les entetes sont manquantes....')
         alert("Au moins une des entetes (Contrepartie,Montant ,  )est manquantes...😱", entete_montant + entete_date + entete_communication);
         return;
     }
-
-    console.log('....les entetes:', entete_montant, entete_date, entete_communication)
-    console.log(arrayMonth);
 
     var arrayDay = [];
     var arrayWeek = [];
@@ -497,15 +491,7 @@ function processData(csv_data) {
     chartDataWeek.length = 0;
     chartDataMonth.length = 0;
     chartDataYear.length = 0;
-    
-    console.log('arrayMonth',arrayMonth);
 
-
-    /* The code is creating a new array for each unique communication_z. The array contains
-    three sub-arrays:
-    - The first sub-array contains the period of each transaction
-    - The second sub-array contains the amount of each transaction
-    - The third sub-array contains the description of each transaction */
     function pushArrayPeriod(communication_z, arrayPeriod, period) {
         //si pas encore cette communication  
         if (!arrayPeriod[communication_z]) {
@@ -518,9 +504,9 @@ function processData(csv_data) {
         arrayPeriod[communication_z][0].push(period);
         arrayPeriod[communication_z][1].push(montant_y);
         arrayPeriod[communication_z][2].push(communication_all);
-        // console.log("montant_y",arrayPeriod[communication_z][1])
-        // console.log(period,montant_y)
-        // console.log(arrayPeriod)           
+        //console.log("montant_y",arrayPeriod[communication_z][1])
+        //console.log(period,montant_y)
+        //console.log(arrayPeriod)           
     }
 
 
@@ -537,18 +523,18 @@ function processData(csv_data) {
 
         var montant_y = d[entete_montant]
         montant_y = montant_y.replace(',', '.');
-        // console.log("montant_y",montant_y)
+        //console.log("montant_y",montant_y)
         communication_z = "";
         communication_all = "";
         headerNames.forEach(element => {
             communication_z = communication_z + " " + d[element]
         });
         communication_z = communication_z.replace(/[^a-zA-Z&]+/g, " ");
-        // console.log(communication_z)
+        //console.log(communication_z)
         communication_z = removeUselessWords(communication_z);
         communication_all = communication_z;
         communication_z = findLongestWord(communication_z);
-        // console.log('communication_z: ',communication_z)
+        //console.log('communication_z: ',communication_z)
         if (communication_z === null || communication_z === '') {
             communication_z = "...Tenue de cpte Performance Pack"
         }
@@ -597,9 +583,9 @@ function processData(csv_data) {
     // Plot the stacked bar chart   
     // plotChartData(chartDataMonth);
     PlotlyPlot("Mensuel");
-    // console.log(categManuellle());
-    listCategorie = categManuellle();
-    // console.log(listCategorie);
+    //console.log(categManuellle());
+    //listCategorie = categManuellle();
+    //console.log(listCategorie);
 
     document.getElementById("accordionFiltres").style.display = "block";
 
@@ -612,25 +598,16 @@ function processData(csv_data) {
 
 document.getElementById('formFile').addEventListener('change', readSingleFile, false);
 
-// document.getElementById('verInfo').addEventListener('change', togglePopup, false);
-
-
-/**
- * The function toggles the class of the div with the id of "popup-1" between active and not active
- */
 function togglePopup() {
-    // console.log('verInfo')
+    //console.log('verInfo')
     document.getElementById("popup-1").classList.toggle("active");
 }
 
 /**
  * The function is called when the user selects a period. 
- * 
- * It then calls the plotChartData function with the appropriate data
- * @param selectedPeriod - The period selected by the user.
  */
 function PlotlyPlot(selectedPeriod) {
-    // console.log("La period", period)
+    //console.log("La period", period)
 
     if (selectedPeriod == "Journalier") {
         plotChartData(chartDataDay);
@@ -658,8 +635,8 @@ if (document.querySelector('input[name="periodRadios"]')) {
         elem.addEventListener("change", function(event) {
             var item = event.target.value;
             selectedPeriod = event.target.getAttribute('id');
-            // console.log(item);
-            // console.log(typeof  name);
+            //console.log(item);
+            //console.log(typeof  name);
             PlotlyPlot(selectedPeriod);
         });
     });
@@ -680,16 +657,16 @@ document.getElementById('positiveRange').addEventListener('mouseup', function(e)
 
 function categManuellle() {
 
-    // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
+    // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/data/keyCategory.json");
 
-    // $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorie) {
+    // $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/data/keyCategory.json", function(listCategorie) {
     //     // listCategorie=JSON.parse(listCategorie0);
-    //     console.log("listCategorie...",listCategorie); // this will show the info it in firebug console                
+    //     //console.log("listCategorie...",listCategorie); // this will show the info it in firebug console                
     //     // generateAllTask(listCategorie);
     //     // setStoredValue(listCategorie, listCategorie);
     // });
 
-    generateAllTask(listCategorie);
+    generateAllTask(listCategorie,"dropTargetCat");
     setStoredValue(listCategorie, listCategorie);
 
     return listCategorie;
@@ -699,9 +676,9 @@ function categManuellle() {
 
 function getCategManuellle() {
     var listCategorieMan2 = {};
-    // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json");
+    // listCategorie = JSON.parse("https://raw.githubusercontent.com/zxperts/MonArg/main/data/keyCategory.json");
 
-    $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/keyCategory.json", function(listCategorieMan2) {
+    $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/main/data/keyCategory.json", function(listCategorieMan2) {
         // listCategorie=JSON.parse(listCategorie0);
         //console.log("listCategorieMan...",listCategorieMan2); // this will show the info it in firebug console
         listCategorieMan = listCategorieMan2;
@@ -746,3 +723,52 @@ function toggleTheme() {
         darkThemeLink.setAttribute('href', 'styles/dark.css');
     }
 }
+
+function replaceLibelle() {
+    var textLibelleValue= document.getElementById("textLibelle").value;
+    function replaceLibellePeriod(csv_data) {
+        for (let i = 0; i < csv_data.length; i++) {
+            //console.log('value from: '+csv_data[i].name+'or'+textLibelleInit+' to:'+textLibelleValue);
+            //console.log(csv_data[i].name === textLibelleInit, 'csv_data[i].name === textLibelleInit');
+            if (csv_data[i].name === textLibelleInit) {
+            //console.log('value changed from: '+textLibelleInit+ ' to:'+textLibelleValue);
+              csv_data[i].name = textLibelleValue;
+            }
+            if (csv_data[i].name.toUpperCase() === textLibelleInit.toUpperCase()) {
+                //console.log('value changed from: '+textLibelleInit+ ' to:'+textLibelleValue);
+                  csv_data[i].name = textLibelleValue;
+            }
+          }
+    }
+
+    replaceLibellePeriod(chartDataDay);
+    replaceLibellePeriod(chartDataWeek);
+    replaceLibellePeriod(chartDataMonth);
+    replaceLibellePeriod(chartDataYear);
+
+    taskDelete();
+
+    PlotlyPlot(selectedPeriod);
+  }
+
+  function generateWordCategoryList(sentence, category) {
+    var words = sentence.split(" ");
+    var wordCategoryList = {};
+    // Loop through the words array and add each word to the object with the specified category
+    for (var i = 0; i < words.length; i++) {
+      wordCategoryList[words[i]] = category;
+    }
+    // Return the word-category list object
+    //console.log("wordCategoryList",wordCategoryList);
+    //console.log("listCategorie",listCategorie);
+    return wordCategoryList;
+  }
+
+    /* Sélectionner tous les éléments du document HTML qui ont un
+    attribut "data-delete", puis les supprime du document. */
+  function taskDelete(){
+    const elementsToRemove = document.querySelectorAll('[data-delete]');
+    elementsToRemove.forEach((element) => {
+      element.remove();
+    });
+  }

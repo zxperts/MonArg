@@ -1,11 +1,44 @@
+/* Ces lignes de code ajoutent des écouteurs d'événement aux champs de saisie avec les ID "InputAddCat"
+et "InputAddTask". */
+var input = document.getElementById("InputAddCat");
+input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("btnAddCat").click();
+    }
+});
 
+var input = document.getElementById("InputAddTask");
+input.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("btnAddTask").click();
+    }
+});
+
+var input = document.getElementById("InputAddCat");
+input.addEventListener("focus", function(event) {
+    document.getElementById('favcolor').value=RandomLightenDarkenColor();
+});
+
+/*************************************************************************/
+
+/**
+ * La fonction configure la fonctionnalité de glisser-déposer 
+ * pour les éléments avec des classes
+ * spécifiques et attribue des catégories aux éléments déposés.
+ */
 function setDraggable() {    
-    // Tells the other side what data is being passed (e.g. the ID is targeted)
+    
     var dropTarget = document.querySelector(".drop-target");
     var draggables = document.querySelectorAll(".drag-task");
     var droppables = document.querySelectorAll(".drag-box");
     
-    // Tells the other side what data is being passed (e.g. the ID is targeted)
+    
+    /* Configure la fonctionnalité de glisser-déposer pour les éléments avec la classe
+    "drag-task". Il ajoute un écouteur d'événement à chacun de ces éléments afin que lorsqu'ils sont
+    glissés, leur ID soit stocké dans l'objet de transfert de données "srcId". Cet ID peut ensuite
+    être utilisé pour identifier l'élément lorsqu'il est déposé dans un nouvel emplacement. */
     draggables.forEach(item => {
         // console.log("Here: "+item.id+"-"+item.parentNode.id);
         item.addEventListener("dragstart", function(ev) {
@@ -40,25 +73,29 @@ function setDraggable() {
     
 }
 
-
-// Create a new list item when clicking on the "Add" butto
-function createCategorie(categorieName) {
-    // alert("You must write something!");
+/**
+ * La fonction crée une nouvelle catégorie avec un nom et une couleur donnés et l'ajoute à une cible de
+ * dépôt.
+ */
+function createCategorie(categorieName,dropTarget) {
+    //alert("You must write something!",categorieName);
     
     var divv = document.createElement("div");
     divv.id=document.getElementById("InputAddCat").value||categorieName||"No Value";
     divv.className = 'drag-box';
     divv.innerHTML = document.getElementById("InputAddCat").value||categorieName+"&#9776"||"No Value";
-    divv.style.backgroundColor=document.getElementById("favcolor").value;
+    //divv.style.backgroundColor=document.getElementById("favcolor").value;
+    divv.style.backgroundColor=RandomLightenDarkenColor();
     //   divv.style.opacity=0.1;
-    document.getElementById("drop-target").appendChild(divv);
-    
+    //Ajouter la catégorie à un dropTarget
+    document.getElementById(dropTarget||"dropBoxEditTransaction"||"dropTargetCat").appendChild(divv);    
     document.getElementById("InputAddCat").value = "";
     document.getElementById("favcolor").value = RandomLightenDarkenColor();
 
 }
 
-function createTask(taskName, boxName) {
+
+function createTask(taskName, boxName,dropTarget) {
     // alert("You must write something!");
     
     var divTask = document.createElement("div");
@@ -66,14 +103,23 @@ function createTask(taskName, boxName) {
     divTask.className = 'drag-task';
     divTask.innerHTML = document.getElementById("InputAddTask").value||taskName||"No Value";
     divTask.draggable="true";
-    divTask.style.backgroundColor=document.getElementById("favColorTask").value;
-    // var boxName=listCategorie[taskName]||"Pas de catégorie";
-    // var boxName="Pas de catégorie";
-    // console.log(boxName);
+    divTask.style.backgroundColor=RandomLightenDarkenColor();
+
+    if (boxName=="dragBoxLibelle") {
+        var VerticalCard = document.getElementById("VerticalCard");
+        divTask.setAttribute("onclick", VerticalCard.getAttribute("onclick"));
+    } 
+    if (boxName=="CategorieSS") {
+        var catVerticalCard = document.getElementById("catVerticalCard");
+        divTask.setAttribute("onclick", catVerticalCard.getAttribute("onclick"));
+    } 
+    divTask.setAttribute('data-delete', 'true');
     document.getElementById("filre_param").style.visibility = "visible";
 
+    /*Vérifie si un élément avec l'ID spécifié dans la variable `boxName` existe dans le document.
+    S'il n'existe pas, il appelle la fonction `createCategorie` pour créer un nouvel élément*/
     if (!document.getElementById(boxName)){
-        createCategorie(boxName);
+        createCategorie(boxName,dropTarget);
     }
 
     document.getElementById(boxName).appendChild(divTask);
@@ -81,40 +127,15 @@ function createTask(taskName, boxName) {
 
     document.getElementById("InputAddTask").value = "";
     document.getElementById("favColorTask").value = RandomLightenDarkenColor();
-    //console.log(" :",taskName,"-", boxName);
 }
 
 function removeTask(taskName) {
     document.getElementsByTagName.removeChild(taskName);
 }
 
-
-
-
-
-var input = document.getElementById("InputAddCat");
-input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("btnAddCat").click();
-    }
-});
-
-var input = document.getElementById("InputAddTask");
-input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        document.getElementById("btnAddTask").click();
-    }
-});
-
-var input = document.getElementById("InputAddCat");
-input.addEventListener("focus", function(event) {
-    document.getElementById('favcolor').value=RandomLightenDarkenColor();
-    
-    
-});
-
+/**
+ * La fonction génère une couleur aléatoire, puis l'assombrit d'une quantité fixe.
+ */
 function RandomLightenDarkenColorOld() {
     const col = "#"+((1<<24)*Math.random()|0).toString(16);
     const amt =-10;
@@ -127,8 +148,7 @@ function RandomLightenDarkenColorOld() {
 }
 
 /**
- * It takes a random hex color, and adds a random amount of red, green, and blue to it.
- * @returns A random color.
+ * La fonction génère une couleur aléatoire et l'éclaircit ou l'assombrit d'une quantité spécifiée.
  */
 function RandomLightenDarkenColor() {
     var col = "#"+((1<<24)*Math.random()|0).toString(16);
@@ -157,31 +177,27 @@ function RandomLightenDarkenColor() {
     return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
 }
 
-window.onload = function() {
+function generateAllTask(listOfCategorie,dropTarget) {
 
+    var tempListOfCategorie=listOfCategorie;
+    if (listOfCategorie == listCategorie && dropTarget=="dropTargetCat") {
+        tempListOfCategorie=getSwapListCategorie(listOfCategorie||listCategorie);
+    } 
 
-    
-    
-};
-
-
-function extractCategory() {
-    
-    const string = 'This is :state :buttonName by :name';
-    //JSON  person = {name:"John", age:31, city:"New York"};
-    const data = {
-        buttonName: 'button link',
-        state: 'Alabama',
-        name: 'Arun'
+    for (const [key, value] of Object.entries(tempListOfCategorie)) {
+        console.log("-chartDataMonth-",chartDataMonth);
+        createTask(key, value,dropTarget);
     }
-    const res = string.replace(/:([a-zA-Z]+)/g, (m, i) => i in data ? data[i] : m)
-    //console.log(res)
 }
 
-function generateAllTask(listCategorie) {    
-    for (const [key, value] of Object.entries(listCategorie)) {
-        //console.log("--",key, value);
-        createTask(key, value);
+
+/* La fonction permute les clés et les valeurs d'un objet et renvoie le nouvel objet. */
+function getSwapListCategorie(listCategorie) { 
+    // Create a new object with keys and values swapped
+    //"ALIMENTATION" – "Pas de catégorie" --> <->
+    const swappedListCategorie = {};
+    for (const key in listCategorie) {
+        swappedListCategorie[listCategorie[key]] = "CategorieSS";
     }
-    
+    return swappedListCategorie;
 }

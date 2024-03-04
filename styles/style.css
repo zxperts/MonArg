@@ -85,3 +85,19 @@ html {
 #btn_close01 {
   text-align: right;
 }
+
+.modal-title {
+  text-align: center;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.drag-card:hover {
+  cursor: pointer;
+}
+
+.drag-box:hover {
+  cursor: pointer;
+}
