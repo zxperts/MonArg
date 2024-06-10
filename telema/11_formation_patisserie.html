@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<title>W3.CSS Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- Navbar (Sits on top) -->
+<div class="w3-top w3-bar w3-white w3-wide w3-padding w3-card">
+<a href="index.html" class="w3-bar-item w3-button"><b>TELEMA</b> Bandundu</a>
+<!-- Float links to the right. Hide them on small screens -->
+<div class="w3-right w3-hide-small">
+<a href="index.html#presentation" class="w3-bar-item w3-button">Presentation</a>
+<a href="index.html#projects" class="w3-bar-item w3-button">Projects</a>
+<a href="index.html#Membres" class="w3-bar-item w3-button">Membres</a>
+<a href="index.html#contact" class="w3-bar-item w3-button">Contact</a>
+</div>
+</div>
+
+<!-- Page Start -->
+<div id="home" class="w3-content" style="max-width:1564px">
+
+<!-- Image -->
+
+
+<!-- Presentation du Projet-->
+<div id="presentation" class="w3-container w3-padding-32 descriptionProjet">
+<h2 class="w3-border-bottom w3-border-light-grey w3-padding-16">Formation Patisserie</h2>
+
+
+<p>
+  <h2 id="projet-de-formation-professionnelle-pour-les-m-res-c-libataires-kinshasa">Projet de formation professionnelle pour les mères célibataires à Kinshasa</h2>
+  <h3 id="contexte">Contexte</h3>
+  <ul>
+  <li>L&#39;association a lancé en novembre 2023 un programme de formation professionnelle en pâtisserie et boulangerie destiné aux mères célibataires à Kinshasa.</li>
+  <li>En février 2024, une formation en techniques de fabrication de produits de nettoyage a également été mise en place.</li>
+  <li>L&#39;objectif est de permettre à ces femmes d&#39;acquérir des compétences techniques et de les accompagner pour qu&#39;elles puissent créer leur propre activité lucrative et subvenir à leurs besoins.</li>
+  </ul>
+  <h3 id="formations-pratiques">Formations pratiques</h3>
+  <ul>
+  <li>Compte tenu du manque de moyens des bénéficiaires, l&#39;association opte également pour l&#39;utilisation de fours et pétrin artisanaux.</li>
+  <li>Cela permet aux participantes d&#39;apprendre à produire du pain et des pâtisseries sans avoir besoin d&#39;équipements électriques coûteux.</li>
+  <li>En cas de coupures de courant, les fours artisanaux permettent de continuer la production.</li>
+  </ul>
+  <h3 id="accompagnement-post-formation">Accompagnement post-formation</h3>
+  <ul>
+  <li>Après leur formation, l&#39;association souhaite accompagner les participantes durant les premiers mois pour les aider à se lancer dans leur activité.</li>
+  <li>L&#39;objectif est de les guider et de les soutenir afin qu&#39;elles puissent créer une activité lucrative et subvenir à leurs besoins, sans se retrouver dans des situations précaires.</li>
+  </ul>
+  <h3 id="financement">Financement</h3>
+  <ul>
+  <li>L&#39;association recherche des financements pour pouvoir équiper un atelier de production.</li>
+  <li>Les produits fabriqués par les participantes servent à financer le fonctionnement du programme de formation et l&#39;achat de matériel.</li>
+  </ul>
+</p>
+</div>
+
+<!-- Projects -->
+
+
+ <!-- Photo grid (modal) -->
+ <div class="w3-row-padding">
+  <div class="w3-half">
+    <img src="images/Enseignement.png" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks">
+    <img src="images/Education.png" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandinavian design">
+  </div>
+
+  <div class="w3-half">
+    <img src="images/Enseignement.png" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium">
+    <img src="images/Education.png" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+
+  </div>
+</div>
+
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+  <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption"></p>
+  </div>
+</div>
+
+
+<script>
+ 
+  // Modal Image Gallery
+  function onClick(element) {
+    document.getElementById("img01").src = element.src;
+    document.getElementById("modal01").style.display = "block";
+    var captionText = document.getElementById("caption");
+    captionText.innerHTML = element.alt;
+  }
+  </script>
+
+
+
+
+</body>
+</html>
