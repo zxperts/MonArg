@@ -2,7 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    
+    <!-- <script src="script.js"></script> -->
+    
+    <!-- Bootstrap CSS -->
+
+    
+    
+
+
     <title>Jeu d'association des nombres</title>
     <style>
         body {
@@ -62,19 +73,51 @@
         }
 </style>
 
+
+
 <body>
-    <h1>Jeu d'association des nombres</h1>
-    
-    <div class="button-container">
-        <button class="large-button" onclick="toggleVisibility(1, this)">1-10</button>
-        <button class="large-button" onclick="toggleVisibility(2, this)">11-20</button>
-        <button class="large-button" onclick="toggleVisibility(3, this)">21-100</button>
-        <button class="large-button" onclick="toggleVisibility(4, this)">101-1000</button>
-        <button class="large-button" onclick="toggleVisibility(5, this)">Numbers</button>
+
+    <div class="container">
+
+        <h1>Jeu d'association des nombres</h1>
+
+        <!-- <p>Bienvenue dans le jeu d'association des nombres ! Le but de ce jeu est de trouver et d'associer les paires de cartes portant le même nombre. Voici comment jouer :</p>
+        <ul>
+            <li>Au début du jeu, toutes les cartes sont retournées face cachée.</li>
+            <li>Cliquez sur une carte pour la retourner et révéler le nombre qu'elle contient.</li>
+            <li>Cliquez sur une autre carte pour essayer de trouver la paire correspondante.</li>
+            <li>Si les deux cartes ont le même nombre, elles restent face visible et sont marquées comme appariées.</li>
+            <li>Si les deux cartes ne correspondent pas, elles sont retournées face cachée et vous pouvez essayer à nouveau.</li>
+            <li>Le jeu continue jusqu'à ce que toutes les paires soient trouvées.</li>
+        </ul>
+        <p>Amusez-vous bien et essayez de trouver toutes les paires le plus rapidement possible !</p> -->
+
+        <div class="container">
+            <div class="button-container">
+                <button class="large-button" onclick="toggleVisibility(1, this)">1-10</button>
+                <button class="large-button" onclick="toggleVisibility(2, this)">11-20</button>
+                <button class="large-button" onclick="toggleVisibility(3, this)">21-100</button>
+                <button class="large-button" onclick="toggleVisibility(4, this)">101-1000</button>
+                <button class="large-button" onclick="toggleVisibility(5, this)">Numbers</button>
+            </div>
+
+        </div>
+
+        <div class="container">
+
+            <div class="container" id="gameContainer"></div>
+        <div class="notification" id="notification"></div>
+
+        </div>
+        
+        
+        
+        
+
     </div>
-    
-    <div class="container" id="gameContainer"></div>
-    <div class="notification" id="notification"></div>
+
+
+
     
     
     
@@ -306,4 +349,5 @@
     
     
 </body>
+
 </html>
