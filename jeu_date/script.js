@@ -1,3 +1,7 @@
+let totalAnswers = 0;
+let goodAnswers = 0;
+let badAnswers = 0;
+
 document.addEventListener('DOMContentLoaded', () => {
     const events = document.querySelectorAll('.event');
     const dates = document.querySelectorAll('.date');
@@ -32,7 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
             emojis.forEach(emoji => {
                 emoji.classList.add('hidden');
             });
+            goodAnswers++;
         }
+        else {badAnswers++;}
+        
+        totalAnswers=goodAnswers+badAnswers;
+		document.getElementById("scoreBtn").textContent = `${goodAnswers}/${totalAnswers}`;
     }
 
     function getDateForEvent(event) {
@@ -137,12 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 emoji.classList.add('hidden');
             });
 
+            goodAnswers++;
+
         } else {
             notification.style.color ="red";
             notification.textContent = 'Mauvaise réponse, essayez encore.';
             card1.click();
             card2.classList.toggle('unscale')
             notification.classList.add('error');
+
+            badAnswers++;
+
+
         }
         setTimeout(() => {
             card1.classList.remove('selected');
@@ -150,7 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedCards = [];
             notification.textContent = '';
             notification.classList.remove('error');
-        }, 1000);
+        }, 1500);
+
+        totalAnswers=goodAnswers+badAnswers;
+		document.getElementById("scoreBtn").textContent = `${goodAnswers}/${totalAnswers}`;
     }
 
     function toggleEmojis(){
