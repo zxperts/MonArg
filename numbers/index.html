@@ -124,6 +124,7 @@
                 <button class="btn btn-outline-success" onclick="toggleVisibility(3, this)">21-100</button>
                 <button class="btn btn-outline-success" onclick="toggleVisibility(4, this)">101-1000</button>
                 <button class="btn btn-outline-success" onclick="toggleVisibility(5, this)">Numbers</button>
+                <button class="btn btn-outline-success" onclick="toggleVisibility(6, this)">Big Numbers</button>
             </div>
             
         </div>
@@ -195,39 +196,148 @@
     { number: 18, word: 'achttien' },
     { number: 19, word: 'negentien' },
     { number: 20, word: 'twintig' },
+    { number: 26, word: 'zesentwintig' },
     { number: 30, word: 'dertig' },
+    { number: 32, word: 'tweeëndertig' },
     { number: 40, word: 'veertig' },
+    { number: 45, word: 'vijfenveertig' },
     { number: 50, word: 'vijftig' },
+    { number: 53, word: 'drieënvijftig' },
     { number: 60, word: 'zestig' },
+    { number: 66, word: 'zesenzestig' },
     { number: 70, word: 'zeventig' },
+    { number: 71, word: 'eenenzeventig' },
     { number: 80, word: 'tachtig' },
+    { number: 84, word: 'vierentachtig' },
+    { number: 83, word: 'drieëntachtig' },
     { number: 90, word: 'negentig' },
+    { number: 99, word: 'negenennegentig' },
     { number: 100, word: 'honderd' },
-    { number: 200, word: 'tweehonderd' },
-    { number: 300, word: 'driehonderd' },
-    { number: 400, word: 'vierhonderd' },
-    { number: 500, word: 'vijfhonderd' },
-    { number: 600, word: 'zeshonderd' },
-    { number: 700, word: 'zevenhonderd' },
-    { number: 800, word: 'achthonderd' },
-    { number: 900, word: 'negenhonderd' },
-    { number: 1000, word: 'duizend' },
-    { number: 26, word: "zesentwintig" },
-    { number: 32, word: "tweeëndertig" },
-    { number: 45, word: "vijfenveertig" },
-    { number: 53, word: "drieënvijftig" },
-    { number: 66, word: "zesenzestig" },
-    { number: 71, word: "eenenzeventig" },
-    { number: 84, word: "vierentachtig" },
-    { number: 99, word: "negenennegentig" },
-    { number: 83, word: "drieëntachtig" }
-    ];
+    { number: 101, word: 'honderdeen' },
+    { number: 149, word: 'honderdnegenenveertig' },
+    { number: 193, word: 'honderddrieënnegentig' },
+    { number: 239, word: 'honderdnegenendertig' },
+    { number: 281, word: 'tweehonderdeenentachtig' },
+    { number: 331, word: 'driehonderdeenendertig' },
+    { number: 373, word: 'driehonderddrieënzeventig' },
+    { number: 419, word: 'vierhonderdnegentien' },
+    { number: 461, word: 'vierhonderdeenenzestig' },
+    { number: 509, word: 'vijfhonderdnegen' },
+    { number: 557, word: 'vijfhonderdzevenenvijftig' },
+    { number: 601, word: 'zeshonderdeen' },
+    { number: 647, word: 'zeshonderdzevenenveertig' },
+    { number: 691, word: 'zeshonderdeenennegentig' },
+    { number: 739, word: 'zevenhonderdnegenendertig' },
+    { number: 787, word: 'zevenhonderdzevenentachtig' },
+    { number: 829, word: 'achthonderdnegenentwintig' },
+    { number: 877, word: 'achthonderdzevenenzeventig' },
+    { number: 919, word: 'negenhonderdnegentien' },
+    { number: 967, word: 'negenhonderdzevenenzestig' },
+    { number: "🎒", word: "Tas" }
+];
+
     
-    const dutchNumbers={"nul":0,"een":1,"twee":2,"drie":3,"vier":4,"vijf":5,"zes":6,"zeven":7,"acht":8,"negen":9,"tien":10,
+    
+/*     ,{ number: "Lundi", word: "Maandag" },
+    { number: "Mardi", word: "Dinsdag" },
+    { number: "Mercredi", word: "Woensdag" },
+    { number: "Jeudi", word: "Donderdag" },
+    { number: "Vendredi", word: "Vrijdag" },
+    { number: "Samedi", word: "Zaterdag" },
+    { number: "Dimanche", word: "Zondag" } */
+    
+
+    var dutchNumbers = {
+    "nul": 0,
+    "een": 1,
+    "twee": 2,
+    "drie": 3,
+    "vier": 4,
+    "vijf": 5,
+    "zes": 6,
+    "zeven": 7,
+    "acht": 8,
+    "negen": 9,
+    "tien": 10,
+    "elf": 11,
+    "twaalf": 12,
+    "dertien": 13,
+    "veertien": 14,
+    "vijftien": 15,
+    "zestien": 16,
+    "zeventien": 17,
+    "achttien": 18,
+    "negentien": 19,
+    "twintig": 20,
+    "zesentwintig": 26,
+    "dertig": 30,
+    "tweeëndertig": 32,
+    "veertig": 40,
+    "vijfenveertig": 45,
+    "vijftig": 50,
+    "drieënvijftig": 53,
+    "zestig": 60,
+    "zesenzestig": 66,
+    "zeventig": 70,
+    "eenenzeventig": 71,
+    "tachtig": 80,
+    "vierentachtig": 84,
+    "drieëntachtig": 83,
+    "negentig": 90,
+    "negenennegentig": 99,
+    "honderd": 100,
+    "honderdeen": 101,
+    "honderdnegenenveertig": 149,
+    "honderddrieënnegentig": 193,
+    "honderdnegenendertig": 239,
+    "tweehonderdeenentachtig": 281,
+    "driehonderdeenendertig": 331,
+    "driehonderddrieënzeventig": 373,
+    "vierhonderdnegentien": 419,
+    "vierhonderdeenenzestig": 461,
+    "vijfhonderdnegen": 509,
+    "vijfhonderdzevenenvijftig": 557,
+    "zeshonderdeen": 601,
+    "zeshonderdzevenenveertig": 647,
+    "zeshonderdeenennegentig": 691,
+    "zevenhonderdnegenendertig": 739,
+    "zevenhonderdzevenentachtig": 787,
+    "achthonderdnegenentwintig": 829,
+    "achthonderdzevenenzeventig": 877,
+    "negenhonderdnegentien": 919,
+    "negenhonderdzevenenzestig": 967
+}
+
+;
+    //$.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/94be0b9e443b7f0aa527bbc6178229b12f63c0e3/numbers/dutchNumbers.json", function(dutchNumbers) {
+        //alert(dutchNumbers);
+        //console.log(dutchNumbers);
+    //});
+    
+    const dutchNumbers222={"nul":0,"een":1,"twee":2,"drie":3,"vier":4,"vijf":5,"zes":6,"zeven":7,"acht":8,"negen":9,"tien":10,
     "elf":11,"twaalf":12,"dertien":13,"veertien":14,"vijftien":15,"zestien":16,"zeventien":17,"achttien":18,"negentien":19,"twintig":20
     ,"dertig":30,"veertig":40,"vijftig":50,"zestig":60,"zeventig":70,"tachtig":80,"negentig":90,"honderd":100
     ,"tweehonderd":200,"driehonderd":300,"vierhonderd":400,"vijfhonderd":500,"zeshonderd":600,"zevenhonderd":700,"achthonderd":800,"negenhonderd":900,"duizend":1000,
-    "zesentwintig":26, "tweeëndertig": 32, "vijfenveertig":45, "drieënvijftig":53, "zesenzestig":66, "eenenzeventig":71, "vierentachtig":84, "negenennegentig":99, "drieëntachtig":83}; 
+    "zesentwintig":26, "tweeëndertig": 32, "vijfenveertig":45, "drieënvijftig":53, "zesenzestig":66, "eenenzeventig":71, "vierentachtig":84, "negenennegentig":99, "drieëntachtig":83
+    }; 
+
+    const dutchNumbers22 = {
+    "nul": 0, "een": 1, "twee": 2, "drie": 3, "vier": 4, "vijf": 5, "zes": 6, "zeven": 7, "acht": 8, "negen": 9, "tien": 10,
+    "elf": 11, "twaalf": 12, "dertien": 13, "veertien": 14, "vijftien": 15, "zestien": 16, "zeventien": 17, "achttien": 18, "negentien": 19, "twintig": 20,
+    "dertig": 30, "veertig": 40, "vijftig": 50, "zestig": 60, "zeventig": 70, "tachtig": 80, "negentig": 90, "honderd": 100,
+    "tweehonderd": 200, "driehonderd": 300, "vierhonderd": 400, "vijfhonderd": 500, "zeshonderd": 600, "zevenhonderd": 700, "achthonderd": 800, "negenhonderd": 900, "duizend": 1000,
+    "zesentwintig": 26, "tweeëndertig": 32, "vijfenveertig": 45, "drieënvijftig": 53, "zesenzestig": 66, "eenenzeventig": 71, "vierentachtig": 84, "negenennegentig": 99, "drieëntachtig": 83,
+    "honderdeen": 101, "honderdnegenenveertig": 149, "honderddrieënnegentig": 193, "honderdnegenendertig": 239, "tweehonderdeenentachtig": 281,
+    "driehonderdeenendertig": 331, "driehonderddrieënzeventig": 373, "vierhonderdnegentien": 419, "vierhonderdeenenzestig": 461, "vijfhonderdnegen": 509,
+    "vijfhonderdzevenenvijftig": 557, "zeshonderdeen": 601, "zeshonderdzevenenveertig": 647, "zeshonderdeenennegentig": 691, "zevenhonderdnegenendertig": 739,
+    "zevenhonderdzevenentachtig": 787, "achthonderdnegenentwintig": 829, "achthonderdzevenenzeventig": 877, "negenhonderdnegentien": 919, "negenhonderdzevenenzestig": 967
+};
+
+
+    //console.log("dutchNumber22: " + dutchNumbers22);
+    
+    //console.log(dutchNumbers22);
+    
     
 
 /*      fetch('dutchNumbers.json')
@@ -238,12 +348,6 @@
     })
     .catch(error => console.error('Error loading JSON:', error)); */
 
-
-/*     var dutchNumbers = {};
-    $.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/94be0b9e443b7f0aa527bbc6178229b12f63c0e3/numbers/dutchNumbers.json", function(dutchNumbers) {
-        alert(dutchNumbers);
-        console.log(dutchNumbers);
-    }); */
 
     let selectedCards = [];
     const gameContainer = document.getElementById('gameContainer');
@@ -327,20 +431,25 @@
         
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
-            console.log(card.dataset.number);
+            //console.log(card.dataset.number);
             const number = convertDutchNumberToDigit(card.dataset.number);
-            console.log("Converted Number"+number);
+            //console.log("Converted Number"+number);
             
             //console.log('number converted:'+number+'-')
             if ((decade === 1 && number <= 10) 
             || (decade === 2 && number > 10 && number <= 20) 
             || (decade === 3 && number > 20 && number <= 100 && number % 10 === 0) 
-            || (decade === 4 && number > 100)
+            || (decade === 4 && number > 100 && !isPrime(number))
             || (decade === 5 && number > 20 && number <= 100 && number % 10 !== 0) 
+            || (decade === 6 && number > 100 && isPrime(number))
+            
             )
             
             {
                 card.classList.toggle('hidden');
+            }
+            else
+            {
                 console.log("number..."+number);
             }
         });
@@ -360,19 +469,33 @@
         words.forEach(word => {
             if (dutchNumbers[word] >= 1001) {
                 temp *= dutchNumbers[word];
-            } else if (dutchNumbers[word] >= 20) {
-                temp += dutchNumbers[word];
+/*             } else if (dutchNumbers[word] >= 20) {
+                temp += dutchNumbers[word]; */
             } else {
                 temp += dutchNumbers[word];
+                //console.log("word:"+word);
+                //console.log("dutchNumbers[word]:"+dutchNumbers[word]);
             }
         });
         
-        //console.log("temp"+temp);
+        //console.log("temp:"+temp);
         
         result += temp;
         //console.log("result"+result);
         return result;
     }
+
+    function isPrime(n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+
+    if (n % 2 === 0 || n % 3 === 0) return false;
+
+    for (let i = 5; i * i <= n; i += 6) {
+        if (n % i === 0 || n % (i + 2) === 0) return false;
+    }
+    return true;
+}
     
     initGame();
 </script>
