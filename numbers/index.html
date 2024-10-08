@@ -213,6 +213,15 @@
     { number: 90, word: 'negentig' },
     { number: 99, word: 'negenennegentig' },
     { number: 100, word: 'honderd' },
+    { number: 200, word: 'tweehonderd' },
+    { number: 300, word: 'driehonderd' },
+    { number: 400, word: 'vierhonderd' },
+    { number: 500, word: 'vijfhonderd' },
+    { number: 600, word: 'zeshonderd' },
+    { number: 700, word: 'zevenhonderd' },
+    { number: 800, word: 'achthonderd' },
+    { number: 900, word: 'negenhonderd' },
+    { number: 1000, word: 'duizend' },
     { number: 101, word: 'honderdeen' },
     { number: 149, word: 'honderdnegenenveertig' },
     { number: 193, word: 'honderddrieënnegentig' },
@@ -236,77 +245,6 @@
     { number: "🎒", word: "Tas" }
 ];
 
-    
-    
-/*     ,{ number: "Lundi", word: "Maandag" },
-    { number: "Mardi", word: "Dinsdag" },
-    { number: "Mercredi", word: "Woensdag" },
-    { number: "Jeudi", word: "Donderdag" },
-    { number: "Vendredi", word: "Vrijdag" },
-    { number: "Samedi", word: "Zaterdag" },
-    { number: "Dimanche", word: "Zondag" } */
-    
-
-    var dutchNumbers = {
-    "nul": 0,
-    "een": 1,
-    "twee": 2,
-    "drie": 3,
-    "vier": 4,
-    "vijf": 5,
-    "zes": 6,
-    "zeven": 7,
-    "acht": 8,
-    "negen": 9,
-    "tien": 10,
-    "elf": 11,
-    "twaalf": 12,
-    "dertien": 13,
-    "veertien": 14,
-    "vijftien": 15,
-    "zestien": 16,
-    "zeventien": 17,
-    "achttien": 18,
-    "negentien": 19,
-    "twintig": 20,
-    "zesentwintig": 26,
-    "dertig": 30,
-    "tweeëndertig": 32,
-    "veertig": 40,
-    "vijfenveertig": 45,
-    "vijftig": 50,
-    "drieënvijftig": 53,
-    "zestig": 60,
-    "zesenzestig": 66,
-    "zeventig": 70,
-    "eenenzeventig": 71,
-    "tachtig": 80,
-    "vierentachtig": 84,
-    "drieëntachtig": 83,
-    "negentig": 90,
-    "negenennegentig": 99,
-    "honderd": 100,
-    "honderdeen": 101,
-    "honderdnegenenveertig": 149,
-    "honderddrieënnegentig": 193,
-    "honderdnegenendertig": 239,
-    "tweehonderdeenentachtig": 281,
-    "driehonderdeenendertig": 331,
-    "driehonderddrieënzeventig": 373,
-    "vierhonderdnegentien": 419,
-    "vierhonderdeenenzestig": 461,
-    "vijfhonderdnegen": 509,
-    "vijfhonderdzevenenvijftig": 557,
-    "zeshonderdeen": 601,
-    "zeshonderdzevenenveertig": 647,
-    "zeshonderdeenennegentig": 691,
-    "zevenhonderdnegenendertig": 739,
-    "zevenhonderdzevenentachtig": 787,
-    "achthonderdnegenentwintig": 829,
-    "achthonderdzevenenzeventig": 877,
-    "negenhonderdnegentien": 919,
-    "negenhonderdzevenenzestig": 967
-}
 
 ;
     //$.getJSON("https://raw.githubusercontent.com/zxperts/MonArg/94be0b9e443b7f0aa527bbc6178229b12f63c0e3/numbers/dutchNumbers.json", function(dutchNumbers) {
@@ -447,43 +385,35 @@
             
             {
                 card.classList.toggle('hidden');
-            }
-            else
-            {
                 console.log("number..."+number);
             }
         });
     }
     
     function convertDutchNumberToDigit(dutchNumber) {
-        temmp=Number(dutchNumber)
-        
-        if (temmp >=0){
-            return temmp ;
-        }
-        
-        const words = dutchNumber.split(" ");
-        let result = 0;
-        let temp = 0;
-        
-        words.forEach(word => {
-            if (dutchNumbers[word] >= 1001) {
-                temp *= dutchNumbers[word];
-/*             } else if (dutchNumbers[word] >= 20) {
-                temp += dutchNumbers[word]; */
-            } else {
-                temp += dutchNumbers[word];
-                //console.log("word:"+word);
-                //console.log("dutchNumbers[word]:"+dutchNumbers[word]);
-            }
-        });
-        
-        //console.log("temp:"+temp);
-        
-        result += temp;
-        //console.log("result"+result);
-        return result;
+    const temp = Number(dutchNumber);
+    
+    if (!isNaN(temp)) {
+        return temp;
     }
+    
+    const words = dutchNumber.split(" ");
+    let result = 0;
+    let tempSum = 0;
+    
+    words.forEach(word => {
+        const numberObj = numbers.find(num => num.word === word);
+        if (numberObj) {
+            if (numberObj.number >= 1001) {
+                tempSum *= numberObj.number;
+            } else {
+                tempSum += numberObj.number;
+            }
+        }
+    });
+    
+    return tempSum;
+}
 
     function isPrime(n) {
     if (n <= 1) return false;
