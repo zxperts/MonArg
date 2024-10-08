@@ -33,6 +33,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .card {
             border: 1px solid #ccc;
@@ -75,8 +76,6 @@
         text-align: center;
         width: 100%;
     }
-</style>
-<style>
     .notification {
         font-size: 16px;
         margin-top: 10px;
@@ -85,10 +84,7 @@
         color: red;
     }
     
-    .button-container {
-        display: flex;
-        gap: 10px; /* Espace entre les boutons */
-    }
+
     .large-button {
         padding: 10px 20px;
         font-size: 16px;
@@ -98,6 +94,7 @@
         background-color: #4CAF50; /* Couleur verte pour le bouton actif */
         color: white;
     }
+
 </style>
 
 
@@ -105,9 +102,11 @@
 <body>
     
     <div class="container">
-        
-        <h1>Jeu d'association de nombres.</h1>
 
+        <div class="container">
+            <h1><br>Jeu d'association de nombres.</h1>
+        </div>
+    
         <div class="alert alert-primary alert-dismissible" role="info" id="km_Alert">
             <strong>Règles:</strong>
             <br>Trouver le nombre et la traduction correspondante.
