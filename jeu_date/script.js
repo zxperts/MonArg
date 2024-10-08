@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             goodAnswers++;
         }
         else {badAnswers++;}
-        
+
         totalAnswers=goodAnswers+badAnswers;
 		document.getElementById("scoreBtn").textContent = `${goodAnswers}/${totalAnswers}`;
     }
@@ -57,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'Sint Valentijn': '14 Février',
             'Allerheiligen & AllerZielen': '1 Novembre',
             'Nationale Feestdag': '21 Juillet',
-            'Moederdag': 'Deuxième dimanche de mai',
-            'Eerste schooldag': '1er septembre',
-            'Pasen': 'Date variable',
-            'Vaderdag': 'Troisième dimanche de juin'
+            'Moederdag': '11 mai',
+            'Eerste schooldag': '26 Août',
+            'Pasen': 'Mars -  Avril',
+            'Vaderdag': '8 Juin'
         };
         return eventDates[event];
     }
@@ -121,6 +121,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
     function handleCardClick(event) {
+
+        //notification.style.color ="blue";
+        //notification.textContent = 'OK';
+
         const card = event.target;
         if (selectedCards.length < 2 && !card.classList.contains('matched')) {
             card.classList.add('selected');
@@ -129,6 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkMatch();
             }
         }
+
+        setTimeout(() => {
+            notification.classList.remove('error');
+        }, 1000);
     }
 
     function checkMatch() {
@@ -151,17 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             notification.style.color ="red";
             notification.textContent = 'Mauvaise réponse, essayez encore.';
-            card1.click();
-            card2.classList.toggle('unscale')
             notification.classList.add('error');
-
+            card1.classList.remove('selected');
+            card2.classList.remove('selected');
             badAnswers++;
 
 
         }
         setTimeout(() => {
-            card1.classList.remove('selected');
-            card2.classList.remove('selected');
+            card1.classList.toggle('unscale')
+            card2.classList.toggle('unscale')
             selectedCards = [];
             notification.textContent = '';
             notification.classList.remove('error');
