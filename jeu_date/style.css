@@ -78,3 +78,16 @@ label {
     justify-content: flex-start; /* ou toute autre valeur appropriée */
     flex-wrap: wrap;
 }
+
+nav a {
+    color: #fff;
+    /* margin: 0 15px; */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+nav a:hover {
+    background-color: #0056b3;
+}
