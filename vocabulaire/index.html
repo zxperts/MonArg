@@ -18,14 +18,14 @@
             transition: transform 0.3s ease;
         }
 
-        .event.scale, .date.scale {
+        .event.scale, .trdfr.scale {
             transform: scale(1.2);
         }
 
-        .event.unscale, .date.unscale {
+        .event.unscale, .trdfr.unscale {
             transform: scale(1);
         }
-        .event, .date {
+        .event, .trdfr {
             padding: 10px;
             margin: 5px;
             border: 1px solid #ccc;
@@ -33,7 +33,7 @@
             background-color: #f9f9f9;
             cursor: pointer;
         }
-        .event:active, .date:active {
+        .event:active, .trdfr:active {
             background-color: #e9e9e9;
         }
         .matched {
@@ -45,6 +45,7 @@
         .hidden {
             display: none;
         }
+        
     </style>
 </head>
 <body>
@@ -54,6 +55,7 @@
         <button id="RejouerBtn" onclick="ReloadPage()" class="gradient2-button">Nouveau🎰Jeu</button>
         <!-- <button onclick="toggleEmojis(this)" class="gradient-button">Aide 🧸</button> -->
         <button id="scoreBtn" class="gradient2-button">0/0</button>
+        <button id="CaisseBtn" class="gradient-button">📦📦📦📦</button>
     </div>
 
     
@@ -61,11 +63,12 @@
         <div class="column" id="events">
             <!-- Événements générés ici -->
         </div>
-        <div class="column" id="dates">
-            <!-- Dates générées ici -->
+        <div class="column" id="trdfrs">
+            <!-- TrdFRs générées ici -->
         </div>
     </div>
     <div class="notification" id="notification"></div>
+    <div class="notification2" id="notification2"></div>
 
     <script>
 

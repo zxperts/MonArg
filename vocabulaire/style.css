@@ -91,3 +91,19 @@ nav a {
 nav a:hover {
     background-color: #0056b3;
 }
+
+@keyframes increaseSize {
+    from {
+        font-size: 16px;
+    }
+    to {
+        font-size: 48px; /* Ajuste cette taille selon tes besoins */
+    }
+}
+
+.notification2 {
+    display: inline-block; /* Assure que l'animation fonctionne correctement */
+    animation: increaseSize 5s infinite;
+    justify-content: center; /* ou toute autre valeur appropriée */
+    display: flex;
+}
