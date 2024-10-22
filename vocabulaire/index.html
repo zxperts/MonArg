@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génération des Divs d'Événements</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .column {
+            width: 45%;
+        }
+        .event {
+            transition: transform 0.3s ease;
+        }
+
+        .event.scale, .date.scale {
+            transform: scale(1.2);
+        }
+
+        .event.unscale, .date.unscale {
+            transform: scale(1);
+        }
+        .event, .date {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        .event:active, .date:active {
+            background-color: #e9e9e9;
+        }
+        .matched {
+            background-color: #d4edda;
+        }
+        .emoji {
+            display: inline;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script src="script.js"></script>
+
+    <div class="button-container">
+        <button id="RejouerBtn" onclick="ReloadPage()" class="gradient2-button">Nouveau🎰Jeu</button>
+        <!-- <button onclick="toggleEmojis(this)" class="gradient-button">Aide 🧸</button> -->
+        <button id="scoreBtn" class="gradient2-button">0/0</button>
+    </div>
+
+    
+    <div class="container">
+        <div class="column" id="events">
+            <!-- Événements générés ici -->
+        </div>
+        <div class="column" id="dates">
+            <!-- Dates générées ici -->
+        </div>
+    </div>
+    <div class="notification" id="notification"></div>
+
+    <script>
+
+    function ReloadPage() {
+        location.reload();
+    }
+        
+    </script>
+
+</body>
+</html>
