@@ -122,3 +122,12 @@ html {
     direction: ltr; 
 }
 
+#customTitle {
+    /* font-size: 24px; */
+    font-weight: bold;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}

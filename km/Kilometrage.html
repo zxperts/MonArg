@@ -111,14 +111,56 @@
             </div>
           </div>
         </div>
+
+        <script>
+
+        
+
+        // Crée une instance de l'objet SpeechRecognition
+			const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+
+			// Configure la langue (par exemple, le français)
+			recognition.lang = 'fr-FR';
+
+			// Écoute les événements de reconnaissance vocale
+			recognition.onresult = (event) => {
+			const result = event.results[0][0].transcript;
+			const parsedNumber = wordToNumber[result.toLowerCase()]||result;
+			//const parsedNumber = parseFloat(result);
+
+			tempAlert('🎤 Vous avez dit: <br> '+result + '<br> '+ parsedNumber,2000);
+
+			if (!isNaN(parsedNumber)) {
+				console.log(`Nombre reconnu : ${parsedNumber}`);
+				changerRandomN1mber01(parsedNumber);
+				
+			} else {
+				console.log("Ce n'est pas un nombre valide.");
+			}
+			};
+
+			// Crée un bouton pour démarrer la reconnaissance vocale
+			const startButton = document.createElement('button');
+			startButton.textContent = '🎤';
+			startButton.className = 'gradient2-button';
+			startButton.addEventListener('click', () => {
+			recognition.start();
+			});
+			
+		// Crée une instance de l'objet SpeechRecognition
+
+  </script>
         
         
         <!-- <div class="btn-group" data-toggle="buttons">           -->
           <!-- <button class="btn btn-info btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
           
+          <!-- <button class="btn btn-primary col  btn-lg" type='button' id="Reco"  onclick="recognition.start()">🎤</button> -->
+          
           <button class="btn btn-primary col  btn-lg" type='button' id="manuelInput"  data-toggle="modal" data-target="#inputkm_modal">Encoder manuellement</button>
           <!-- <div class="col-lg-2 col-md-1"></div> -->
-          <button type='button' btn-block class="btn btn-danger col  btn-lg" id="start_camera">Start/Stop ticket scan</button>
+          <!-- <button type='button' btn-block class="btn btn-danger col  btn-lg" id="start_camera">Start/Stop ticket scan</button> -->
           <div class="col-lg-2 col-md-1"></div>
           <button class="btn btn-info col  btn-lg" type="submit"  onclick="table2pdf();" >Imprimer</button>  
           <!-- </div> -->
@@ -131,27 +173,29 @@
               <!-- Modal content-->
               <div class="modal-content">
                 <div class="modal-header">
-                  <!-- <h4 class="modal-title">Encoder vos Kilomètre</h4> -->
                   <button type="button" class="close col-md-1" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
+                  <h4 class="modal-title" id="customTitle">Encoder vos Kilomètres</h4>
                   <div class="row">
-                    <div class="col-md-4">
-                      <label for="KmInput" class="form-label">Kilom&eacute;trage</label>
-                      <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
-                    </div>
-                    <div class="col-md-4">
-                      <label for="KmDateInput" class="form-label">Date</label>
-                      <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
-                    </div>
-                    <div class="col-md-4">
-                      <label for="KmDateInput" class="form-label">Ville</label>
-                      <input class="form-control" type="text" value="Namur" id="KmCityInput">
-                    </div>
+                      <div class="col-md-4">
+                          <label for="KmInput" class="form-label">Kilométrage</label>
+                          <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
+                      </div>
+                      <div class="col-md-4">
+                          <label for="KmDateInput" class="form-label">Date</label>
+                          <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
+                      </div>
+                      <div class="col-md-4">
+                          <label for="KmCityInput" class="form-label">Ville</label>
+                          <input class="form-control" type="text" value="Namur" id="KmCityInput">
+                      </div>
                   </div>
-                </div>
+              </div>
+              
                 <div class="modal-footer">
-                  <button class="btn btn-info col-12  btn-lg" type="submit" onclick="saveInputValue();" >Enregistrer</button>
+                  <button class="btn btn-primary col-12  btn-lg" type="submit" onclick="saveInputValue();" >Enregistrer</button>
+                  <button class="btn btn-warning col-12  btn-lg" type="submit" onclick="ReplaceInTable();" >Mettre à jour</button>                
                 </div>
               </div>
               
@@ -230,33 +274,35 @@
                     </tr>
                   </thead>
                   <tbody  id="tableKmBody">
-                    <tr>
+                    <tr data-id="1001234" data-date="10-05-2021" data-location="Bruxellessss">
                       <td>100123</td>
-                      <td>10-05-2021</td>
+                      <td>2021-10-05</td>
                       <td>Bruxelles</td>
                       <td>
-                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                          <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                          <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
+                          <!-- <a class="editNew" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a> -->
+                          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                       </td>
-                    </tr>
+                  </tr>
+                  
                     <tr>
                       <td>100124</td>
-                      <td>10-05-2021</td>
+                      <td>2021-12-15</td>
                       <td>Namur</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                       </td>
                     </tr>
                     <tr>
                       <td>100125</td>
-                      <td>10-05-2021</td>
+                      <td>2021-10-21</td>
                       <td>Hasselt</td>
                       <td>
                         <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                        <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                        <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
                         <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
                       </td>
                     </tr>      
@@ -288,6 +334,11 @@
 <script  type = "text/javascript" async=false>
   
   document.getElementById('KmDateInput').value = new Date().toISOString().substring(0, 10);
+
+  // Ajoute le bouton au corps du document
+  //document.body.appendChild(startButton);
+  //const manuelInputButton = document.getElementById('manuelInput');
+  //manuelInputButton.parentNode.insertBefore(startButton, manuelInputButton);
   
   var rows = [{
     name: "John",
@@ -322,11 +373,11 @@
       html+="</table>";
       // document.getElementById("collapseOne").innerHTML = html;
       
-    </script>
+</script>
     
     
-    <script src="scripts/compteur.js"></script>
-    <script src="scripts/AddDelete.js"></script>
-    <script src="scripts/camera.js"></script>
-    <script src="scripts/ocrad.js"></script>
-    <script src="scripts/kmChart.js"></script>
+<script src="scripts/compteur.js"></script>
+<script src="scripts/AddDelete.js"></script>
+<script src="scripts/camera.js"></script>
+<script src="scripts/ocrad.js"></script>
+<script src="scripts/kmChart.js"></script>

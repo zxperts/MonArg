@@ -8,7 +8,7 @@ let dataurl = document.querySelector("#dataurl");
 let dataurl_container = document.querySelector("#dataurl_container");
 let inputkm_container = document.querySelector("#inputkm_container");
 
-camera_button.addEventListener('click', async function() {
+/* camera_button.addEventListener('click', async function() {
     let stream = null;
     
     try {
@@ -29,7 +29,7 @@ camera_button.addEventListener('click', async function() {
     // camera_button.style.display = 'none';
     // inputkm_container.style.display = 'none';
     // click_button.style.display = 'block';
-});
+}); */
 
 click_button.addEventListener('click', function() {
     

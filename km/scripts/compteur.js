@@ -1,12 +1,15 @@
+var index;
+var selectedIndex;
+
 
 /**
- * Créez un cookie avec le nom cookieName,
- * la valeur cookieValue et la date d'expiration daysToExpire
- * jours à partir de maintenant.
- * @param cookieName - Le nom du cookie que vous souhaitez créer.
- * @param cookieValue - La valeur du cookie.
- * @param daysToExpire - Le nombre de jours jusqu'à ce que le cookie expire.
- */
+* Créez un cookie avec le nom cookieName,
+* la valeur cookieValue et la date d'expiration daysToExpire
+* jours à partir de maintenant.
+* @param cookieName - Le nom du cookie que vous souhaitez créer.
+* @param cookieValue - La valeur du cookie.
+* @param daysToExpire - Le nombre de jours jusqu'à ce que le cookie expire.
+*/
 function createCookie(cookieName,cookieValue,daysToExpire)
 {
   var date = new Date();
@@ -16,20 +19,20 @@ function createCookie(cookieName,cookieValue,daysToExpire)
 
 
 /**
- * Il prend un nom de cookie comme argument,
- * puis renvoie un tableau de tableaux des valeurs du cookie.
- * @param cookieName - le nom du cookie auquel vous souhaitez accéder
- * @returns 18 : km=[[1,2,3],[4,5,6],[7,8,9]]
- */
+* Il prend un nom de cookie comme argument,
+* puis renvoie un tableau de tableaux des valeurs du cookie.
+* @param cookieName - le nom du cookie auquel vous souhaitez accéder
+* @returns 18 : km=[[1,2,3],[4,5,6],[7,8,9]]
+*/
 function accessCookie(cookieName)
 {
   var name = cookieName + "=";
   var allCookieArray = document.cookie.split(';');
   for(var i=0; i<allCookieArray.length; i++)
-  {
+    {
     var temp = allCookieArray[i].trim();
     if (temp.indexOf(name)==0)
-    {
+      {
       console.log('18: '+temp)
       arrKmSTR = temp.substring(name.length,temp.length);
       const arrKm1d = arrKmSTR.split(",");
@@ -43,12 +46,12 @@ function accessCookie(cookieName)
 
 
 /**
- * Il vérifie si le cookie existe, s'il existe,
- *  il crée un tableau avec les données du cookie, si ce
- * n'est pas le cas, il vérifie si les cookies sont activés,
- *  s'ils le sont, il masque l'alerte cookie,
- * s'ils ne le sont pas , il affiche l'alerte cookie.
- */
+* Il vérifie si le cookie existe, s'il existe,
+*  il crée un tableau avec les données du cookie, si ce
+* n'est pas le cas, il vérifie si les cookies sont activés,
+*  s'ils le sont, il masque l'alerte cookie,
+* s'ils ne le sont pas , il affiche l'alerte cookie.
+*/
 function onLoadcheckCookie()
 {
   hideButton();
@@ -56,10 +59,10 @@ function onLoadcheckCookie()
   var arrKm = accessCookie("KmCookie");
   todayDate=new Date().toISOString().substring(0, 10);
   if (arrKm!="")
-  {
+    {
     $('#km_Alert').slideUp(500);
     $("#cookie_Alert").slideUp(500);
-
+    
     console.log("Welcome Back, Le compteur est à " + arrKm[arrKm.length - 1] + " !");
     console.log(arrKm);
     var kmCur=arrKm[0][0];
@@ -73,17 +76,17 @@ function onLoadcheckCookie()
   else
   {
     if (testCoockies())    
-    { $("#cookie_Alert").slideUp(500); }
+      { $("#cookie_Alert").slideUp(500); }
   }
-
+  
 }
 
 
 /**
- * Il crée une table,
- * ajoute une ligne à la table, puis ajoute la table au DOM.
- * @param tableData - un tableau de tableaux, dont chacun représente une ligne dans la table.
- */
+* Il crée une table,
+* ajoute une ligne à la table, puis ajoute la table au DOM.
+* @param tableData - un tableau de tableaux, dont chacun représente une ligne dans la table.
+*/
 function createTable(tableData) {
   var table = document.createElement('table');
   table.setAttribute('border', '50');
@@ -107,7 +110,7 @@ function createTable(tableData) {
       // '<td>' + actions + '</td>' +
       '<td>'+
       '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>'+
-      '<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>'+
+      '<a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>'+
       '<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>'+
       '</td>'+
       '</tr>';
@@ -123,10 +126,10 @@ function createTable(tableData) {
 }
 
 /**
- * Il prend les valeurs d'entrée du formulaire,
- * les place dans un tableau, puis crée un cookie avec le
- * tableau comme valeur.
- */
+* Il prend les valeurs d'entrée du formulaire,
+* les place dans un tableau, puis crée un cookie avec le
+* tableau comme valeur.
+*/
 function saveInputValue(){
   // Selecting the input element and get its value 
   var inputVal = document.getElementById("KmInput").value;
@@ -135,13 +138,14 @@ function saveInputValue(){
   console.log(inputVal,inputDate,inputCity);
   
   var arrKm = table2Array();
-
+  
   arrKm.unshift([inputVal,inputDate,inputCity]);
   
   createCookie("KmCookie", arrKm, 100);
   createTable(arrKm);
   updateCookie();
 }
+
 
 
 
@@ -163,7 +167,7 @@ function animateValue(id, start, end, duration) {
       clearInterval(timer);
     }
   }, 50
-  );
+);
 }
 
 
@@ -199,8 +203,8 @@ function updateCookie(){
 
 
 /**
- * Il prend le contenu d'un tableau et en fait un pdf
- */
+* Il prend le contenu d'un tableau et en fait un pdf
+*/
 function table2pdf() {
   var pdf = new jsPDF('p', 'pt', 'letter');
   
@@ -233,6 +237,65 @@ function testCoockies(){
   // Delete cookie test
   document.cookie = "testcookie=1; expires=Thu, 01-Jan-1970 00:00:01 GMT";
   return enabled;
+}
+
+
+
+
+// $(document).on("click", ".ModifyIt", function(){ $('#inputkm_modal').modal('show'); });
+
+$(document).on('click', '.edit', function() {
+
+  document.querySelector('button[onclick="saveInputValue();"]').style.display = "none";
+  document.querySelector('button[onclick="ReplaceInTable();"]').style.display = "block";
+
+  index = $(this).closest('tr');
+  selectedIndex = $(this).closest('tr').index();
+  var $tr = $(this).closest('tr');
+  var id = $tr.find('td').eq(0).text();  
+  var date = $tr.find('td').eq(1).text(); 
+  var location = $tr.find('td').eq(2).text();
+
+  $('#inputkm_modal').find('#KmInput').val(id);
+  $('#inputkm_modal').find('#KmDateInput').val(date);
+  $('#inputkm_modal').find('#KmCityInput').val(location);
+  $('#inputkm_modal').find('#customTitle').val(selectedIndex);
+  console.log(selectedIndex + " selected");
+
+});
+
+$(document).on('click', '#manuelInput', function() {
+  document.querySelector('button[onclick="saveInputValue();"]').style.display = "block";
+  document.querySelector('button[onclick="ReplaceInTable();"]').style.display = "none";
+});
+
+
+function ReplaceInTable() {
+  if (selectedIndex !== undefined) {
+      // Utilisez selectedIndex ici pour mettre à jour la ligne correspondante
+      var newId = $('#KmInput').val();
+      var newDate = $('#KmDateInput').val();
+      var newLocation = $('#KmCityInput').val();
+
+      var $tableRow = $('table tr').eq(selectedIndex + 1); // +1 car la première ligne est souvent l'en-tête
+      $tableRow.find('td').eq(0).text(newId);
+      $tableRow.find('td').eq(1).text(newDate);
+      $tableRow.find('td').eq(2).text(newLocation);
+
+      // Réinitialisez selectedIndex après utilisation
+      selectedIndex = undefined;
+
+      var arrKm = table2Array();
+      arrKm.unshift([newId,newDate,newLocation]);
+      createCookie("KmCookie", arrKm, 100);
+      updateCookie();
+
+      // Fermez le modal si nécessaire
+      //$('#inputkm_modal').modal('hide');
+  } else {
+      console.log("Aucune ligne sélectionnée");
+      alert("Aucune ligne sélectionnée");
+  }
 }
 
 
