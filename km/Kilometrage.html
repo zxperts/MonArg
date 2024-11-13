@@ -166,41 +166,59 @@
           <!-- </div> -->
           
           
-          <!-- Modal -->
-          <div class="modal fade" id="inputkm_modal" role="dialog">
-            <div class="modal-dialog">
-              
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close col-md-1" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                  <h4 class="modal-title" id="customTitle">Encoder vos Kilomètres</h4>
+                  <div class="modal fade" id="inputkm_modal" role="dialog">
+          <div class="modal-dialog"> <!-- Added modal-lg for larger modal -->
+            
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header"> <!-- Added bg-primary and text-white for header styling -->
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
+              </div>
+              <h4 class="modal-title" id="customTitle">Encoder vos Kilomètres</h4>
+              <div class="modal-body">
+                <div class="container">
                   <div class="row">
-                      <div class="col-md-4">
-                          <label for="KmInput" class="form-label">Kilométrage</label>
-                          <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value=9999 required>
-                      </div>
-                      <div class="col-md-4">
-                          <label for="KmDateInput" class="form-label">Date</label>
-                          <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
-                      </div>
-                      <div class="col-md-4">
-                          <label for="KmCityInput" class="form-label">Ville</label>
-                          <input class="form-control" type="text" value="Namur" id="KmCityInput">
-                      </div>
+                    <div class="col-md-3">
+                      <label for="KmDateInput" class="form-label">Date</label>
+                      <input class="form-control" type="date" value="2011-08-19" id="KmDateInput">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="KmCityInput" class="form-label">Ville</label>
+                      <input class="form-control" type="text" value="Namur" id="KmCityInput">
+                    </div>
                   </div>
-              </div>
-              
-                <div class="modal-footer">
-                  <button class="btn btn-primary col-12  btn-lg" type="submit" onclick="saveInputValue();" >Enregistrer</button>
-                  <button class="btn btn-warning col-12  btn-lg" type="submit" onclick="ReplaceInTable();" >Mettre à jour</button>                
+                  <div class="row mt-3"> <!-- Added margin-top for spacing -->
+                    <div class="col-md-3">
+                      <label for="KmInput" class="form-label">Kilométrage</label>
+                      <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value="9999" required>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="VolInput" class="form-label">Volume</label>
+                      <input type="number" pattern="\d*" class="form-control" id="VolInput" min="1" max="100" value="30" readonly>
+                    </div>
+                  </div>
+                  <div class="row mt-3"> <!-- Added margin-top for spacing -->
+                    <div class="col-md-3">
+                      <label for="PreKmInput" class="form-label">Plein précédent</label>
+                      <input type="number" pattern="\d*" class="form-control" id="PreKmInput" min="1" max="500000" value="9999" readonly>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="ConsoInput" class="form-label">Consommation</label>
+                      <input type="number" pattern="\d*" class="form-control" id="ConsoInput" min="1" max="100" value="30" readonly>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary col-6" type="submit" onclick="saveInputValue();">Enregistrer</button>
+                <button class="btn btn-warning col-6" type="submit" onclick="ReplaceInTable();">Mettre à jour</button>                
+              </div>
             </div>
+            
           </div>
+        </div>
         </div>
         
         
