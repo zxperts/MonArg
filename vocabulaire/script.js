@@ -4,7 +4,139 @@ let badAnswers = 0;
 let selectedCards = [];
 let nbrShowed = 0;
 
-const eventTrdFRs = {
+let currentEventTrdFRs = {};
+
+
+// Définissez plusieurs listes eventTrdFRs
+const eventTrdFRsLists = {
+    eventTrdFRs : {
+        'Toets': 'Test',
+        'Donderdag': 'Jeudi',
+        'Vul - Vullen': 'Remplir',
+        'Beginnen - Begint': 'Commencer',
+        'Maart': 'Mars',
+        'De': 'Le',
+        'Gisteren': 'Hier',
+        'In': 'Dans',
+        'Van': 'De',
+        'Mei': 'Mai',
+        'Kalender - Kalenderjaar': 'Calendrier - Année calendaire',
+        'Was': 'Était',
+        'Jaar': 'Année',
+        'Lente': 'Printemps',
+        'Schrijf': 'Écrire',
+        'Welk': 'Quel',
+        'Dinsdag': 'Mardi',
+        'Telt - Tellen': 'Compte - Compter',
+        'Datum': 'Date',
+        'Dag - Dagen': 'Jour - Jours',
+        'Omcirkel': 'Entourer',
+        'Weken': 'Semaines',
+        'Op': 'Sur',
+        'Vandaag': 'Aujourd\'hui',
+        'Maanden': 'Mois',
+        'Seizoenen - Seizoen': 'Saisons - Saison',
+        'Andere': 'Autre',
+        'Ben - Bent - Is - Zijn': 'Suis - Êtes - Est - Sont',
+        'Eeuw': 'Siècle',
+        'Manier': 'Manière',
+        'Het': 'Le',
+        'Semester': 'Semestre',
+        'November': 'Novembre',
+        'Schrikkeljaar': 'Année bissextile',
+        'Juni': 'Juin',
+        'Mergen': 'Mélanger',
+        'Laatste': 'Dernier'
+    },
+    schoolItems : {
+        'De pennenzak': 'La trousse',
+        'De gom': 'La gomme',
+        'Het boek': 'Le livre',
+        'De balpen': 'Le stylo',
+        'De schaar': 'Les ciseaux',
+        'De lijm': 'La colle',
+        'De boekentas': 'Le cartable',
+        'Het potlood': 'Le crayon',
+        'De scherper': 'Le taille-crayon',
+        'De kleurenpotloden': 'Les crayons de couleur',
+        'De vulpen': 'La plume',
+        'De schrijft': 'L\'écriture',
+        'De kleurstiften': 'Les feutres',
+        'De papiermand': 'La corbeille à papier',
+        'De klasagenda': 'L\'agenda scolaire',
+        'Het bord': 'Le tableau',
+        'Het bureau': 'Le bureau',
+        'De krijt': 'La craie',
+        'De klok': 'L\'horloge',
+        'De kast': 'L\'armoire',
+        'De stoel': 'La chaise',
+        'De raam': 'La fenêtre',
+        'De deur': 'La porte',
+        'De mapp': 'Le classeur',
+        'De lat': 'La règle'
+    },
+
+    schoolItemsLoris : {
+        'De klas': 'La classe',
+        'De juffrouw': 'L\'institutrice',
+        'De meester': 'Le maître',
+        'Het bord': 'Le tableau',
+        'De deur': 'La porte',
+        'Het raam': 'La fenêtre',
+        'De kast': 'L\'armoire',
+        'Het bureau': 'Le bureau',
+        'De stoel': 'La chaise',
+        'De jongen': 'Le garçon',
+        'Het meisje': 'La fille',
+        'De pen': 'Le stylo',
+        'De potlood': 'Le crayon',
+        'De lat': 'La règle',
+        'De gom': 'La gomme',
+        'Het boek': 'Le livre',
+        'De plant': 'La plante',
+        'De klok': 'L\'horloge',
+        'De boekentas': 'Le cartable',
+        'Het krijt': 'La craie',
+        'Het script': 'Le script',
+        'De kleurpotloden': 'Les crayons de couleur',
+        'De pennenzak': 'La trousse',
+        'De boekentas': 'Le cartable',
+        'Het bureau': 'Le bureau',
+        'De stoel': 'La chaise',
+        'Het bord': 'Le tableau',
+        'Het boek': 'Le livre',
+        'De mapp': 'Le classeur',
+        'De lat': 'La règle',
+        'De gom': 'La gomme',
+        'De schaar': 'Les ciseaux',
+        'De lijm': 'La colle',
+        'De kleurstiften': 'Les feutres',
+        'Het papier': 'Le papier',
+        'De kast': 'L\'armoire',
+        'De deur': 'La porte',
+        'Het raam': 'La fenêtre',
+        'De jongen': 'Le garçon',
+        'Het meisje': 'La fille'
+    },
+
+    actionsEcole : {
+        'Schrijf/Schrijven': 'Écrire',
+        'Teken/Tekenen': 'Dessiner',
+        'Kleur/Kleuren': 'Colorier',
+        'Plak/Plakken': 'Coller',
+        'Kleef/Kleven': 'Adhérer',
+        'Knip/Knippen': 'Couper',
+        'Lees/Lezen': 'Lire',
+        'Luister/Luisteren': 'Écouter',
+        'Onderstreep/Onderstrepen': 'Souligner',
+        'Omcirkel/Omcirkelen': 'Entourer',
+        'Kruis aan/Aankruisen': 'Cocher'
+    }
+
+
+};
+
+const eventTrdFRs0 = {
     'Toets': 'Test',
     'Donderdag': 'Jeudi',
     'Vul - Vullen': 'Remplir',
@@ -43,6 +175,35 @@ const eventTrdFRs = {
     'Mergen': 'Mélanger',
     'Laatste': 'Dernier'
 };
+
+const schoolItems = {
+    'De pennenzak': 'La trousse',
+    'De gom': 'La gomme',
+    'Het boek': 'Le livre',
+    'De balpen': 'Le stylo',
+    'De schaar': 'Les ciseaux',
+    'De lijm': 'La colle',
+    'De boekentas': 'Le cartable',
+    'Het potlood': 'Le crayon',
+    'De scherper': 'Le taille-crayon',
+    'De kleurenpotloden': 'Les crayons de couleur',
+    'De vulpen': 'La plume',
+    'De schrijft': 'L\'écriture',
+    'De kleurstiften': 'Les feutres',
+    'De papiermand': 'La corbeille à papier',
+    'De klasagenda': 'L\'agenda scolaire',
+    'Het bord': 'Le tableau',
+    'Het bureau': 'Le bureau',
+    'De krijt': 'La craie',
+    'De klok': 'L\'horloge',
+    'De kast': 'L\'armoire',
+    'De stoel': 'La chaise',
+    'De raam': 'La fenêtre',
+    'De deur': 'La porte',
+    'De mapp': 'Le classeur',
+    'De lat': 'La règle'
+};
+
 
 window.onload = function() {
 
@@ -105,6 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const eventsContainer = document.getElementById('events');
         const trdfrsContainer = document.getElementById('trdfrs');
 
+        eventsContainer.replaceChildren();
+        trdfrsContainer.replaceChildren();
+
         let eventIndex = 1;
         for (const [event, trdfr] of Object.entries(eventTrdFRs)) {
             const eventDiv = document.createElement('div');
@@ -128,10 +292,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
             eventIndex++;
         }
+
+        initializeOrder('events');
+        //restoreOrder('events');
+        initializeOrder('trdfrs');
+        showTop10Divs();
+        shuffleElements('trdfrs');
+        //shuffleElements('events');
+
+        addBehaviour();
     }
 
     function getTrdFRForEvent(event) {        
-        return eventTrdFRs[event];
+        return currentEventTrdFRs[event];
     }
 
     // Initialiser l'ordre initial avant le mélange
@@ -302,37 +475,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Charger la première liste par défaut
+    currentEventTrdFRs = eventTrdFRsLists.eventTrdFRs;
+    generateDivs(currentEventTrdFRs);
+
     // Appel de la fonction pour générer les divs
-    generateDivs(eventTrdFRs);
+    //generateDivs(eventTrdFRs);
 
-    document.querySelectorAll('.event').forEach(item => {
-        item.addEventListener('click', event => {
-            event.target.classList.toggle('scale');
-        });
-        item.addEventListener('click', handleCardClick);
-    });
-
-    document.querySelectorAll('.trdfr').forEach(item => {
-        item.addEventListener('click', event => {
-            event.target.classList.toggle('scale');
-        });
-        item.addEventListener('click', handleCardClick);
-    });
-
-    events.forEach(event => {
-        event.addEventListener('dragstart', dragStart);
-    });
-
-    trdfrs.forEach(trdfr => {
-        trdfr.addEventListener('dragover', dragOver);
-        trdfr.addEventListener('drop', drop);
-    });
     
-    initializeOrder('events');
-    //restoreOrder('events');
-    initializeOrder('trdfrs');
-    showTop10Divs();
-    shuffleElements('trdfrs');
-    //shuffleElements('events');
+
+
+    // Ajouter un écouteur d'événements au menu déroulant
+    document.getElementById('listSelector').addEventListener('change', loadSelectedList);
+
+    function addBehaviour() {
+        document.querySelectorAll('.event').forEach(item => {
+            item.addEventListener('click', event => {
+                event.target.classList.toggle('scale');
+            });
+            item.addEventListener('click', handleCardClick);
+        });
+    
+        document.querySelectorAll('.trdfr').forEach(item => {
+            item.addEventListener('click', event => {
+                event.target.classList.toggle('scale');
+            });
+            item.addEventListener('click', handleCardClick);
+        });
+    
+        events.forEach(event => {
+            event.addEventListener('dragstart', dragStart);
+        });
+    
+        trdfrs.forEach(trdfr => {
+            trdfr.addEventListener('dragover', dragOver);
+            trdfr.addEventListener('drop', drop);
+        });
+    }
+
+
+    // Fonction pour charger la liste sélectionnée
+    function loadSelectedList() {
+        const selector = document.getElementById('listSelector');
+        const selectedList = selector.value;
+        currentEventTrdFRs = eventTrdFRsLists[selectedList];
+        generateDivs(currentEventTrdFRs);
+    }
+
+
+
 
 });
+

@@ -107,3 +107,45 @@ nav a:hover {
     justify-content: center; /* ou toute autre valeur appropriée */
     display: flex;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+
+  .custom-select-wrapper {
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+  }
+
+  .custom-select {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .custom-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+
+  .custom-select-wrapper::after {
+    content: '\25BC'; /* Down arrow */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #777;
+  }
