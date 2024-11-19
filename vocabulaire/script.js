@@ -131,7 +131,19 @@ const eventTrdFRsLists = {
         'Onderstreep/Onderstrepen': 'Souligner',
         'Omcirkel/Omcirkelen': 'Entourer',
         'Kruis aan/Aankruisen': 'Cocher'
+    },
+
+    eleefd_verzoek : {
+        'Mag ik drinken?': 'Puis-je boire?',
+        'Mag ik het bord afvegen?': 'Puis-je effacer le tableau?',
+        'Mag ik je potlood lenen?': 'Puis-je emprunter ton crayon?',
+        'Mag ik het raam opendoen?': 'Puis-je ouvrir la fenêtre?',
+        'Mag ik een zakdoek nemen?': 'Puis-je prendre un mouchoir?',
+        'Mag ik de schrijven uitdelen?': 'Puis-je distribuer les copies?',
+        'Mag ik naar het toilet gaan, alsjeblieft?': 'Puis-je aller aux toilettes, s\'il vous plaît?',
+        'Mag ik de bladen ophalen?': 'Puis-je ramasser les feuilles?'
     }
+    
 
 
 };
