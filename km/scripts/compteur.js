@@ -37,7 +37,7 @@ function accessCookie(cookieName)
       arrKmSTR = temp.substring(name.length,temp.length);
       const arrKm1d = arrKmSTR.split(",");
       const arrKm = [];
-      while(arrKm1d.length) arrKm.push(arrKm1d.splice(0,3));
+      while(arrKm1d.length) arrKm.push(arrKm1d.splice(0,5));
       return arrKm;
     }
   }
@@ -64,10 +64,11 @@ function onLoadcheckCookie()
     $("#cookie_Alert").slideUp(500);
     
     console.log("Welcome Back, Le compteur est à " + arrKm[arrKm.length - 1] + " !");
-    console.log(arrKm);
+    console.log("arrKm",arrKm);
     var kmCur=arrKm[0][0];
     createTable(arrKm);
     document.getElementById('KmInput').value = kmCur;
+    document.getElementById('PreKmInput').value = kmCur;
     // document.getElementById('kmDash').innerHTML = kmCur;
     animateValue("kmDash", 0, kmCur, 1000);
     // createTable(arrKm);
@@ -99,6 +100,9 @@ function createTable(tableData) {
   
   tableData.forEach(function(rowData) {
     var row = document.createElement('tr');
+
+    //alert("rowData",rowData)
+    console.log("rowData",  rowData);
     
     var actions = $("#tableKm td:last-child").html();    {
       $(this).attr("disabled", "disabled");
@@ -107,6 +111,8 @@ function createTable(tableData) {
       '<td>'+ rowData[0] +'</td>' +
       '<td>'+ rowData[1] +'</td>' +
       '<td>'+ rowData[2] +'</td>' +
+      '<td>'+ rowData[3] +'</td>' +
+      '<td>'+ rowData[4] +'</td>' +
       // '<td>' + actions + '</td>' +
       '<td>'+
       '<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>'+
@@ -135,11 +141,14 @@ function saveInputValue(){
   var inputVal = document.getElementById("KmInput").value;
   var inputDate = document.getElementById("KmDateInput").value;
   var inputCity = document.getElementById("KmCityInput").value;
-  console.log(inputVal,inputDate,inputCity);
+  var inputVol = document.getElementById("VolInput").value;
+  //var inputPreKm = document.getElementById("PreKmInput").value;
+  var inputConso = document.getElementById("ConsoInput").value;
+  console.log("inputVal,inputDate,inputCity,inputVol,inputConso",inputVal,inputDate,inputCity,inputVol,inputConso);
   
   var arrKm = table2Array();
   
-  arrKm.unshift([inputVal,inputDate,inputCity]);
+  arrKm.unshift([inputVal,inputDate,inputCity,inputVol,inputConso]);
   
   createCookie("KmCookie", arrKm, 100);
   createTable(arrKm);
@@ -156,7 +165,7 @@ function animateValue(id, start, end, duration) {
   var increment = end > start? range : -range;
   increment=1;
   var stepTime = Math.abs(Math.floor(duration / range));
-  console.log(stepTime);
+  console.log("stepTime",stepTime);
   var obj = document.getElementById(id);
   var timer = setInterval(function() {
     increment=increment*2;
@@ -187,13 +196,13 @@ function table2Array(){
   var myTableArrayMinLast = myTableArray.map(function(val) {
     return val.slice(0, -1);
   });
-  console.log(myTableArrayMinLast);
+  console.log("myTableArrayMinLast",myTableArrayMinLast);
   return myTableArrayMinLast;
 }
 
 function updateCookie(){
   
-  var arrKm = table2Array();    
+  var arrKm = table2Array();
   createCookie("KmCookie", arrKm, 100);  
   animateValue("kmDash", 0, arrKm[0][0], 1000);
   updateKmChart(arrKm);
@@ -252,13 +261,20 @@ $(document).on('click', '.edit', function() {
   index = $(this).closest('tr');
   selectedIndex = $(this).closest('tr').index();
   var $tr = $(this).closest('tr');
+  var $prevTr = $tr.next(); // Obtenir la rangée précédente
   var id = $tr.find('td').eq(0).text();  
   var date = $tr.find('td').eq(1).text(); 
   var location = $tr.find('td').eq(2).text();
+  var volume = $tr.find('td').eq(3).text();
+  var preKm = $prevTr.find('td').eq(0).text();
+  var Consommation = $tr.find('td').eq(4).text();
 
   $('#inputkm_modal').find('#KmInput').val(id);
   $('#inputkm_modal').find('#KmDateInput').val(date);
   $('#inputkm_modal').find('#KmCityInput').val(location);
+  $('#inputkm_modal').find('#VolInput').val(volume);
+  $('#inputkm_modal').find('#PreKmInput').val(preKm);
+  $('#inputkm_modal').find('#ConsoInput').val(Consommation);
   $('#inputkm_modal').find('#customTitle').val(selectedIndex);
   console.log(selectedIndex + " selected");
 
@@ -276,26 +292,96 @@ function ReplaceInTable() {
       var newId = $('#KmInput').val();
       var newDate = $('#KmDateInput').val();
       var newLocation = $('#KmCityInput').val();
+      var newVolume = $('#VolInput').val();
+      //var newPreKm = $('#PreKmInput').val();
+      var newConso = $('#ConsoInput').val();
 
       var $tableRow = $('table tr').eq(selectedIndex + 1); // +1 car la première ligne est souvent l'en-tête
       $tableRow.find('td').eq(0).text(newId);
       $tableRow.find('td').eq(1).text(newDate);
       $tableRow.find('td').eq(2).text(newLocation);
+      $tableRow.find('td').eq(3).text(newVolume);
+      //$tableRow.find('td').eq(2).text(newPreKm);
+      $tableRow.find('td').eq(4).text(newConso);
 
       // Réinitialisez selectedIndex après utilisation
-      selectedIndex = undefined;
+      //selectedIndex = undefined;
 
       var arrKm = table2Array();
-      arrKm.unshift([newId,newDate,newLocation]);
+      arrKm.unshift([newId,newDate,newLocation,newVolume,newConso]);
       createCookie("KmCookie", arrKm, 100);
       updateCookie();
 
       // Fermez le modal si nécessaire
-      //$('#inputkm_modal').modal('hide');
+      $('#inputkm_modal').modal('hide');
   } else {
       console.log("Aucune ligne sélectionnée");
       alert("Aucune ligne sélectionnée");
   }
 }
 
+
+
+document.getElementById('KmInput').addEventListener('input', calculateConsumption);
+document.getElementById('VolInput').addEventListener('input', calculateConsumption);
+document.getElementById('PreKmInput').addEventListener('input', calculateConsumption);
+
+function calculateConsumption() {
+  const km = document.getElementById('KmInput').value;
+  const Prekm = document.getElementById('PreKmInput').value;
+  const volume = document.getElementById('VolInput').value;
+  const consumption = (volume && km && Prekm && (km - Prekm) > 0) ? (volume / (km - Prekm)) * 100 : 0;  // Consommation en litres pour 100 km
+  //alert(volume +" "+ km +" "+ Prekm + " "+ consumption);
+
+  document.getElementById('ConsoInput').value = consumption.toFixed(2);
+}
+
+
+document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    var column = this.getAttribute('data-column');
+    var table = document.getElementById('tableKm');
+    var display = this.checked ? '' : 'none';
+    Array.from(table.rows).forEach(function(row) {
+      row.cells[column].style.display = display;
+    });
+  });
+});
+
+
+
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Function to get a cookie
+    function getCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    // Function to handle checkbox change
+    function handleCheckboxChange(checkbox) {
+      var column = checkbox.getAttribute('data-column');
+      var table = document.getElementById('tableKm');
+      var display = checkbox.checked ? '' : 'none';
+      Array.from(table.rows).forEach(function(row) {
+        row.cells[column].style.display = display;
+      });
+      // Save the preference in a cookie
+      setCookie('column' + column, checkbox.checked ? 'show' : 'hide', 7);
+    }
 

@@ -131,3 +131,24 @@ html {
     border-radius: 5px;
     margin-bottom: 20px;
 }
+
+.modal-header { 
+    text-align: center; /* Centers the text */ 
+}
+
+.km-wrapper {
+    display: flex;
+    align-items: flex-end; /* Aligner les éléments à la base */
+    gap: 10px; /* Espacement entre les éléments */
+}
+
+.centered {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+.checkbox-wrapper { margin-bottom: 10px; } 
+
+
