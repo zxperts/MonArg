@@ -385,3 +385,44 @@ document.querySelectorAll('.checkbox-wrapper input[type="checkbox"]').forEach(fu
       setCookie('column' + column, checkbox.checked ? 'show' : 'hide', 7);
     }
 
+    function convertTableToCards() {
+      const table = document.getElementById('tableKm');
+      const tbody = table.querySelector('tbody');
+      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const cardContainer = document.getElementById('cardContainer');
+      
+      // Clear any existing cards
+      cardContainer.innerHTML = '';
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const km = cells[0].textContent;
+        const date = cells[1].textContent;
+        const ville = cells[2].textContent;
+        const volume = cells[3].textContent;
+        const consommation = cells[4].textContent;
+        const actions = cells[5].innerHTML;
+
+        const cardHTML = `
+          <div class="col-12 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Kilomètres: ${km}</h5>
+                <p class="card-text">Date: ${date}</p>
+                <p class="card-text">Ville: ${ville}</p>
+                <p class="card-text">Volume: ${volume}</p>
+                <p class="card-text">Consommation: ${consommation}</p>
+                <div>${actions}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        cardContainer.innerHTML += cardHTML;
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      //convertTableToCards();
+      
+    });
