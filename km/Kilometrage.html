@@ -97,37 +97,48 @@
   
   <div class="container">
     
-    
     <div class="container overflow-hidden">
       <form class="row g-3">
         
-        <div class="container overflow-hidden">
-          <div class="km-wrapper">
-
-              <h1 class="col-md-4" id="kmDash" style="color:cadetblue; font-size:75px; margin:0;">251266</h1>
-              <h1 class="col-md-7" style="color:black; font-size:35px; margin:0;">Km</h1>
-  
-
-            <div class="col-md-2">
-              <button class="btn btn-light btn-lg col-md-2" type="button" data-toggle="modal" data-target="#columnModal" style="font-size: 26px;">🔧</button>
-
+        <div class="container py-4">
+          <div class="km-wrapper text-center bg-light rounded-3 shadow-sm p-4">
+            <div class="d-flex justify-content-center align-items-baseline">
+              <h1 
+                id="kmDash" 
+                class="display-1 fw-bold text-primary me-3">
+                251 266
+              </h1>
+              <h2 class="text-muted fw-light">Km</h2>
             </div>
           </div>
-        </div>        
+        </div>
+               
         <!-- <div class="btn-group" data-toggle="buttons">           -->
           <!-- <button class="btn btn-info btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
           
           <!-- <button class="btn btn-primary col  btn-lg" type='button' id="Reco"  onclick="recognition.start()">🎤</button> -->
           
           
-          <div class="row">
-            <div class="col">
-              <button class="btn btn-primary btn-lg btn-block" type="button" id="manuelInput" data-toggle="modal" data-target="#inputkm_modal">Encoder manuellement</button>
-            </div>
-            <div class="col">
-              <button class="btn btn-info btn-lg btn-block" type="submit" onclick="table2pdf();">Imprimer</button>
+          <div class="container mt-4">
+            <div class="row g-3">
+              <div class="col-md-8">
+                <button class="btn btn-primary btn-lg w-100 shadow-sm" type="button" id="manuelInput" data-toggle="modal" data-target="#inputkm_modal">
+                  <i class="fas fa-keyboard me-2"></i>Encoder manuellement
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-info btn-lg w-100 shadow-sm" type="button" onclick="table2pdf();">
+                  <i class="fas fa-print me-2"></i>Imprimer
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-secondary btn-lg w-100 shadow-sm" type="button" data-toggle="modal" data-target="#columnModal">
+                  <i class="fas fa-cog me-2"></i>Configurer
+                </button>
+              </div>
             </div>
           </div>
+          
           
           
         <!-- </div> -->
@@ -205,6 +216,11 @@
         <canvas id="canvas" width="320" height="240"></canvas>
         <div id="dataurl-header">Image Data URL</div>
         <textarea id="dataurl" readonly></textarea>
+      </div>
+
+      <br />
+
+      <div class="container overflow-hidden" id="cardContainer">
       </div>
       
       

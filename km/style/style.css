@@ -61,6 +61,15 @@ table.table td a.edit {
 table.table td a.delete {
     color: #E34724;
 }
+
+.card-body .edit {
+    color: #FFC107;
+}
+
+.card-body .delete {
+    color: #E34724;
+}
+
 table.table td i {
     font-size: 19px;
 }

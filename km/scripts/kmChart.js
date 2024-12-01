@@ -1,6 +1,8 @@
 
 function updateKmChart(data)  {
 
+  convertTableToCards();
+  
   /* 
   var data = [["10001", "2023-01-31", "Namur"], ["10000", "2023-01-31", "Namur"], 
   ["100123", "10-05-2021", "Bruxelles"], ["100124", "10-05-2021", "Namur"], 

@@ -53,11 +53,6 @@ $(document).ready(function(){
         $(".add-new").attr("disabled", "disabled");
         // updateCookie();	
     });
-    // Delete row on delete button click
-    $(document).on("click", ".delete", function(){
-        $(this).parents("tr").remove();
-        $(".add-new").removeAttr("disabled");
-        updateCookie();	
-    });
+    
     
 });
