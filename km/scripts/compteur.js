@@ -344,7 +344,6 @@ function ReplaceInTable() {
     $tableRow.find('td').eq(3).text(newVolume);
     $tableRow.find('td').eq(4).text(newConso);
 
-    alert("Please select...");
     
     var arrKm = table2Array();
     arrKm.unshift([newId,newDate,newLocation,newVolume,newConso]);
