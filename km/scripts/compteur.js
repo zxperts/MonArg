@@ -360,7 +360,6 @@ function UpdateInTable() {
     
     
     createCookie("KmCookie", arrKm, 100);
-    alert("Please select..."+$tableRow+"..."+rw);
     updateCookie();
     
     // Fermez le modal si nécessaire
