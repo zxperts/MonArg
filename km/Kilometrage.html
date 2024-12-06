@@ -21,18 +21,32 @@
   
   <!-- <script src="script.js"></script> -->
   
+  <!-- Bootstrap CSS v5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <!-- Bootstrap CSS v3 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="style/style.css">
   
+  
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- Bootstrap JS v5 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  
+  <!-- Bootstrap JS v3 -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <!-- DocRaptor JS -->
   <script src="https://docraptor.com/docraptor-1.0.0.js"></script>
   
+  <!-- jsPDF JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
   
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   
   
@@ -104,238 +118,270 @@
           <div class="km-wrapper text-center bg-light rounded-3 shadow-sm p-4">
             <div class="d-flex justify-content-center align-items-baseline">
               <h1 
-                id="kmDash" 
-                class="display-1 fw-bold text-primary me-3">
-                251 266
-              </h1>
-              <h2 class="text-muted fw-light">Km</h2>
-            </div>
+              id="kmDash" 
+              class="display-1 fw-bold text-primary me-3">
+              251 266
+            </h1>
+            <h2 class="text-muted fw-light">Km</h2>
           </div>
         </div>
-               
-        <!-- <div class="btn-group" data-toggle="buttons">           -->
-          <!-- <button class="btn btn-info btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
+      </div>
+      
+      <!-- <div class="btn-group" data-toggle="buttons">           -->
+        <!-- <button class="btn btn-info btn-block" type='button' id="manuelInput">Encoder manuellement</button> -->
+        
+        <!-- <button class="btn btn-primary col  btn-lg" type='button' id="Reco"  onclick="recognition.start()">🎤</button> -->
+        
+        
+        <div class="container mt-4">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <button class="btn btn-primary btn-lg w-100 shadow-sm" type="button" id="manuelInput" data-toggle="modal" data-target="#inputkm_modal">
+                <i class="fas fa-keyboard me-2"></i>Encoder manuellement
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-info btn-lg w-100 shadow-sm" type="button" onclick="table2pdf();">
+                <i class="fas fa-print me-2"></i>Imprimer
+              </button>
+            </div>
+            
+          </div>
+          <!--<div class="col-md-2">
+            <button class="btn btn-secondary btn-lg w-100 shadow-sm" type="button" data-toggle="modal" data-target="#columnModal">
+              <i class="fas fa-cog me-2"></i>Configurer
+            </button>
+          </div> -->
           
-          <!-- <button class="btn btn-primary col  btn-lg" type='button' id="Reco"  onclick="recognition.start()">🎤</button> -->
+        </div>
+      </div>
+      
+      
+      
+    <!-- </div> -->
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="inputkm_modal" role="dialog">
+      <div class="modal-dialog"> <!-- Added modal-lg for larger modal -->
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header"> <!-- Added bg-primary and text-white for header styling -->
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+          </div>
+          <h4 class="modal-title" id="customTitle">Encoder vos Kilomètres</h4>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="KmDateInput" class="form-label">Date</label>
+                  <input class="form-control" type="date" placeholder="dd-mm-yy" value="2011-08-19" id="KmDateInput">
+                </div>
+                <div class="col-md-6">
+                  <label for="KmCityInput" class="form-label">Ville</label>
+                  <input class="form-control" type="text" value="Namur" id="KmCityInput">
+                </div>
+              </div>
+              <div class="row mt-3"> <!-- Added margin-top for spacing -->
+                <div class="col-md-6">
+                  <label for="KmInput" class="form-label">Kilométrage</label>
+                  <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value="9999" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="VolInput" class="form-label">Volume</label>
+                  <input type="number"  class="form-control" id="VolInput" min="1" max="100" value="40" required>
+                </div>
+              </div>
+              <div class="row mt-3"> <!-- Added margin-top for spacing -->
+                <div class="col-md-6">
+                  <label for="PreKmInput" class="form-label">Kilométrage précédent</label>
+                  <input type="number" pattern="\d*" class="form-control" id="PreKmInput" min="1" max="500000" value="9999" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label for="ConsoInput" class="form-label">Consommation l/100Km</label>
+                  <input  class="form-control" id="ConsoInput" min="1" max="100" value="30" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-primary col-6" type="submit" onclick="saveInputValue();">Enregistrer</button>
+            <button class="btn btn-warning col-6" type="submit" onclick="UpdateInTable();">Mettre à jour</button>  
+            <button class="btn btn-warning col-6" >Mettre </button>               
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+  
+  
+  
+  <div class="container overflow-hidden" id="cam_container">
+    <!-- <button id="stop-camera">Stop Camera</button> -->
+    <video id="video" width="320" height="240" autoplay></video>
+    <p></p>
+    <div class="btn-group col-12" data-toggle="buttons">          
+      <button id="click_photo"  type='button' class="btn btn-info col-12 btn-lg">Capturer les inormations du ticket</button>
+    </div>
+  </div>
+  
+  <div id="dataurl_container">
+    <canvas id="canvas" width="320" height="240"></canvas>
+    <div id="dataurl-header">Image Data URL</div>
+    <textarea id="dataurl" readonly></textarea>
+  </div>
+  
+  <br />
+  
+  <div class="container overflow-hidden" id="cardContainer">
+  </div>
+  
+  
+  
+  
+  <div class="container mt-4">
+    
+  </div>
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Historique
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <!-- <strong>Voici l'historique:</strong> 	 -->
+          <!-- <br> -->
+          
+          
+          
+          
+          <!-- Modal -->
+          <div class="modal fade" id="columnModal" tabindex="-1" role="dialog" aria-labelledby="columnModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="columnModalLabel">Choisissez les colonnes à afficher</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="checkbox-wrapper">
+                    <label><input type="checkbox" data-column="0" checked> Kilomètres</label><br>
+                    <label><input type="checkbox" data-column="1" checked> Date</label><br>
+                    <label><input type="checkbox" data-column="2" checked> Ville</label><br>
+                    <label><input type="checkbox" data-column="3" checked> Volume</label><br>
+                    <label><input type="checkbox" data-column="4" checked> Consommation l/100Km</label><br>
+                    <label><input type="checkbox" data-column="5" checked> Actions</label><br>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="container my-4"> 
+            <div class="d-flex justify-content-center"> 
+              <div class="table-responsive">
+                <table class="table table-responsive" id="tableKm">
+                  <thead>
+                    <tr>
+                      <th>Km</th>
+                      <th>Date</th>
+                      <th>Ville</th>
+                      <th>Vol(l)</th>
+                      <th>Conso. l/100Km</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody  id="tableKmBody">
+                    <tr data-id="1001234" data-date="10-05-2021" data-location="Bruxellessss">
+                      <td>100123</td>
+                      <td>2021-10-05</td>
+                      <td>Bruxelles</td>
+                      <td>40 l</td>
+                      <td>10</td>
+                      <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
+                        <!-- <a class="editNew" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a> -->
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <td>100124</td>
+                      <td>2021-12-15</td>
+                      <td>Namur</td>
+                      <td>30 l</td>
+                      <td>12</td>
+                      <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>100125</td>
+                      <td>2021-10-21</td>
+                      <td>Hasselt</td>
+                      <td>34 l</td>
+                      <td>15</td>
+                      <td>
+                        <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                        <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
+                        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                      </td>
+                    </tr>      
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
           
           
           <div class="container mt-4">
             <div class="row g-3">
-              <div class="col-md-8">
-                <button class="btn btn-primary btn-lg w-100 shadow-sm" type="button" id="manuelInput" data-toggle="modal" data-target="#inputkm_modal">
-                  <i class="fas fa-keyboard me-2"></i>Encoder manuellement
+              <div class="col-md-4">
+                <button class="btn btn-info btn-lg w-100 shadow-sm" type="button" id="exportCsv">
+                  <i class="fas fa-print me-2"></i>Exporter en CSV
                 </button>
               </div>
-              <div class="col-md-2">
-                <button class="btn btn-info btn-lg w-100 shadow-sm" type="button" onclick="table2pdf();">
-                  <i class="fas fa-print me-2"></i>Imprimer
-                </button>
+              <div class="col-md-4">
+                <input type="file" id="importCsv" class="btn-lg " accept=".csv">
               </div>
-             
             </div>
           </div>
           
           
           
-        <!-- </div> -->
-        
-        
-        <!-- Modal -->
-        <div class="modal fade" id="inputkm_modal" role="dialog">
-          <div class="modal-dialog"> <!-- Added modal-lg for larger modal -->
-            
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header"> <!-- Added bg-primary and text-white for header styling -->
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                
-              </div>
-              <h4 class="modal-title" id="customTitle">Encoder vos Kilomètres</h4>
-              <div class="modal-body">
-                <div class="container-fluid">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label for="KmDateInput" class="form-label">Date</label>
-                      <input class="form-control" type="date" placeholder="dd-mm-yy" value="2011-08-19" id="KmDateInput">
-                    </div>
-                    <div class="col-md-6">
-                      <label for="KmCityInput" class="form-label">Ville</label>
-                      <input class="form-control" type="text" value="Namur" id="KmCityInput">
-                    </div>
-                  </div>
-                  <div class="row mt-3"> <!-- Added margin-top for spacing -->
-                    <div class="col-md-6">
-                      <label for="KmInput" class="form-label">Kilométrage</label>
-                      <input type="number" pattern="\d*" class="form-control" id="KmInput" min="1" max="500000" value="9999" required>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="VolInput" class="form-label">Volume</label>
-                      <input type="number"  class="form-control" id="VolInput" min="1" max="100" value="40" required>
-                    </div>
-                  </div>
-                  <div class="row mt-3"> <!-- Added margin-top for spacing -->
-                    <div class="col-md-6">
-                      <label for="PreKmInput" class="form-label">Kilométrage précédent</label>
-                      <input type="number" pattern="\d*" class="form-control" id="PreKmInput" min="1" max="500000" value="9999" disabled>
-                    </div>
-                    <div class="col-md-6">
-                      <label for="ConsoInput" class="form-label">Consommation l/100Km</label>
-                      <input  class="form-control" id="ConsoInput" min="1" max="100" value="30" disabled>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button class="btn btn-primary col-6" type="submit" onclick="saveInputValue();">Enregistrer</button>
-                <button class="btn btn-warning col-6" type="submit" onclick="ReplaceInTable();">Mettre à jour</button>                
-              </div>
-            </div>
+          
+          <div id="collapseOneInner">
             
           </div>
+          
         </div>
         
+        
+        
+        <!-- <button type="button" class="btn btn-info">Editer</button> -->
+        
       </div>
-      
-      
-      
-      <div class="container overflow-hidden" id="cam_container">
-        <!-- <button id="stop-camera">Stop Camera</button> -->
-        <video id="video" width="320" height="240" autoplay></video>
-        <p></p>
-        <div class="btn-group col-12" data-toggle="buttons">          
-          <button id="click_photo"  type='button' class="btn btn-info col-12 btn-lg">Capturer les inormations du ticket</button>
-        </div>
-      </div>
-      
-      <div id="dataurl_container">
-        <canvas id="canvas" width="320" height="240"></canvas>
-        <div id="dataurl-header">Image Data URL</div>
-        <textarea id="dataurl" readonly></textarea>
-      </div>
-
-      <br />
-
-      <div class="container overflow-hidden" id="cardContainer">
-      </div>
-      
-      
-      
-      
-      
-      <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Historique
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <!-- <strong>Voici l'historique:</strong> 	 -->
-              <!-- <br> -->
-              
-              
-              
-              <!-- Modal -->
-              <div class="modal fade" id="columnModal" tabindex="-1" role="dialog" aria-labelledby="columnModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="columnModalLabel">Choisissez les colonnes à afficher</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="checkbox-wrapper">
-                        <label><input type="checkbox" data-column="0" checked> Kilomètres</label><br>
-                        <label><input type="checkbox" data-column="1" checked> Date</label><br>
-                        <label><input type="checkbox" data-column="2" checked> Ville</label><br>
-                        <label><input type="checkbox" data-column="3" checked> Volume</label><br>
-                        <label><input type="checkbox" data-column="4" checked> Consommation l/100Km</label><br>
-                        <label><input type="checkbox" data-column="5" checked> Actions</label><br>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <table class="table table-responsive" id="tableKm">
-                <thead>
-                  <tr>
-                    <th>Km</th>
-                    <th>Date</th>
-                    <th>Ville</th>
-                    <th>Vol(l)</th>
-                    <th>Conso. l/100Km</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody  id="tableKmBody">
-                  <tr data-id="1001234" data-date="10-05-2021" data-location="Bruxellessss">
-                    <td>100123</td>
-                    <td>2021-10-05</td>
-                    <td>Bruxelles</td>
-                    <td>40 l</td>
-                    <td>10</td>
-                    <td>
-                      <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                      <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
-                      <!-- <a class="editNew" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a> -->
-                      <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td>100124</td>
-                    <td>2021-12-15</td>
-                    <td>Namur</td>
-                    <td>30 l</td>
-                    <td>12</td>
-                    <td>
-                      <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                      <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
-                      <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>100125</td>
-                    <td>2021-10-21</td>
-                    <td>Hasselt</td>
-                    <td>34 l</td>
-                    <td>15</td>
-                    <td>
-                      <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                      <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
-                      <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                    </td>
-                  </tr>      
-                </tbody>
-              </table>
-              
-              
-              
-              
-              <div id="collapseOneInner">
-                
-              </div>
-              
-            </div>
-            
-            
-            
-            <!-- <button type="button" class="btn btn-info">Editer</button> -->
-            
-          </div>
-        </div>      
-        <canvas id="myChart" width="400" height="400"></canvas>      
-      </div>
-    </form>
+    </div>      
+    <canvas id="myChart" width="400" height="400"></canvas>      
   </div>
+</form>
+</div>
 </div>
 
 

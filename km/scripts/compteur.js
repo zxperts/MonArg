@@ -54,6 +54,7 @@
   */
   function onLoadcheckCookie()
   {
+    console.log("onLoadcheckCookie");
     hideButton();
     // if (cameraStream !== null){return;}
     var arrKm = accessCookie("KmCookie");
@@ -71,7 +72,7 @@
       document.getElementById('PreKmInput').value = kmCur;
       // document.getElementById('kmDash').innerHTML = kmCur;
       animateValue("kmDash", 0, kmCur, 1000);
-      // createTable(arrKm);
+      createTable(arrKm);
       updateKmChart(arrKm);
     }
     else
@@ -160,6 +161,9 @@
   
   function animateValue(id, start, end, duration) {
     if (start === end) return;
+    if (end > 1000000) {
+      end = 1000000;
+    }
     var range = (end - start)/5;
     var current = start;
     var increment = end > start? range : -range;
@@ -262,7 +266,7 @@ $(document).on("click", ".delete", function(){
     rowIndex = getOriginalRowIndex(this.closest('.card'));
     console.log("Deleting row..."+rowIndex);
     document.getElementById('tableKm').deleteRow(rowIndex);
-   }
+  }
   else { 
     $(this).parents("tr").remove();
     $(".add-new").removeAttr("disabled");
@@ -273,7 +277,7 @@ $(document).on("click", ".delete", function(){
 $(document).on('click', '.edit', function() {
   
   document.querySelector('button[onclick="saveInputValue();"]').style.display = "none";
-  document.querySelector('button[onclick="ReplaceInTable();"]').style.display = "block";
+  document.querySelector('button[onclick="UpdateInTable();"]').style.display = "block";
   
   index = $(this).closest('tr');
   
@@ -321,14 +325,14 @@ $(document).on('click', '.edit', function() {
 
 $(document).on('click', '#manuelInput', function() {
   document.querySelector('button[onclick="saveInputValue();"]').style.display = "block";
-  document.querySelector('button[onclick="ReplaceInTable();"]').style.display = "none";
+  document.querySelector('button[onclick="UpdateInTable();"]').style.display = "none";
 });
 
 
-function ReplaceInTable() {
+function UpdateInTable() {
   if (selectedIndex !== undefined) {
     console.log("Editing row..."+selectedIndex);
- 
+    
     // Utilisez selectedIndex ici pour mettre à jour la ligne correspondante
     var newId = $('#KmInput').val();
     var newDate = $('#KmDateInput').val();
@@ -336,18 +340,27 @@ function ReplaceInTable() {
     var newVolume = $('#VolInput').val();
     //var newPreKm = $('#PreKmInput').val();
     var newConso = $('#ConsoInput').val();
+
+    rw=selectedIndex*1+1;
     
-    var $tableRow = $('table tr').eq(selectedIndex + 1); // +1 car la première ligne est souvent l'en-tête
+    var $tableRow = $('table tr').eq(rw); // +1 car la première ligne est souvent l'en-tête
     $tableRow.find('td').eq(0).text(newId);
     $tableRow.find('td').eq(1).text(newDate);
     $tableRow.find('td').eq(2).text(newLocation);
     $tableRow.find('td').eq(3).text(newVolume);
     $tableRow.find('td').eq(4).text(newConso);
 
+    console.log("xx "+$tableRow.find('td').eq(0).text());
+    
+    
     
     var arrKm = table2Array();
-    arrKm.unshift([newId,newDate,newLocation,newVolume,newConso]);
+    //arrKm.unshift([newId,newDate,newLocation,newVolume,newConso]);
+    console.log(arrKm); 
+    
+    
     createCookie("KmCookie", arrKm, 100);
+    alert("Please select..."+$tableRow+"..."+rw);
     updateCookie();
     
     // Fermez le modal si nécessaire
@@ -356,6 +369,13 @@ function ReplaceInTable() {
     console.log("Aucune ligne sélectionnée");
     alert("Aucune ligne sélectionnée");
   }
+}
+
+function saveTableAndUpdateCokie() { 
+  var arrKm = table2Array();   
+  console.log("arrKm -"+ arrKm);
+    createCookie("KmCookie", arrKm, 100);
+    updateCookie();
 }
 
 
@@ -509,3 +529,75 @@ document.addEventListener('DOMContentLoaded', function() {
   //convertTableToCards();
   
 });
+
+
+    // Fonction pour exporter le tableau en CSV
+    function exportTableToCSV(filename) {
+      const csv = [];
+      const rows = document.querySelectorAll("#tableKm tr");
+
+      for (const row of rows) {
+        const cols = row.querySelectorAll("td:not(:last-child), th:not(:last-child)");
+        const csvRow = [];
+        for (const col of cols) {
+          csvRow.push(col.innerText);
+        }
+        csv.push(csvRow.join(","));
+      }
+
+      const csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+      const downloadLink = document.createElement("a");
+      downloadLink.download = filename;
+      downloadLink.href = window.URL.createObjectURL(csvFile);
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    // Fonction pour importer un fichier CSV et ajouter les données au tableau
+    function importCSV(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const rows = e.target.result.split("\n");
+          const tableBody = document.querySelector("#tableKmBody");
+
+          // Ignore the header row
+          for (let i = 1; i < rows.length; i++) {
+            const cols = rows[i].split(",");
+            if (cols.length === 5) { // Ensure the row has the correct number of columns
+              const tr = document.createElement("tr");
+              for (const col of cols) {
+                const td = document.createElement("td");
+                td.innerText = col.trim();
+                tr.appendChild(td);
+              }
+              // Ajout des actions
+              const actions = document.createElement("td");
+              actions.innerHTML = `
+                <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
+                <a class="edit" title="Edit" data-toggle="modal" data-target="#inputkm_modal"><i class="material-icons">&#xE254;</i></a>
+                <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+              `;
+              tr.appendChild(actions);
+              tableBody.appendChild(tr);
+              saveTableAndUpdateCokie();
+            }
+          }
+        };
+        reader.readAsText(file);
+      }
+      
+    }
+
+    // Event listeners pour les boutons
+    document.getElementById("exportCsv").addEventListener("click", function() {
+      exportTableToCSV("tableKm.csv");
+    });
+
+    document.getElementById("importCsv").addEventListener("change", importCSV);
+
+
+    document.getElementById("importCsv").addEventListener("click", importCSV);
