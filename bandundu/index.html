@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandundu Téléma</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Bandundu Téléma</div>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active" data-i18n="nav.home">Accueil</a></li>
+                <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+                <li><a href="#projects" data-i18n="nav.projects">Projets</a></li>
+                <li><a href="#team" data-i18n="nav.team">Notre Équipe</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="language-selector">
+                <button onclick="changeLanguage('fr')">FR</button>
+                <button onclick="changeLanguage('nl')">NL</button>
+                <button onclick="changeLanguage('en')">EN</button>
+            </div>
+        </nav>
+    </header>
 
+    <main>
+        <section id="home" class="hero">
+            <div class="carousel">
+                <!-- Les slides seront ajoutés dynamiquement -->
+            </div>
+            <div class="hero-content">
+                <h1 data-i18n="hero.title">Bandundu Téléma</h1>
+                <p data-i18n="hero.subtitle">Association à but non lucratif - N° 0674 383 590</p>
+            </div>
+            <div class="carousel-nav">
+                <!-- Les points de navigation seront ajoutés dynamiquement -->
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <h2 data-i18n="about.title">À propos de nous</h2>
+            <div class="about-content">
+                <div class="mission">
+                    <h3 data-i18n="about.mission">Notre Mission</h3>
+                    <p data-i18n="about.description">L'objectif de l'ASBL est la réinsertion socioprofessionnelle des jeunes filles-mères célibataires et des jeunes désœuvrés par des formations professionnelles. Actuellement, nous les formons à Bandundu (au centre Ntombwa) et au quartier Mikondo à Kinshasa Kimbanseke(au centre Destin en main), en pâtisserie et en coupe et couture.</p>
+                </div>
+                <div class="vision">
+                    <h3 data-i18n="about.vision">Notre Vision</h3>
+                    <p data-i18n="about.vision_text">Notre second objectif sera de lutter contre le réchauffement climatique par l'élaboration des projets agroforestiers dans la ville de Bandundu et dans les banlieues pauvres de Kinshasa.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <h2 data-i18n="projects.title">Nos Projets</h2>
+            <div class="project-categories">
+                <button class="category-btn active" data-category="all" data-i18n="projects.categories.all">Tous</button>
+                <button class="category-btn" data-category="formation" data-i18n="projects.categories.formation">Formation</button>
+                <button class="category-btn" data-category="infrastructure" data-i18n="projects.categories.infrastructure">Infrastructure</button>
+                <button class="category-btn" data-category="environnement" data-i18n="projects.categories.environnement">Environnement</button>
+            </div>
+            <div class="projects-grid">
+                <!-- Projects will be loaded dynamically -->
+            </div>
+        </section>
+
+        <section id="team" class="team">
+            <h2 data-i18n="team.title">Notre Équipe</h2>
+            <div class="team-grid">
+                <!-- Team members will be loaded dynamically -->
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2 data-i18n="contact.title">Contactez-nous</h2>
+            <div class="contact-container">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="" required>
+                        <label data-i18n="contact.form.name">Votre Nom</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="" required>
+                        <label data-i18n="contact.form.email">Votre Email</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="" required></textarea>
+                        <label data-i18n="contact.form.message">Votre Message</label>
+                    </div>
+                    <button type="submit" data-i18n="contact.form.submit">Envoyer le Message</button>
+                </form>
+                <div class="contact-info">
+                    <h3 data-i18n="contact.info.title">Nos Coordonnées</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <span data-i18n="contact.info.address">123 Rue Example, Ville, Pays</span></p>
+                    <p><i class="fas fa-phone"></i> <span>+1 234 567 890</span></p>
+                    <p><i class="fas fa-envelope"></i> <span>contact@bandundutelema.org</span></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Bandundu Téléma. Tous droits réservés.</p>
+    </footer>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <div class="project-gallery" id="modalGallery"></div>
+        </div>
+    </div>
+
+    <div id="fullsizeImage" class="fullsize-image">
+        <img id="fullsizeImageContent" src="" alt="">
+    </div>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
