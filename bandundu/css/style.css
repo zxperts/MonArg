@@ -140,6 +140,7 @@ nav {
         gap: 2rem;
         transition: 0.5s ease;
         margin: 0;
+        z-index: 1000;
     }
 
     .nav-links.active {
@@ -707,4 +708,218 @@ nav {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+} 
+
+/* Ajustements pour le responsive design */
+
+/* Menu mobile */
+@media (max-width: 968px) {
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: 0.5s ease;
+        margin: 0;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        left: 0;
+    }
+
+    .language-selector {
+        position: absolute;
+        right: 80px;
+    }
+
+    /* Hero section adjustments */
+    .hero {
+        height: 50vh;
+    }
+
+    .hero-content {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    /* Projects section */
+    .project-categories {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .category-btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .projects-grid {
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    /* Team section */
+    .team-grid {
+        gap: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .team-member {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+
+    /* Contact section */
+    .contact-container {
+        padding: 1.5rem;
+    }
+
+    #contact-form button {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        width: 95%;
+        margin: 20px auto;
+        padding: 1rem;
+    }
+
+    .project-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .close-modal {
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+
+    /* Full size image */
+    .fullsize-image img {
+        width: 95%;
+        height: auto;
+    }
+}
+
+/* Petits écrans */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .section {
+        padding: 3rem 1rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .mission, .vision {
+        padding: 1.5rem;
+    }
+
+    .contact-info {
+        padding: 1.5rem;
+    }
+
+    .language-selector button {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Ajustements pour les tablettes */
+@media (min-width: 481px) and (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Amélioration de l'accessibilité tactile */
+@media (hover: none) {
+    .nav-links li a,
+    .category-btn,
+    .project-card,
+    .team-member,
+    button {
+        cursor: default;
+    }
+
+    .nav-links li a:active,
+    .category-btn:active,
+    .project-card:active {
+        transform: scale(0.98);
+    }
+
+    .project-gallery img {
+        margin-bottom: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px; /* Évite le zoom automatique sur iOS */
+    }
+}
+
+/* Amélioration de la navigation au clavier */
+:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Amélioration du contraste pour la lisibilité */
+@media (prefers-contrast: more) {
+    :root {
+        --primary-color: #1a2530;
+        --secondary-color: #0066cc;
+        --text-color: #000000;
+    }
+}
+
+/* Support du mode sombre */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #64b5f6;
+        --text-color: #ffffff;
+        --light-bg: #1a1a1a;
+    }
+
+    body {
+        background-color: #121212;
+        color: var(--text-color);
+    }
+
+    .modal-content,
+    .project-card,
+    .team-member {
+        background-color: #242424;
+    }
 } 
