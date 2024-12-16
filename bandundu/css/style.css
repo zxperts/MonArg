@@ -902,3 +902,54 @@ nav {
         --text-color: #000000;
     }
 }
+
+/* Contact Section */
+@media (max-width: 968px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        margin: 0 1rem;
+        gap: 2rem;
+    }
+
+    #contact-form {
+        width: 100%;
+        padding: 0;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .contact-info {
+        margin: 0;
+        padding: 1.5rem;
+    }
+
+    #contact-form button {
+        width: 100%;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact {
+        padding: 4rem 1rem;
+    }
+
+    .contact-container {
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .contact h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+}
