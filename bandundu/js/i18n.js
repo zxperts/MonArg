@@ -14,9 +14,9 @@ const translations = {
         about: {
             title: "À propos de nous",
             mission: "Notre Mission",
-            description: "L'objectif de l'ASBL est la réinsertion socioprofessionnelle des jeunes filles-mères célibataires et des jeunes désœuvrés par des formations professionnelles. Actuellement, nous les formons à Bandundu (au centre Ntombwa) et au quartier Mikondo à Kinshasa Kimbanseke(au centre Destin en main), en pâtisserie et en coupe et couture.",
-            vision: "Notre Vision",
-            vision_text: "Notre second objectif sera de lutter contre le réchauffement climatique par l'élaboration des projets agroforestiers dans la ville de Bandundu et dans les banlieues pauvres de Kinshasa."
+            description: "L'objectif de notre ASBL est de favoriser la réinsertion socioprofessionnelle des mères célibataires et des jeunes en difficulté. Nous proposons des formations dans divers métiers tels que la couture, la papeterie, la menuiserie, la maçonnerie et l'électricité.\n\nÀ la fin de leur formation, nous les soutenons dans la création de leur propre emploi. Nous les accompagnons pendant un an, puis ils pourront s'organisent en coopératives ou en micro-entreprises dans leurs domaines respectifs.",
+            vision: "Nos engagements",
+            vision_text: "Par ailleurs, nous combattons le réchauffement climatique en menant des projets agroforestiers dans les environs de la ville de Bandundu."
         },
         projects: {
             title: "Nos Projets",
@@ -90,9 +90,9 @@ const translations = {
         about: {
             title: "Over ons",
             mission: "Onze Missie",
-            description: "Het doel van de VZW is de socio-professionele re-integratie van jonge alleenstaande moeders en werkloze jongeren door middel van beroepsopleidingen. Momenteel leiden we hen op in Bandundu (in het Ntombwa-centrum) en in de Mikondo-wijk in Kinshasa Kimbanseke (in het Destin en main-centrum), in banketbakkerij en kleding maken.",
-            vision: "Onze Visie",
-            vision_text: "Ons tweede doel is het bestrijden van klimaatverandering door het ontwikkelen van agrobosbouwprojecten in de stad Bandundu en in de arme buitenwijken van Kinshasa."
+            description: "Het doel van onze VZW is het bevorderen van de socio-professionele re-integratie van alleenstaande moeders en jongeren in moeilijkheden. We bieden opleidingen aan in verschillende beroepen zoals naaien, papierwerk, schrijnwerkerij, metselwerk en elektriciteit.\n\nNa hun opleiding ondersteunen we hen bij het creëren van hun eigen werk. We begeleiden hen gedurende een jaar, waarna ze zich kunnen organiseren in coöperaties of micro-ondernemingen in hun respectievelijke vakgebieden.",
+            vision: "Onze Verbintenissen",
+            vision_text: "Daarnaast bestrijden we klimaatverandering door agrobosbouwprojecten uit te voeren in de omgeving van de stad Bandundu."
         },
         projects: {
             title: "Onze Projecten",
@@ -140,9 +140,9 @@ const translations = {
         about: {
             title: "About Us",
             mission: "Our Mission",
-            description: "The objective of the non-profit organization is the socio-professional reintegration of young single mothers and unemployed youth through professional training. Currently, we train them in Bandundu (at the Ntombwa center) and in the Mikondo district in Kinshasa Kimbanseke (at the Destin en main center), in pastry making and dressmaking.",
-            vision: "Our Vision",
-            vision_text: "Our second objective will be to fight against climate change through the development of agroforestry projects in the city of Bandundu and in the poor suburbs of Kinshasa."
+            description: "The objective of our non-profit organization is to promote the socio-professional reintegration of single mothers and young people in difficulty. We offer training in various trades such as sewing, stationery, carpentry, masonry, and electricity.\n\nAt the end of their training, we support them in creating their own employment. We accompany them for one year, after which they can organize themselves into cooperatives or micro-enterprises in their respective fields.",
+            vision: "Our Commitments",
+            vision_text: "Furthermore, we combat climate change by conducting agroforestry projects in the vicinity of the city of Bandundu."
         },
         projects: {
             title: "Our Projects",
