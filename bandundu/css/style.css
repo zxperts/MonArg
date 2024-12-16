@@ -902,25 +902,3 @@ nav {
         --text-color: #000000;
     }
 }
-
-/* Support du mode sombre 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --primary-color: #4a90e2;
-        --secondary-color: #64b5f6;
-        --text-color: #ffffff;
-        --light-bg: #1a1a1a;
-    }
-
-    body {
-        background-color: #121212;
-        color: var(--text-color);
-    }
-
-    .modal-content,
-    .project-card,
-    .team-member {
-        background-color: #242424;
-    }
-} 
-*/
