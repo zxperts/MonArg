@@ -903,7 +903,7 @@ nav {
     }
 }
 
-/* Support du mode sombre */
+/* Support du mode sombre 
 @media (prefers-color-scheme: dark) {
     :root {
         --primary-color: #4a90e2;
@@ -923,3 +923,4 @@ nav {
         background-color: #242424;
     }
 } 
+*/
