@@ -142,7 +142,35 @@ const eventTrdFRsLists = {
         'Mag ik de schrijven uitdelen?': 'Puis-je distribuer les copies?',
         'Mag ik naar het toilet gaan, alsjeblieft?': 'Puis-je aller aux toilettes, s\'il vous plaît?',
         'Mag ik de bladen ophalen?': 'Puis-je ramasser les feuilles?'
+    },
+
+    rekentaal : {
+        'De aftrekking': 'La soustraction - ',
+        'delen': 'division % ',
+        'dubbele': 'double x2',
+        'gedeeld door': 'divisé par %',
+        'helft': 'moitié %2',
+        'keer': 'fois x ',
+        'maal': 'multiplication x ',
+        'optelling': 'addition +',
+        'product': 'produit x',
+        'quotiënt': 'quotient -',
+        'som': 'somme +',
+        'vermenigvuldigen': 'multiplier x',
+        'verschil': 'différence -',
+    },
+
+    Tijdvakken : {
+        'Le matin': 's\'morgens',
+        'Dans l\'avant Midi': 'in de voormiddag',
+        'Le midi': 's\'middag',
+        'dans l\'après-Midi': 'in de namiddag',
+        'Le soir': 's\'avond',
+        'La nuit': 's\'nacht',
+        'minuit': 'middernacht'
     }
+    
+    
     
 
 
