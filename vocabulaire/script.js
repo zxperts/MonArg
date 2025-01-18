@@ -516,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Charger la première liste par défaut
-    currentEventTrdFRs = eventTrdFRsLists.eventTrdFRs;
+    currentEventTrdFRs = eventTrdFRsLists.Tijdvakken;
     generateDivs(currentEventTrdFRs);
 
     // Appel de la fonction pour générer les divs
