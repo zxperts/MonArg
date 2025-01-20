@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu d'association des dates</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            flex-direction:column;
+            
+        }
+        .column {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .event, .date {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .event {
+            transition: transform 0.3s ease;
+        }
+
+        .event.scale, .date.scale {
+            transform: scale(1.5);
+        }
+
+        .event.unscale, .date.unscale {
+            transform: scale(1);
+        }
+
+        .matched {
+            background-color: #d4edda;
+        }
+        .emoji {
+            display: inline;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éphémérides - Jeux éducatifs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            background-color: #4a90e2;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active {
+            background-color: #2c3e50;
+        }
+
+        nav a:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            nav {
+                padding: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="script.js"></script>
+    <div class="container">
+        <nav>
+            <a href="../">Accueil</a>
+            <a href="../calculette/">Calculette</a>
+            <a href="../cijfers/">Cijfers</a>
+            <a href="../dactylo/">Dactylo</a>
+            <a href="../ephem/" class="active">Éphémérides</a>
+            <a href="../trianglegen/">Triangle</a>
+            <a href="../vocab/">Vocabulaire</a>
+        </nav>
+
+        <h1>Éphémérides</h1>
+        
+        <div class="content">
+            <!-- Contenu spécifique à la calculette -->
+            <div>
+                <label><input type="checkbox" id="hideAll"> Masquer les dates de Melvin</label>
+            </div>
+        
+            <div class="button-container">
+                <button id="RejouerBtn" onclick="ReloadPage()" class="gradient2-button">Nouveau🎰Jeu</button>
+                <button onclick="toggleEmojis(this)" class="gradient-button">Aide 🧸</button>
+                <button id="scoreBtn" class="gradient2-button">0/0</button>
+        
+            </div>
+            
+        
+        
+            <div class="container">
+            <div class="column" id="events">
+                <div class="event" id="event1" draggable="true" data-event="Nieuwjaar">Nieuwjaar <span class="emoji">🎉</span></div>
+                <div class="event" id="event2" draggable="true" data-event="Dag van de arbeid">Dag van de arbeid <span class="emoji">🛠️</span></div>
+                <div class="event" id="event3" draggable="true" data-event="WapenStilstand">WapenStilstand <span class="emoji">🕊️</span></div>
+                <div class="event" id="event4" draggable="true" data-event="Kerstmis">Kerstmis <span class="emoji">🎄</span></div>
+                <div class="event" id="event5" draggable="true" data-event="SinterKlaas">SinterKlaas <span class="emoji">🎅</span></div>
+                <div class="event" id="event6" draggable="true" data-event="Drie Koningen">Drie Koningen <span class="emoji">👑</span></div>
+                <div class="event" id="event7" draggable="true" data-event="AprilVis">AprilVis <span class="emoji">🐟</span></div>
+            </div>
+            <div class="column" id="events1">
+                <div class="event" id="event8" draggable="true" data-event="Feest van Maria">Feest van Maria <span class="emoji">🌸</span></div>
+                <div class="event" id="event9" draggable="true" data-event="Sint Valentijn">Sint Valentijn <span class="emoji">❤️</span></div>
+                <div class="event" id="event10" draggable="true" data-event="Allerheiligen & AllerZielen">Allerheiligen & AllerZielen <span class="emoji">🕯️</span></div>
+                <div class="event" id="event11" draggable="true" data-event="Nationale Feestdag">Nationale Feestdag <span class="emoji">🇧🇪</span></div>
+                <div class="event" id="event12" draggable="true" data-event="Moederdag">Moederdag <span class="emoji">🌷</span></div>
+                <div class="event" id="event13" draggable="true" data-event="Eerste schooldag">Eerste schooldag <span class="emoji">📚</span></div>
+                <div class="event" id="event14" draggable="true" data-event="Pasen">Pasen <span class="emoji">🐰</span></div>
+                <div class="event" id="event15" draggable="true" data-event="Vaderdag">Vaderdag <span class="emoji">👔</span></div>
+            </div>
+                
+                <hr><hr><hr>
+                <div class="column" id="dates">
+                    <div class="date" id="date1" data-date="1 Janvier">1 Janvier</div>
+                    <div class="date" id="date2" data-date="1 Mai">1 Mai</div>
+                    <div class="date" id="date3" data-date="11 Novembre">11 Novembre</div>
+                    <div class="date" id="date4" data-date="25 Décembre">25 Décembre</div>
+                    <div class="date" id="date5" data-date="6 Décembre">6 Décembre</div>
+                    <div class="date" id="date6" data-date="6 Janvier">6 Janvier</div>
+                    <div class="date" id="date7" data-date="1 Avril">1 Avril</div>
+                </div>
+                <div class="column" id="dates1">
+                    <div class="date" id="date8" data-date="15 Août">15 Août</div>
+                    <div class="date" id="date9" data-date="14 Février">14 Février</div>
+                    <div class="date" id="date10" data-date="1 Novembre">1 Novembre</div>
+                    <div class="date" id="date11" data-date="21 Juillet">21 Juillet</div>
+                    <div class="date" id="date12" data-date="11 mai">11 mai</div>
+                    <div class="date" id="date13" data-date="26 Août">26 Août</div>
+                    <div class="date" id="date14" data-date="Mars -  Avril">Mars - Avril</div>
+                    <div class="date" id="date15" data-date="8 Juin">8 juin</div>
+                </div>
+            </div>
+            <div class="notification" id="notification"></div>
+        </div>
+    </div>
+
+
+    
+    
+    <script>
+
+        function ReloadPage() {
+        location.reload();
+    }
+
+    function toggleEmojis(button){
+        const emojis = document.querySelectorAll('.emoji');
+        emojis.forEach(emoji => {
+            emoji.classList.toggle('hidden');
+        });
+        button.disabled = true; // Désactiver le bouton
+        button.innerHTML = 'Aide'; // Supprimer l'emoji
+    }
+
+
+    </script>
+</body>
+</html>
