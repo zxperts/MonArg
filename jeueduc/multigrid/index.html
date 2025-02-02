@@ -99,7 +99,8 @@
 
     <script>
         let currentTable;
-        let currentStep = 1;
+        let steps = [];
+        let currentStepIndex = 0;
         let startTime;
 
         function generateNumberButtons() {
@@ -122,7 +123,8 @@
         }
 
         function startGame() {
-            currentStep = 1;
+            steps = shuffleArray([...Array(10).keys()].map(i => i + 1));
+            currentStepIndex = 0;
             
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
@@ -137,11 +139,11 @@
         }
 
         function checkAnswer(num, cell) {
-            if (num === currentTable * currentStep) {
+            if (num === currentTable * steps[currentStepIndex]) {
                 cell.classList.remove('incorrect');
                 cell.classList.add('correct');
-                currentStep++;
-                if (currentStep > 10) {
+                currentStepIndex++;
+                if (currentStepIndex >= steps.length) {
                     const endTime = new Date();
                     const elapsedTime = (endTime - startTime) / 1000; // Temps en secondes
                     alert(`Félicitations ! Vous avez terminé la table de ${currentTable} <br> En ${elapsedTime.toFixed(2)} secondes`);
@@ -157,7 +159,15 @@
 
         function updateCalculationDisplay() {
             const calculationDisplay = document.getElementById('currentCalculation');
-            calculationDisplay.textContent = `${currentTable} x ${currentStep} = ?`;
+            calculationDisplay.textContent = `${currentTable} x ${steps[currentStepIndex]} = ?`;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
 
         generateNumberButtons();
