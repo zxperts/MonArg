@@ -128,7 +128,7 @@
             
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
-            for (let i = 1; i <= 100; i++) {
+            for (let i = 1; i <= currentTable * 10; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 cell.textContent = i;
