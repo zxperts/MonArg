@@ -58,7 +58,8 @@ const translations = {
             roles: {
                 director: "Directeur Exécutif",
                 coordinator: "Coordinatrice des Programmes",
-                communication: "Responsable Communication"
+                communication: "Responsable Communication",
+                tech: "Service technique"
             }
         },
         contact: {
