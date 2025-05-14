@@ -89,27 +89,32 @@ const teamMembers = [
         }
     },
     {
-        name: "Munsi Marie Esther",
-        role: "Coordinatrice des Programmes",
+        name: "Beerden Luc",
+        role: "Responsable Juridique",
         social: {
             email: "bandundu.telema@gmail.com"
         }
     },
     {
-        name: "Beerden Luc",
-        role: "Responsable Communication"
-    },
-    {
         name: "Cosemans Alex",
-        role: "Secrétaire"
+        role: "Secrétaire",
+        social: {
+            email: "bandundu.telema@gmail.com"
+        }
     },
     {
         name: "Ngazadi Nela",
-        role: "Vice-Président / Trésorier"
+        role: "Vice-Président / Trésorier",
+        social: {
+            email: "bandundu.telema@gmail.com"
+        }
     },
     {
         name: "Munsi Marie Esther",
-        role: "Présidente"
+        role: "Présidente",
+        social: {
+            email: "bandundu.telema@gmail.com"
+        }
     },
     {
         name: "Munsi Paul",
@@ -123,7 +128,7 @@ const teamMembers = [
         name: "Masia Patrick",
         role: "Service technique",
         social: {
-            email: "munsi@live.be"
+            email: "bandundu.telema@gmail.com"
         }
     }
 ];
