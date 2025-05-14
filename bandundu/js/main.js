@@ -165,7 +165,6 @@ function loadTeamMembers() {
                 <h3 data-member-name="${member.name}">${member.name}</h3>
                 <p data-member-role="${member.role}">${member.role}</p>
                 <div class="team-member-social">
-                    ${member.social.linkedin ? `<a href="${member.social.linkedin}" target="_blank"><i class="fab fa-linkedin"></i></a>` : ''}
                     ${member.social.email ? `<a href="mailto:${member.social.email}"><i class="fas fa-envelope"></i></a>` : ''}
                 </div>
             </div>
