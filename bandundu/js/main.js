@@ -81,12 +81,11 @@ const projects = [
 // Sample data for team members
 const teamMembers = [
     {
-        name: "John Doe",
+        name: "Munsi Paul",
         role: "Directeur Exécutif",
-        image: "images/team/Luc.png",
+        image: "images/team/Paul.png",
         social: {
-            linkedin: "https://linkedin.com/in/johndoe",
-            email: "john@bandundutelema.org"
+            email: "paulmunsi@yahoo.fr"
         }
     },
     
