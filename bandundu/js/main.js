@@ -88,6 +88,10 @@ const teamMembers = [
             email: "paulmunsi@yahoo.fr"
         }
     },
+    {
+        name: "Munsi Marie Esther",
+        role: "Coordinatrice des Programmes",
+    },
     
     {
         name: "Beerden Luc",
