@@ -71,7 +71,7 @@ const translations = {
             },
             info: {
                 title: "Nos Coordonnées",
-                address: "123 Rue Example, Ville, Pays"
+                address: "480 Stevoortse-kiezem, Stevoort,Belgique"
             }
         }
     },
@@ -121,7 +121,7 @@ const translations = {
             },
             info: {
                 title: "Onze Gegevens",
-                address: "123 Voorbeeldstraat, Stad, Land"
+                address: "480 Stevoorste-kiezel, Stevoort, Belgïe"
             }
         }
     },
@@ -171,7 +171,7 @@ const translations = {
             },
             info: {
                 title: "Get in Touch",
-                address: "123 Example Street, City, Country"
+                address: "480 Stevoortse-kiezem, Stevoort, Belbium"
             }
         }
     }
