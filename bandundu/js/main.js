@@ -97,7 +97,7 @@ const teamMembers = [
     },
     {
         name: "Beerden Luc",
-        role: "Conseiller juridique"
+        role: "Responsable Communication"
     },
     {
         name: "Cosemans Alex",
