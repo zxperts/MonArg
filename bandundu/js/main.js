@@ -81,42 +81,37 @@ const projects = [
 // Sample data for team members
 const teamMembers = [
     {
-        name: "John Doe",
-        role: "Directeur Exécutif",
-        image: "images/team/Luc.png",
-        social: {
-            linkedin: "https://linkedin.com/in/johndoe",
-            email: "john@bandundutelema.org"
-        }
+        name: "Beerden Luc",
+        role: "Conseiller juridique"
+    },
+        {
+        name: "Cosemans Alex",
+        role: "Secrétaire"
     },
     {
-        name: "Jane Smith",
-        role: "Coordinatrice des Programmes",
+        name: "Ngazadi Nela",
+        role: "Vice-Président / Trésorier"
+    },
+    {
+        name: "Munsi Marie Esther",
+        role: "Présidente"
+    },
+    {
+        name: "Munsi Paul",
+        role: "Chargé des relations publiques",
         image: "images/team/Paul.png",
         social: {
-            linkedin: "https://linkedin.com/in/janesmith",
-            email: "jane@bandundutelema.org"
+            email: "paulmunsi@yahoo.fr"
         }
     },
     {
-        name: "Mike Johnson",
-        role: "Responsable Communication",
-        image: "images/team/Soeurs.png",
+        name: "Masia Patrick",
+        role: "Service technique",
         social: {
-            linkedin: "https://linkedin.com/in/mikejohnson",
-            email: "mike@bandundutelema.org"
+            email: "munsi@live.be"
         }
     }
-    ,
-    {
-        name: "Mike Johnson",
-        role: "Responsable Communication",
-        image: "images/team/Soeurs.png",
-        social: {
-            linkedin: "https://linkedin.com/in/mikejohnson",
-            email: "mike@bandundutelema.org"
-        }
-    }
+    
 ];
 
 // Function to load projects
