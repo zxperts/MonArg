@@ -81,6 +81,16 @@ const projects = [
 // Sample data for team members
 const teamMembers = [
     {
+        name: "John Doe",
+        role: "Directeur Exécutif",
+        image: "images/team/Luc.png",
+        social: {
+            linkedin: "https://linkedin.com/in/johndoe",
+            email: "john@bandundutelema.org"
+        }
+    },
+    
+    {
         name: "Beerden Luc",
         role: "Conseiller juridique"
     },
