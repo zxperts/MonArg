@@ -91,7 +91,6 @@ const teamMembers = [
     {
         name: "Munsi Marie Esther",
         role: "Coordinatrice des Programmes",
-        image: "images/team/Soeurs.png",
         social: {
             email: "bandundu.telema@gmail.com"
         }
