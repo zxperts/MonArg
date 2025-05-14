@@ -95,6 +95,10 @@ const teamMembers = [
             email: "bandundu.telema@gmail.com"
         }
     },
+    {
+        name: "Beerden Luc",
+        role: "Conseiller juridique"
+    },
     
     {
         name: "Beerden Luc",
