@@ -99,12 +99,7 @@ const teamMembers = [
         name: "Beerden Luc",
         role: "Conseiller juridique"
     },
-    
     {
-        name: "Beerden Luc",
-        role: "Conseiller juridique"
-    },
-        {
         name: "Cosemans Alex",
         role: "Secrétaire"
     },
@@ -131,8 +126,8 @@ const teamMembers = [
             email: "munsi@live.be"
         }
     }
-    
 ];
+
 
 // Function to load projects
 function loadProjects(category = 'all') {
