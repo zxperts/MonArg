@@ -125,7 +125,7 @@ const teamMembers = [
     },
     {
         name: "Masia Patrick",
-        role: "Service technique",
+        role: "Associé technique et projet",
         social: {
             email: "bandundu.telema@gmail.com"
         }
