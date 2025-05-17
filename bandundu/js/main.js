@@ -119,7 +119,6 @@ const teamMembers = [
     {
         name: "Munsi Paul",
         role: "Chargé des relations publiques",
-        image: "images/team/Paul.png",
         social: {
             email: "paulmunsi@yahoo.fr"
         }
