@@ -72,7 +72,7 @@ const translations = {
             },
             info: {
                 title: "Nos Coordonnées",
-                address: "480 Stevoortse-kiezem, Stevoort,Belgique"
+                address: "480 Stevoortse-kiezel, Stevoort,Belgique"
             }
         }
     },
@@ -172,7 +172,7 @@ const translations = {
             },
             info: {
                 title: "Get in Touch",
-                address: "480 Stevoortse-kiezem, Stevoort, Belbium"
+                address: "480 Stevoortse-kiezel, Stevoort, Belbium"
             }
         }
     }
