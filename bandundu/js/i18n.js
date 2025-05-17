@@ -64,6 +64,12 @@ const translations = {
         },
         contact: {
             title: "Contactez-nous",
+            form: {
+                //name: "Votre Nom",
+                //email: "Votre Email",
+                //message: "Votre Message",
+                //submit: "Envoyer le Message"
+            },
             info: {
                 title: "Nos Coordonnées",
                 address: "480 Stevoortse-kiezel, Stevoort,Belgique"
@@ -108,6 +114,12 @@ const translations = {
         },
         contact: {
             title: "Contacteer Ons",
+            form: {
+                //name: "Uw Naam",
+                //email: "Uw E-mail",
+                //message: "Uw Bericht",
+                //submit: "Bericht Verzenden"
+            },
             info: {
                 title: "Onze Gegevens",
                 address: "480 Stevoorste-kiezel, Stevoort, Belgïe"
@@ -152,6 +164,12 @@ const translations = {
         },
         contact: {
             title: "Contact Us",
+            form: {
+                //name: "Your Name",
+                //email: "Your Email",
+                //message: "Your Message",
+                //submit: "Send Message"
+            },
             info: {
                 title: "Get in Touch",
                 address: "480 Stevoortse-kiezel, Stevoort, Belbium"
