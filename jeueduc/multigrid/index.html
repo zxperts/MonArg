@@ -192,6 +192,36 @@
             50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
             100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
+
+        .mode-toggle {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+
+        .mode-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+        }
+
+        .mode-toggle.expert {
+            background: linear-gradient(45deg, #16a085, #1abc9c);
+        }
+
+        .mode-indicator {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -209,6 +239,8 @@
         <div class="number-selection" id="numberSelection">
             <!-- Les boutons seront générés dynamiquement -->
         </div>
+        <div class="mode-indicator" id="modeIndicator">Mode: Normal</div>
+        <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">Mode Expert</button>
     </div>
 
     <div id="currentCalculation"></div>
@@ -219,6 +251,7 @@
         let steps = [];
         let currentStepIndex = 0;
         let startTime;
+        let expertMode = false;
 
         function generateNumberButtons() {
             const numberSelection = document.getElementById('numberSelection');
@@ -259,6 +292,14 @@
             if (num === currentTable * steps[currentStepIndex]) {
                 cell.classList.remove('incorrect');
                 cell.classList.add('correct');
+                
+                // En mode expert, retirer la couleur après 2 secondes
+                if (expertMode) {
+                    setTimeout(() => {
+                        cell.classList.remove('correct');
+                    }, 2000);
+                }
+                
                 currentStepIndex++;
                 if (currentStepIndex >= steps.length) {
                     const endTime = new Date();
@@ -274,6 +315,13 @@
             } else {
                 if (!cell.classList.contains('correct')) {
                     cell.classList.add('incorrect');
+                    
+                    // En mode expert, retirer la couleur après 2 secondes
+                    if (expertMode) {
+                        setTimeout(() => {
+                            cell.classList.remove('incorrect');
+                        }, 2000);
+                    }
                 }
             }
         }
@@ -336,6 +384,22 @@
                     startGame();
                 }, 300);
             };
+        }
+
+        function toggleMode() {
+            expertMode = !expertMode;
+            const modeToggle = document.getElementById('modeToggle');
+            const modeIndicator = document.getElementById('modeIndicator');
+            
+            if (expertMode) {
+                modeToggle.textContent = 'Mode Normal';
+                modeToggle.classList.add('expert');
+                modeIndicator.textContent = 'Mode: Expert';
+            } else {
+                modeToggle.textContent = 'Mode Expert';
+                modeToggle.classList.remove('expert');
+                modeIndicator.textContent = 'Mode: Normal';
+            }
         }
 
         generateNumberButtons();
