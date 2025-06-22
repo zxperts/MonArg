@@ -285,6 +285,104 @@
             margin: 10px 0;
         }
 
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox-container label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .custom-checkbox {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-checkbox.checked {
+            background: linear-gradient(45deg, #16a085, #1abc9c);
+            border-color: #16a085;
+        }
+
+        .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox.checked::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkbox-container:hover .custom-checkbox {
+            border-color: #16a085;
+            transform: scale(1.05);
+        }
+
+        .voice-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .voice-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .voice-button.listening {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .voice-status {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin: 5px 0;
+            min-height: 20px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -337,8 +435,14 @@
             <div class="number-selection" id="numberSelection">
                 <!-- Les boutons seront générés dynamiquement -->
             </div>
-            <div class="mode-indicator" id="modeIndicator">Mode: Normal</div>
-            <button class="mode-toggle" id="modeToggle" onclick="toggleMode()">Mode Expert</button>
+            <div class="checkbox-container">
+                <div class="custom-checkbox" id="expertCheckbox" onclick="toggleMode()"></div>
+                <label for="expertCheckbox">Mode Expert</label>
+            </div>
+            <button class="voice-button" id="voiceButton" onclick="toggleVoiceRecognition()">
+                🎤 Réponse vocale
+            </button>
+            <div class="voice-status" id="voiceStatus"></div>
         </div>
 
         <div id="currentCalculation"></div>
@@ -351,6 +455,8 @@
         let currentStepIndex = 0;
         let startTime;
         let expertMode = false;
+        let recognition = null;
+        let isListening = false;
 
         function generateNumberButtons() {
             const numberSelection = document.getElementById('numberSelection');
@@ -488,18 +594,125 @@
 
         function toggleMode() {
             expertMode = !expertMode;
-            const modeToggle = document.getElementById('modeToggle');
-            const modeIndicator = document.getElementById('modeIndicator');
+            const expertCheckbox = document.getElementById('expertCheckbox');
             
             if (expertMode) {
-                modeToggle.textContent = 'Mode Normal';
-                modeToggle.classList.add('expert');
-                modeIndicator.textContent = 'Mode: Expert';
+                expertCheckbox.classList.add('checked');
             } else {
-                modeToggle.textContent = 'Mode Expert';
-                modeToggle.classList.remove('expert');
-                modeIndicator.textContent = 'Mode: Normal';
+                expertCheckbox.classList.remove('checked');
             }
+        }
+
+        // Initialiser la reconnaissance vocale
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'fr-FR';
+                
+                recognition.onstart = function() {
+                    isListening = true;
+                    document.getElementById('voiceButton').classList.add('listening');
+                    document.getElementById('voiceButton').innerHTML = '🔴 Écoute...';
+                    document.getElementById('voiceStatus').textContent = 'Parlez maintenant...';
+                };
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript.toLowerCase();
+                    document.getElementById('voiceStatus').textContent = `Vous avez dit: "${transcript}"`;
+                    
+                    // Convertir les mots en nombres
+                    const number = convertSpeechToNumber(transcript);
+                    if (number !== null) {
+                        // Trouver la cellule correspondante et cliquer dessus
+                        const cells = document.querySelectorAll('.cell');
+                        for (let cell of cells) {
+                            if (parseInt(cell.textContent) === number) {
+                                checkAnswer(number, cell);
+                                break;
+                            }
+                        }
+                    } else {
+                        document.getElementById('voiceStatus').textContent = 'Nombre non reconnu, essayez encore';
+                    }
+                    
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+                
+                recognition.onerror = function(event) {
+                    document.getElementById('voiceStatus').textContent = 'Erreur de reconnaissance vocale';
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+                
+                recognition.onend = function() {
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+            } else {
+                document.getElementById('voiceStatus').textContent = 'Reconnaissance vocale non supportée';
+                document.getElementById('voiceButton').disabled = true;
+            }
+        }
+
+        function stopListening() {
+            isListening = false;
+            document.getElementById('voiceButton').classList.remove('listening');
+            document.getElementById('voiceButton').innerHTML = '🎤 Réponse vocale';
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) {
+                initSpeechRecognition();
+                return;
+            }
+            
+            if (isListening) {
+                // Désactiver l'écoute
+                recognition.stop();
+                stopListening();
+            } else {
+                // Activer l'écoute
+                recognition.start();
+            }
+        }
+
+        function convertSpeechToNumber(speech) {
+            const numberWords = {
+                'zéro': 0, 'un': 1, 'deux': 2, 'trois': 3, 'quatre': 4, 'cinq': 5,
+                'six': 6, 'sept': 7, 'huit': 8, 'neuf': 9, 'dix': 10,
+                'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+                'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
+            };
+            
+            // Essayer de trouver un nombre dans le texte
+            for (let word in numberWords) {
+                if (speech.includes(word)) {
+                    return numberWords[word];
+                }
+            }
+            
+            // Essayer de trouver un chiffre directement
+            const numbers = speech.match(/\d+/);
+            if (numbers) {
+                return parseInt(numbers[0]);
+            }
+            
+            return null;
         }
 
         generateNumberButtons();
