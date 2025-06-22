@@ -442,17 +442,7 @@
                 }, 300);
             };
 
-            // Fermeture automatique après 5 secondes
-            setTimeout(() => {
-                if (document.body.contains(modalOverlay)) {
-                    modalOverlay.classList.remove('show');
-                    setTimeout(() => {
-                        if (document.body.contains(modalOverlay)) {
-                            document.body.removeChild(modalOverlay);
-                        }
-                    }, 300);
-                }
-            }, 5000);
+            // La modale reste visible jusqu'au clic sur le bouton
         }
 
         generateNumberButtons();
