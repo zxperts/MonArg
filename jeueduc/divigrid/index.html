@@ -3,21 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeu de Division</title>
+    <title>Division - Jeux éducatifs</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2c3e50;
+            margin: 0;
+            min-height: 100vh;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        nav {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            background-color: #4a90e2;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav a.active {
+            background-color: #2c3e50;
+        }
+
+        nav a:hover {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
         h1 {
             color: #2c3e50;
             text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .game-setup {
             display: flex;
             flex-direction: column;
@@ -28,12 +70,14 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
         .number-selection {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .number-btn {
             font-size: 24px;
             width: 60px;
@@ -46,24 +90,31 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         .number-btn:hover {
             background-color: #2980b9;
         }
+
         .number-btn.selected {
             background-color: #2ecc71;
         }
+
         #currentCalculation {
             font-size: 28px;
             margin-bottom: 20px;
             color: #2c3e50;
             font-weight: bold;
+            text-align: center;
         }
+
         #grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(10, 1fr);
             gap: 5px;
-            max-width: 400px;
+            max-width: 600px;
+            margin: 0 auto;
         }
+
         .cell {
             width: 60px;
             height: 60px;
@@ -74,35 +125,193 @@
             cursor: pointer;
             font-size: 18px;
             transition: all 0.3s ease;
+            background-color: white;
+            color: #2c3e50;
         }
+
+        .cell:hover {
+            background-color: #f8f9fa;
+            transform: scale(1.05);
+        }
+
         .correct {
-            background-color: #2ecc71;
-            color: white;
+            background-color: #2ecc71 !important;
+            color: white !important;
+            border-color: #27ae60;
         }
+
         .incorrect {
-            background-color: #e74c3c;
+            background-color: #e74c3c !important;
+            color: white !important;
+            border-color: #c0392b;
+        }
+
+        /* Modal de félicitation */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7) translateY(-50px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .modal-time {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #f1c40f;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .celebration {
+            position: absolute;
+            font-size: 2rem;
+            animation: celebrate 1s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            nav {
+                padding: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            #grid {
+                grid-template-columns: repeat(5, 1fr);
+                max-width: 300px;
+            }
+
+            .cell {
+                width: 50px;
+                height: 50px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container"> 
+    <div class="container">
         <nav>
             <a href="../">Accueil</a>
+            <a href="../calculette/">Calculette</a>
+            <a href="../cijfers/">Cijfers</a>
+            <a href="../dactylo/">Dactylo</a>
+            <a href="../ephem/">Éphémérides</a>
+            <a href="../trianglegen/">Triangle</a>
+            <a href="../vocab/">Vocabulaire</a>
+            <a href="../multigrid/">Multigrid</a>
+            <a href="../divigrid/" class="active">Divigrid</a>
         </nav>
-    </div>
 
-    <h1>Jeu de Division</h1>
-    
-    <div class="game-setup">
-        <label>Choisissez un nombre entre 1 et 10</label>
-        <div class="number-selection" id="numberSelection">
-            <!-- Les boutons seront générés dynamiquement -->
+        <h1>Jeu de Division</h1>
+        
+        <div class="game-setup">
+            <label>Choisissez un diviseur entre 1 et 10</label>
+            <div class="number-selection" id="numberSelection">
+                <!-- Les boutons seront générés dynamiquement -->
+            </div>
         </div>
-    </div>
 
-    <div id="currentCalculation"></div>
-    <div id="grid"></div>
+        <div id="currentCalculation"></div>
+        <div id="grid"></div>
+    </div>
 
     <script>
         let currentDivisor;
@@ -135,6 +344,8 @@
             
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
+            
+            // Créer une grille avec les résultats possibles (1 à 10)
             for (let i = 1; i <= 10; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
@@ -146,7 +357,10 @@
         }
 
         function checkAnswer(num, cell) {
-            if (num === steps[currentStepIndex]) {
+            const dividend = currentDivisor * steps[currentStepIndex];
+            const expectedResult = steps[currentStepIndex];
+            
+            if (num === expectedResult) {
                 cell.classList.remove('incorrect');
                 cell.classList.add('correct');
                 currentStepIndex++;
@@ -154,9 +368,9 @@
                     const endTime = new Date();
                     const elapsedTime = (endTime - startTime) / 1000;
                     if (elapsedTime < 30) {
-                        alert(`Félicitations ! Vous avez terminé les divisions par ${currentDivisor} en un temps record de ${elapsedTime.toFixed(2)} secondes !\n🎉Vous êtes un champion de la division !🎉`);
+                        showCelebration(elapsedTime);
                     } else {
-                        alert(`Félicitations ! Vous avez terminé les divisions par ${currentDivisor}\nEn ${elapsedTime.toFixed(2)} secondes`);
+                        showModal(`Vous avez terminé les divisions par ${currentDivisor}`, elapsedTime);
                     }
                 } else {
                     updateCalculationDisplay();
@@ -170,7 +384,8 @@
 
         function updateCalculationDisplay() {
             const calculationDisplay = document.getElementById('currentCalculation');
-            calculationDisplay.textContent = `${currentDivisor * steps[currentStepIndex]} ÷ ${currentDivisor} = ?`;
+            const dividend = currentDivisor * steps[currentStepIndex];
+            calculationDisplay.textContent = `${dividend} ÷ ${currentDivisor} = ?`;
         }
 
         function shuffleArray(array) {
@@ -179,6 +394,65 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
+        }
+
+        function showCelebration(elapsedTime) {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell correct';
+                cell.textContent = i;
+                grid.appendChild(cell);
+            }
+            showModal("Félicitations ! Vous avez terminé les divisions par " + currentDivisor + " en un temps record !\n🎉Vous êtes un champion de la division !🎉", elapsedTime, true);
+        }
+
+        function showModal(message, elapsedTime, isChampion = false) {
+            const modalOverlay = document.createElement('div');
+            modalOverlay.className = 'modal-overlay';
+            document.body.appendChild(modalOverlay);
+
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            
+            const title = isChampion ? '🏆 Champion ! 🏆' : 'Félicitations !';
+            const timeColor = elapsedTime < 30 ? '#f1c40f' : '#ffffff';
+            
+            modalContent.innerHTML = `
+                <div class="modal-title">${title}</div>
+                <div class="modal-message">${message}</div>
+                <div class="modal-time" style="color: ${timeColor};">Temps: ${elapsedTime.toFixed(2)} secondes</div>
+                <button class="modal-button">Jouer à nouveau</button>
+            `;
+            
+            modalOverlay.appendChild(modalContent);
+
+            // Animation d'apparition
+            setTimeout(() => {
+                modalOverlay.classList.add('show');
+            }, 100);
+
+            const modalButton = modalContent.querySelector('.modal-button');
+            modalButton.onclick = () => {
+                modalOverlay.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(modalOverlay);
+                    startGame();
+                }, 300);
+            };
+
+            // Fermeture automatique après 5 secondes
+            setTimeout(() => {
+                if (document.body.contains(modalOverlay)) {
+                    modalOverlay.classList.remove('show');
+                    setTimeout(() => {
+                        if (document.body.contains(modalOverlay)) {
+                            document.body.removeChild(modalOverlay);
+                        }
+                    }, 300);
+                }
+            }, 5000);
         }
 
         generateNumberButtons();
