@@ -445,14 +445,7 @@
         }
 
         function showCelebration(elapsedTime) {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-            for (let i = 1; i <= 10; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cell correct';
-                cell.textContent = i;
-                grid.appendChild(cell);
-            }
+            // Ne pas modifier la grille, garder l'historique des réponses
             showModal("Félicitations ! Vous avez terminé les divisions par " + currentDivisor + " en un temps record !\n🎉Vous êtes un champion de la division !🎉", elapsedTime, true);
         }
 
