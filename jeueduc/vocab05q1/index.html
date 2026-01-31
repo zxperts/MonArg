@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulaire Néerlandais - Verbes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 1rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        nav a {
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .mode-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .score-item {
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .score-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .question-area {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding: 25px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border: 3px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .verb-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .verb-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .verb-form {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .verb-form.infinitive {
+            border-left: 5px solid #9b59b6;
+        }
+
+        .verb-form.conjugated {
+            border-left: 5px solid #e67e22;
+        }
+
+        .verb-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .verb-value {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: bold;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .option {
+            padding: 20px;
+            border: 3px solid #bdc3c7;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: white;
+            color: #2c3e50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
+        }
+
+        .option.correct {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            border-color: #2ecc71;
+            animation: correctPulse 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border-color: #e74c3c;
+            animation: incorrectShake 0.6s ease;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .notification {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .notification.success {
+            color: #2ecc71;
+        }
+
+        .notification.error {
+            color: #e74c3c;
+        }
+
+        .next-button {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .next-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .next-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            height: 100%;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .game-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .question {
+                font-size: 1.8rem;
+                padding: 15px;
+            }
+
+            .verb-info {
+                gap: 20px;
+            }
+
+            .verb-form {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .option {
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="../">Accueil</a>
+        </nav>
+    </div>
+
+    <h1>🇳🇱 Vocabulaire Néerlandais - Verbes 🇫🇷</h1>
+
+    <div class="game-container">
+        <div class="game-controls">
+            <div class="mode-selector">
+                <span style="font-weight: bold; color: #2c3e50; margin-right: 10px;">Mode:</span>
+                <button class="mode-btn active" id="nlToFr" onclick="setMode('nlToFr')">
+                    NL → FR
+                </button>
+                <button class="mode-btn" id="frToNl" onclick="setMode('frToNl')">
+                    FR → NL
+                </button>
+                <button class="mode-btn" id="infinitive" onclick="setMode('infinitive')">
+                    Infinitif
+                </button>
+                <button class="mode-btn" id="conjugated" onclick="setMode('conjugated')">
+                    Conjugué
+                </button>
+            </div>
+        </div>
+
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Score</div>
+                <div class="score-value" id="score">0/0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Série actuelle</div>
+                <div class="score-value" id="streak">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Meilleure série</div>
+                <div class="score-value" id="bestStreak">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Progression</div>
+                <div class="score-value" id="progress">0/30</div>
+            </div>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="question-area">
+            <div class="question" id="questionTitle">Trouvez la traduction française</div>
+            <div class="verb-display">
+                <div class="verb-info" id="verbInfo">
+                    <div class="verb-form infinitive" id="infinitiveForm">
+                        <div class="verb-label">Infinitif</div>
+                        <div class="verb-value" id="infinitiveValue">Loading...</div>
+                    </div>
+                    <div class="verb-form conjugated" id="conjugatedForm">
+                        <div class="verb-label">Je...</div>
+                        <div class="verb-value" id="conjugatedValue">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="options-grid" id="options"></div>
+
+        <div class="notification" id="notification"></div>
+
+        <button class="next-button" id="nextButton" onclick="nextQuestion()" disabled>
+            Question suivante
+        </button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

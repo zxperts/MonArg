@@ -1,0 +1,297 @@
+/* Styles pour le jeu de vocabulaire néerlandais */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+nav {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+nav a:hover::before {
+    left: 100%;
+}
+
+/* Animations personnalisées */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.game-container {
+    animation: fadeInUp 0.6s ease;
+}
+
+.option {
+    animation: bounceIn 0.4s ease;
+    animation-fill-mode: backwards;
+}
+
+.option:nth-child(1) { animation-delay: 0.1s; }
+.option:nth-child(2) { animation-delay: 0.2s; }
+.option:nth-child(3) { animation-delay: 0.3s; }
+.option:nth-child(4) { animation-delay: 0.4s; }
+
+/* Effets visuels pour les verbes */
+.verb-form {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.verb-form:hover {
+    transform: scale(1.05);
+}
+
+/* Effets de lueur pour les éléments interactifs */
+.mode-btn:focus,
+.option:focus,
+.next-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5) !important;
+}
+
+/* Animation de chargement */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* Styles pour l'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Effets de particules pour les bonnes réponses */
+@keyframes confetti {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.confetti-particle {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: #f1c40f;
+    pointer-events: none;
+    animation: confetti 3s ease-out forwards;
+    z-index: 10000;
+}
+
+/* Responsive design amélioré */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .game-container {
+        margin: 1rem 0;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .game-container {
+        padding: 1rem !important;
+        margin: 0.5rem !important;
+    }
+    
+    .mode-btn {
+        font-size: 0.8rem !important;
+        padding: 8px 12px !important;
+    }
+    
+    .question {
+        font-size: 1.5rem !important;
+        padding: 10px !important;
+    }
+    
+    .options-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    
+    .option {
+        padding: 12px !important;
+        font-size: 1rem !important;
+    }
+    
+    .verb-form {
+        font-size: 0.9rem !important;
+        padding: 8px 12px !important;
+    }
+    
+    .score-item {
+        min-width: 100px !important;
+        padding: 10px 15px !important;
+    }
+    
+    .score-value {
+        font-size: 1.2rem !important;
+    }
+}
+
+/* Mode sombre (optionnel) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    }
+    
+    .game-container {
+        background: rgba(44, 62, 80, 0.95);
+        color: #ecf0f1;
+    }
+    
+    .question {
+        background: linear-gradient(45deg, #34495e, #2c3e50);
+        color: #ecf0f1;
+        border-color: #3498db;
+    }
+    
+    .option {
+        background: #34495e;
+        color: #ecf0f1;
+        border-color: #7f8c8d;
+    }
+    
+    .option:hover {
+        border-color: #3498db;
+        background: #3498db;
+    }
+}
+
+/* Styles spéciaux pour les drapeaux */
+.flag-emoji {
+    font-size: 1.5em;
+    margin: 0 5px;
+}
+
+/* Animation pour la barre de progression */
+.progress-fill {
+    background: linear-gradient(-45deg, #2ecc71, #27ae60, #16a085, #1abc9c);
+    background-size: 400% 400%;
+    animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
