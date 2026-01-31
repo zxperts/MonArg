@@ -376,6 +376,8 @@
             currentTable = number;
             startTime = new Date(); // Démarrer le chronomètre
             startGame();
+            // Scroll automatique vers la grille
+            document.getElementById('grid').scrollIntoView({ behavior: 'smooth' });
         }
 
         function startGame() {
