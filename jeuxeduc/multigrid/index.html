@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Table de Multiplication</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .game-setup {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .number-selection {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .number-btn {
+            font-size: 24px;
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .number-btn:hover {
+            background-color: #2980b9;
+        }
+        .number-btn.selected {
+            background-color: #2ecc71;
+        }
+        #currentCalculation {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 5px;
+            max-width: 600px;
+        }
+        .cell {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #bdc3c7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .correct {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .incorrect {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        /* Modal de félicitation */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7) translateY(-50px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .modal-time {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #f1c40f;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .celebration {
+            position: absolute;
+            font-size: 2rem;
+            animation: celebrate 1s ease-out;
+        }
+
+        @keyframes celebrate {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        .mode-toggle {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+
+        .mode-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+        }
+
+        .mode-toggle.expert {
+            background: linear-gradient(45deg, #16a085, #1abc9c);
+        }
+
+        .mode-indicator {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkbox-container label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .custom-checkbox {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: #ecf0f1;
+            border: 2px solid #bdc3c7;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-checkbox.checked {
+            background: linear-gradient(45deg, #16a085, #1abc9c);
+            border-color: #16a085;
+        }
+
+        .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox.checked::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkbox-container:hover .custom-checkbox {
+            border-color: #16a085;
+            transform: scale(1.05);
+        }
+
+        .voice-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .voice-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .voice-button.listening {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .voice-status {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin: 5px 0;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <nav>
+            <a href="../">Accueil</a>
+        </nav>
+    </div>
+
+
+    <h1>Jeu de Table de Multiplication</h1>
+    
+    <div class="game-setup">
+        <label>Choisissez un nombre entre 1 et 10</label>
+        <div class="number-selection" id="numberSelection">
+            <!-- Les boutons seront générés dynamiquement -->
+        </div>
+        <div class="checkbox-container">
+            <div class="custom-checkbox" id="expertCheckbox" onclick="toggleMode()"></div>
+            <label for="expertCheckbox">Mode Expert</label>
+        </div>
+        <button class="voice-button" id="voiceButton" onclick="toggleVoiceRecognition()">
+            🎤 Réponse vocale
+        </button>
+        <div class="voice-status" id="voiceStatus"></div>
+    </div>
+
+    <div id="currentCalculation"></div>
+    <div id="grid"></div>
+
+    <script>
+        let currentTable;
+        let steps = [];
+        let currentStepIndex = 0;
+        let startTime;
+        let expertMode = false;
+        let recognition = null;
+        let isListening = false;
+
+        function generateNumberButtons() {
+            const numberSelection = document.getElementById('numberSelection');
+            for (let i = 1; i <= 10; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = 'number-btn';
+                btn.onclick = () => selectTable(i, btn);
+                numberSelection.appendChild(btn);
+            }
+        }
+
+        function selectTable(number, btn) {
+            document.querySelectorAll('.number-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            currentTable = number;
+            startTime = new Date(); // Démarrer le chronomètre
+            startGame();
+            // Scroll automatique vers la grille
+            document.getElementById('grid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function startGame() {
+            steps = shuffleArray([...Array(10).keys()].map(i => i + 1));
+            currentStepIndex = 0;
+            
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= currentTable * 10; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.textContent = i;
+                cell.onclick = () => checkAnswer(i, cell);
+                grid.appendChild(cell);
+            }
+            updateCalculationDisplay();
+        }
+
+        function checkAnswer(num, cell) {
+            if (num === currentTable * steps[currentStepIndex]) {
+                cell.classList.remove('incorrect');
+                cell.classList.add('correct');
+                
+                // En mode expert, retirer la couleur après 2 secondes
+                if (expertMode) {
+                    setTimeout(() => {
+                        cell.classList.remove('correct');
+                    }, 2000);
+                }
+                
+                currentStepIndex++;
+                if (currentStepIndex >= steps.length) {
+                    const endTime = new Date();
+                    const elapsedTime = (endTime - startTime) / 1000; // Temps en secondes
+                    if (elapsedTime < 30) {
+                        showCelebration(elapsedTime);
+                    } else {
+                        showModal(`Vous avez terminé la table de ${currentTable}`, elapsedTime);
+                    }
+                } else {
+                    updateCalculationDisplay();
+                }
+            } else {
+                if (!cell.classList.contains('correct')) {
+                    cell.classList.add('incorrect');
+                    
+                    // En mode expert, retirer la couleur après 2 secondes
+                    if (expertMode) {
+                        setTimeout(() => {
+                            cell.classList.remove('incorrect');
+                        }, 2000);
+                    }
+                }
+            }
+        }
+
+        function updateCalculationDisplay() {
+            const calculationDisplay = document.getElementById('currentCalculation');
+            calculationDisplay.textContent = `${currentTable} x ${steps[currentStepIndex]} = ?`;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function showCelebration(elapsedTime) {
+            // Ne pas modifier la grille, garder l'historique des réponses
+            showModal("Félicitations ! Vous avez terminé la table de " + currentTable + " en un temps record !\n🎉Vous êtes un champion de la multiplication !🎉", elapsedTime, true);
+        }
+
+        function showModal(message, elapsedTime, isChampion = false) {
+            const modalOverlay = document.createElement('div');
+            modalOverlay.className = 'modal-overlay';
+            document.body.appendChild(modalOverlay);
+
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            
+            const title = isChampion ? '🏆 Champion ! 🏆' : 'Félicitations !';
+            const timeColor = elapsedTime < 30 ? '#f1c40f' : '#ffffff';
+            
+            modalContent.innerHTML = `
+                <div class="modal-title">${title}</div>
+                <div class="modal-message">${message}</div>
+                <div class="modal-time" style="color: ${timeColor};">Temps: ${elapsedTime.toFixed(2)} secondes</div>
+                <button class="modal-button">Jouer à nouveau</button>
+            `;
+            
+            modalOverlay.appendChild(modalContent);
+
+            // Animation d'apparition
+            setTimeout(() => {
+                modalOverlay.classList.add('show');
+            }, 100);
+
+            const modalButton = modalContent.querySelector('.modal-button');
+            modalButton.onclick = () => {
+                modalOverlay.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(modalOverlay);
+                    //startGame();
+                }, 300);
+            };
+        }
+
+        function toggleMode() {
+            expertMode = !expertMode;
+            const expertCheckbox = document.getElementById('expertCheckbox');
+            
+            if (expertMode) {
+                expertCheckbox.classList.add('checked');
+            } else {
+                expertCheckbox.classList.remove('checked');
+            }
+        }
+
+        // Initialiser la reconnaissance vocale
+        function initSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'fr-FR';
+                
+                recognition.onstart = function() {
+                    isListening = true;
+                    document.getElementById('voiceButton').classList.add('listening');
+                    document.getElementById('voiceButton').innerHTML = '🔴 Écoute...';
+                    document.getElementById('voiceStatus').textContent = 'Parlez maintenant...';
+                };
+                
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript.toLowerCase();
+                    document.getElementById('voiceStatus').textContent = `Vous avez dit: "${transcript}"`;
+                    
+                    // Convertir les mots en nombres
+                    const number = convertSpeechToNumber(transcript);
+                    if (number !== null) {
+                        // Trouver la cellule correspondante et cliquer dessus
+                        const cells = document.querySelectorAll('.cell');
+                        for (let cell of cells) {
+                            if (parseInt(cell.textContent) === number) {
+                                checkAnswer(number, cell);
+                                break;
+                            }
+                        }
+                    } else {
+                        document.getElementById('voiceStatus').textContent = 'Nombre non reconnu, essayez encore';
+                    }
+                    
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+                
+                recognition.onerror = function(event) {
+                    document.getElementById('voiceStatus').textContent = 'Erreur de reconnaissance vocale';
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+                
+                recognition.onend = function() {
+                    // Redémarrer l'écoute si elle est toujours activée
+                    if (isListening) {
+                        setTimeout(() => {
+                            recognition.start();
+                        }, 1000);
+                    }
+                };
+            } else {
+                document.getElementById('voiceStatus').textContent = 'Reconnaissance vocale non supportée';
+                document.getElementById('voiceButton').disabled = true;
+            }
+        }
+
+        function stopListening() {
+            isListening = false;
+            document.getElementById('voiceButton').classList.remove('listening');
+            document.getElementById('voiceButton').innerHTML = '🎤 Réponse vocale';
+        }
+
+        function toggleVoiceRecognition() {
+            if (!recognition) {
+                initSpeechRecognition();
+                return;
+            }
+            
+            if (isListening) {
+                // Désactiver l'écoute
+                recognition.stop();
+                stopListening();
+            } else {
+                // Activer l'écoute
+                recognition.start();
+            }
+        }
+
+        function convertSpeechToNumber(speech) {
+            const numberWords = {
+                'zéro': 0, 'un': 1, 'deux': 2, 'trois': 3, 'quatre': 4, 'cinq': 5,
+                'six': 6, 'sept': 7, 'huit': 8, 'neuf': 9, 'dix': 10,
+                'zero': 0, 'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5,
+                'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10
+            };
+            
+            // Essayer de trouver un nombre dans le texte
+            for (let word in numberWords) {
+                if (speech.includes(word)) {
+                    return numberWords[word];
+                }
+            }
+            
+            // Essayer de trouver un chiffre directement
+            const numbers = speech.match(/\d+/);
+            if (numbers) {
+                return parseInt(numbers[0]);
+            }
+            
+            return null;
+        }
+
+        generateNumberButtons();
+    </script>
+</body>
+</html>
