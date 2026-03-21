@@ -1,0 +1,447 @@
+:root {
+    --bg-start: #fdf6e3;
+    --bg-end: #e8c98a;
+    --panel: #ffffff;
+    --text: #3d2b1f;
+    --muted: #7a5c3a;
+    --primary: #c0570a;
+    --primary-dark: #8b3a00;
+    --success: #1e8449;
+    --danger: #c0392b;
+    --accent: #f39c12;
+    --shadow: 0 12px 30px rgba(90, 50, 10, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+}
+
+.page {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+.top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    background: var(--panel);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: #fff;
+    background: var(--primary);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.top-nav a:hover,
+.top-nav a:focus-visible {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.top-nav a.active {
+    background: #3d2b1f;
+}
+
+/* ── Layout principal ───────────────────────────────────────── */
+.game-shell {
+    display: grid;
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.hero,
+.scoreboard,
+.bank-panel,
+.map-card {
+    background: var(--panel);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+/* ── En-tête ────────────────────────────────────────────────── */
+.hero {
+    padding: 28px;
+    text-align: center;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+}
+
+.subtitle {
+    max-width: 880px;
+    margin: 12px auto 0;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+/* ── Tableau des scores ─────────────────────────────────────── */
+.scoreboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.score-card {
+    background: #fdf3e0;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+
+.label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+}
+
+.score-card strong {
+    font-size: 1.8rem;
+}
+
+/* ── Grille workspace ───────────────────────────────────────── */
+.workspace-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* ── Panneau des cartes ─────────────────────────────────────── */
+.bank-panel {
+    padding: 22px;
+    position: sticky;
+    top: 20px;
+}
+
+.panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.panel-head h2,
+.bank-group h3 {
+    margin: 0;
+}
+
+.panel-text {
+    margin: 14px 0 18px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.bank-group + .bank-group {
+    margin-top: 22px;
+}
+
+.chip-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    min-height: 58px;
+}
+
+/* ── Chips ──────────────────────────────────────────────────── */
+.drag-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background: #fde8d0;
+    color: var(--text);
+    font-weight: 700;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 6px 12px rgba(192, 87, 10, 0.14);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.drag-chip[data-kind="capital"] {
+    background: #dce8fb;
+}
+
+.drag-chip:active {
+    cursor: grabbing;
+}
+
+.drag-chip.dragging {
+    opacity: 0.45;
+}
+
+/* Chip sélectionnée au clic */
+.drag-chip.selected {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgba(243, 156, 18, 0.35);
+    transform: scale(1.08);
+}
+
+/* Punaise cliquable */
+.drop-slot:not(.filled):not(.locked) {
+    cursor: pointer;
+}
+
+/* ── Feedback ───────────────────────────────────────────────── */
+.feedback {
+    min-height: 76px;
+    margin-top: 22px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fdf3e0;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.feedback.success {
+    background: rgba(30, 132, 73, 0.12);
+    color: var(--success);
+}
+
+.feedback.error {
+    background: rgba(192, 57, 43, 0.12);
+    color: var(--danger);
+}
+
+/* ── Carte ──────────────────────────────────────────────────── */
+.map-card {
+    padding: 20px;
+}
+
+.map-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 660 / 721;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #e8f4d0 0%, #d4edaa 100%);
+}
+
+.africa-map {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.drop-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.map-point {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+/* ── Punaises ───────────────────────────────────────────────── */
+.drop-slot {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 38px;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+    z-index: 5;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+    transition: filter 0.15s ease, transform 0.15s ease;
+    pointer-events: all;
+}
+
+/* Capitale verrouillée : invisible */
+.drop-slot.locked {
+    display: none;
+}
+
+.pin-head {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #c0392b;
+    border: 2.5px solid rgba(255,255,255,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.58rem;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.15;
+    overflow: hidden;
+    word-break: break-word;
+    padding: 2px;
+    transition: background 0.2s ease;
+}
+
+.pin-tail {
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 16px solid #c0392b;
+    margin-top: -2px;
+    transition: border-top-color 0.2s ease;
+}
+
+/* Capitale = bleu foncé */
+.capital-slot .pin-head {
+    background: #1a5fa8;
+}
+.capital-slot .pin-tail {
+    border-top-color: #1a5fa8;
+}
+
+/* Drag-over */
+.drop-slot.drag-over {
+    transform: translate(-50%, -100%) scale(1.22);
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
+}
+
+/* Rempli = vert */
+.drop-slot.filled .pin-head {
+    background: #1e8449;
+    font-size: 0.55rem;
+}
+.drop-slot.filled .pin-tail {
+    border-top-color: #1e8449;
+}
+
+.country-slot { z-index: 6; }
+.capital-slot  { z-index: 5; }
+
+.map-attribution {
+    margin: 14px 4px 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.map-attribution a {
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+/* ── Boutons secondaires ────────────────────────────────────── */
+.secondary-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    background: #fde8d0;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.secondary-btn:hover,
+.secondary-btn:focus-visible {
+    transform: translateY(-2px);
+    background: #f9d5b0;
+}
+
+/* ── Bouton grille ──────────────────────────────────────────── */
+.grid-toggle-btn {
+    background: #7262c8;
+    color: #fff;
+}
+.grid-toggle-btn:hover,
+.grid-toggle-btn:focus-visible {
+    background: #5548a0;
+}
+.grid-toggle-btn.active {
+    background: #3b3190;
+    box-shadow: 0 0 0 3px rgba(114, 98, 200, 0.4);
+}
+
+/* ── Canvas grille ──────────────────────────────────────────── */
+.grid-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
+}
+
+.coord-display {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(20, 20, 90, 0.82);
+    color: #fff;
+    font: bold 12px/1.4 monospace;
+    padding: 5px 12px;
+    border-radius: 8px;
+    z-index: 20;
+    pointer-events: none;
+    display: none;
+    white-space: pre;
+    letter-spacing: 0.03em;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+    .workspace-grid {
+        grid-template-columns: 1fr;
+    }
+    .bank-panel {
+        position: static;
+    }
+}
+
+@media (max-width: 640px) {
+    .page { padding: 14px; }
+    .hero,
+    .bank-panel,
+    .map-card { padding: 18px; }
+    .panel-head {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capitales d'Afrique – Jeu de carte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page">
+        <nav class="top-nav">
+            <a href="../index.html">Accueil</a>
+            <a href="./index.html" class="active">Jeu Afrique</a>
+        </nav>
+
+        <main class="game-shell">
+            <header class="hero">
+                <p class="eyebrow">Géographie · version avancée</p>
+                <h1>Place les pays et les capitales sur la carte d'Afrique</h1>
+                <p class="subtitle">
+                    Pour chaque pays, glisse-dépose (ou clique) d'abord le nom du pays sur la punaise rouge,
+                    puis fais de même pour sa capitale sur la punaise bleue.
+                </p>
+            </header>
+
+            <section class="scoreboard" aria-label="tableau des scores">
+                <div class="score-card">
+                    <span class="label">Étiquettes placées</span>
+                    <strong id="placedCount">0 / 20</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Pays complétés</span>
+                    <strong id="completedCountries">0 / 10</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Statut</span>
+                    <strong id="statusText">En cours</strong>
+                </div>
+            </section>
+
+            <section class="workspace-grid">
+                <aside class="bank-panel">
+                    <div class="panel-head">
+                        <h2>Cartes</h2>
+                        <button id="newGameButton" class="secondary-btn" type="button">Nouvelle partie</button>
+                        <button id="toggleGridBtn" class="secondary-btn grid-toggle-btn" type="button">📐 Grille</button>
+                    </div>
+                    <p class="panel-text">
+                        Glisse d'abord les <strong>pays</strong> (rouge) puis les <strong>capitales</strong> (bleu) sur la carte.
+                        Tu peux aussi <strong>cliquer</strong> sur une carte puis sur la punaise.
+                    </p>
+                    <div class="bank-group">
+                        <h3>Pays</h3>
+                        <div id="countryBank" class="chip-bank" aria-label="pays"></div>
+                    </div>
+                    <div class="bank-group">
+                        <h3>Capitales</h3>
+                        <div id="capitalBank" class="chip-bank" aria-label="capitales"></div>
+                    </div>
+                    <div id="feedback" class="feedback" role="status">Commence à glisser.</div>
+                </aside>
+
+                <section class="map-card" aria-label="carte de l'Afrique">
+                    <div class="map-stage">
+                        <img
+                            class="africa-map"
+                            src="https://upload.wikimedia.org/wikipedia/commons/0/02/Africa_location_map.svg"
+                            alt="Carte politique de l'Afrique"
+                        >
+                        <div id="dropLayer" class="drop-layer"></div>
+                        <canvas id="gridCanvas" class="grid-canvas"></canvas>
+                        <div id="coordDisplay" class="coord-display"></div>
+                    </div>
+                    <p class="map-attribution">
+                        Source de la carte :
+                        <a href="https://upload.wikimedia.org/wikipedia/commons/0/02/Africa_location_map.svg" target="_blank" rel="noopener noreferrer">
+                            Africa location map.svg · Wikimedia Commons
+                        </a>
+                        (domaine public).
+                    </p>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
