@@ -205,6 +205,19 @@ body {
     opacity: 0.45;
 }
 
+/* Chip sélectionnée au clic */
+.drag-chip.selected {
+    outline: 3px solid #f3a847;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px rgba(243, 168, 71, 0.35);
+    transform: scale(1.08);
+}
+
+/* Punaise cliquable en mode sélection */
+.drop-slot:not(.filled):not(.locked) {
+    cursor: pointer;
+}
+
 .feedback {
     min-height: 76px;
     margin-top: 22px;

@@ -26,6 +26,19 @@ const state = {
     totalSlots: locations.length * 2
 };
 
+let selectedChip = null;
+
+function selectChip(chip) {
+    if (selectedChip) selectedChip.classList.remove('selected');
+    selectedChip = chip;
+    if (chip) chip.classList.add('selected');
+}
+
+function clearSelection() {
+    if (selectedChip) selectedChip.classList.remove('selected');
+    selectedChip = null;
+}
+
 const MAP_W = 972;
 const MAP_H = 673;
 const CAPITAL_LEFT_OFFSET  = 50;   // séparation gauche en px (coordonnées carte)
@@ -76,10 +89,20 @@ function createChip(label, itemId, kind) {
         event.dataTransfer.setData('text/plain', itemId);
         event.dataTransfer.effectAllowed = 'move';
         chip.classList.add('dragging');
+        clearSelection();
     });
 
     chip.addEventListener('dragend', () => {
         chip.classList.remove('dragging');
+    });
+
+    chip.addEventListener('click', () => {
+        if (selectedChip === chip) {
+            clearSelection();
+        } else {
+            selectChip(chip);
+            setFeedback(`"${chip.textContent}" geselecteerd. Klik op de punaise op de kaart.`, '');
+        }
     });
 
     return chip;
@@ -145,6 +168,23 @@ function handleCorrectDrop(slot, chip) {
 }
 
 function bindDropSlot(slot) {
+    slot.addEventListener('click', () => {
+        if (slot.dataset.filled === 'true' || slot.dataset.locked === 'true') return;
+        if (!selectedChip) {
+            setFeedback('Selecteer eerst een kaartje uit de lijst.', '');
+            return;
+        }
+        const itemId = selectedChip.dataset.itemId;
+        if (itemId !== slot.dataset.accept) {
+            setFeedback('Nog niet juist. Controleer land en hoofdstad nog eens.', 'error');
+            clearSelection();
+            return;
+        }
+        const chip = selectedChip;
+        clearSelection();
+        handleCorrectDrop(slot, chip);
+    });
+
     slot.addEventListener('dragover', (event) => {
         if (slot.dataset.filled === 'true' || slot.dataset.locked === 'true') {
             return;
