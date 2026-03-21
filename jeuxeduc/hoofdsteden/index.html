@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoofdsteden raden</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page">
+        <nav class="top-nav">
+            <a href="../index.html">Accueil</a>
+            <a href="./index.html" class="active">Hoofdsteden</a>
+        </nav>
+
+        <main class="game-shell">
+            <header class="hero">
+                <p class="eyebrow">Aardrijkskunde in het Nederlands</p>
+                <h1>Raad de hoofdsteden</h1>
+            </header>
+
+            <section class="scoreboard" aria-label="scorebord">
+                <div class="score-card">
+                    <span class="label">Vraag</span>
+                    <strong id="progress">1 / 10</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Goed</span>
+                    <strong id="correctCount">0</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Nog te doen</span>
+                    <strong id="remainingCount">10</strong>
+                </div>
+            </section>
+
+            <section class="quiz-card" aria-live="polite">
+                <p class="prompt">Wat is de hoofdstad van</p>
+                <button id="countryButton" class="country-chip" type="button" aria-describedby="tooltipHint">
+                    België
+                    <span class="tooltip-text" id="countryTooltip">Belgique</span>
+                </button>
+
+                <section id="answerPanel" class="answer-panel" aria-label="antwoordkeuzes">
+                    <p class="choices-label">Kies de juiste hoofdstad</p>
+                    <div id="choicesContainer" class="choices-grid"></div>
+                </section>
+
+                <div id="feedback" class="feedback" role="status"></div>
+                <button id="nextButton" class="secondary-btn hidden" type="button" aria-live="polite">
+                    <span class="next-button-topline">
+                        <span class="next-button-label">Volgende vraag</span>
+                        <span id="countdownText" class="next-button-countdown hidden">5s</span>
+                    </span>
+                    <span id="progressTrack" class="next-button-progress-track hidden" aria-hidden="true">
+                        <span id="progressBarFill" class="next-button-progress-fill"></span>
+                    </span>
+                </button>
+                <button id="newGameButton" class="secondary-btn new-game-btn" type="button">Nieuwe Spel</button>
+                <button id="restartButton" class="secondary-btn hidden" type="button">Opnieuw spelen</button>
+            </section>
+
+            <section class="overview-card">
+                <h2>Landen in dit spel</h2>
+                <ul id="countryList" class="country-list"></ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
