@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoofdsteden op de kaart</title>
+    <link rel="stylesheet" href="kaart.css">
+</head>
+<body>
+    <div class="page">
+        <nav class="top-nav">
+            <a href="../index.html">Accueil</a>
+            <a href="./index.html">Quiz</a>
+            <a href="./kaart.html" class="active">Kaartspel</a>
+        </nav>
+
+        <main class="game-shell">
+            <header class="hero">
+                <p class="eyebrow">Geografie · gevorderde versie</p>
+                <h1>Sleep landen en hoofdsteden op de kaart van Europa</h1>
+                <p class="subtitle">Plaats voor elk land zowel de landnaam als de hoofdstad op de juiste plek. Gebruik de kaart als visuele steun.</p>
+            </header>
+
+            <section class="scoreboard" aria-label="scorebord kaartspel">
+                <div class="score-card">
+                    <span class="label">Juiste labels</span>
+                    <strong id="placedCount">0 / 20</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Voltooide landen</span>
+                    <strong id="completedCountries">0 / 10</strong>
+                </div>
+                <div class="score-card">
+                    <span class="label">Status</span>
+                    <strong id="statusText">Bezig</strong>
+                </div>
+            </section>
+
+            <section class="workspace-grid">
+                <aside class="bank-panel">
+                    <div class="panel-head">
+                        <h2>Sleepkaartjes</h2>
+                        <button id="newMapGameButton" class="secondary-btn" type="button">Nieuw spel</button>
+                        <button id="toggleGridBtn" class="secondary-btn grid-toggle-btn" type="button">📐 Rooster</button>
+                    </div>
+                    <p class="panel-text">Sleep eerst de landen en daarna de hoofdsteden naar de juiste zone op de kaart.</p>
+                    <div class="bank-group">
+                        <h3>Landen</h3>
+                        <div id="countryBank" class="chip-bank" aria-label="landen"></div>
+                    </div>
+                    <div class="bank-group">
+                        <h3>Hoofdsteden</h3>
+                        <div id="capitalBank" class="chip-bank" aria-label="hoofdsteden"></div>
+                    </div>
+                    <div id="mapFeedback" class="feedback" role="status">Begin met slepen.</div>
+                </aside>
+
+                <section class="map-card" aria-label="kaart van Europa">
+                    <div class="map-stage">
+                        <img
+                            class="europe-map"
+                            src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Europe_blank_map.svg"
+                            alt="Politieke kaart van Europa"
+                        >
+                        <div id="dropLayer" class="drop-layer"></div>
+                        <canvas id="gridCanvas" class="grid-canvas"></canvas>
+                        <div id="coordDisplay" class="coord-display"></div>
+                    </div>
+                    <p class="map-attribution">
+                        Kaartbron:
+                        <a href="https://commons.wikimedia.org/wiki/File:Europe_blank_map.svg" target="_blank" rel="noopener noreferrer">
+                            Europe blank map.svg · Wikimedia Commons
+                        </a>
+                        (publiek domein, bron vermeld op Commons).
+                    </p>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <script src="kaart.js"></script>
+</body>
+</html>
