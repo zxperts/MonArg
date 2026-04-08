@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het Weer v2 - Jeux éducatifs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="../">Accueil</a>
+            <a href="../hetweer/">Het Weer v1</a>
+            <a href="#" class="active">Het Weer v2</a>
+        </nav>
+
+        <header>
+            <h1>🌦️ Het Weer v2</h1>
+            <p>Version 2 : néerlandais → français sur les thèmes météo.</p>
+        </header>
+
+        <section class="stats">
+            <div class="stat-card">
+                <span>Score</span>
+                <strong id="score">0/0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Série</span>
+                <strong id="streak">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Restant</span>
+                <strong id="remaining">0</strong>
+            </div>
+        </section>
+
+        <main class="quiz-card">
+            <div class="category-pill" id="category">Thème</div>
+            <p class="label">Question</p>
+            <h2 id="question">Chargement...</h2>
+
+            <div class="help-controls">
+                <label class="help-label" for="helpToggle">
+                    <input type="checkbox" id="helpToggle">
+                    Aide image
+                </label>
+            </div>
+
+            <div id="helpBox" class="help-box" hidden>
+                <img id="helpImage" src="" alt="Aide visuelle" loading="lazy">
+                <p id="helpCaption" class="help-caption"></p>
+            </div>
+
+            <div id="options" class="options"></div>
+
+            <p id="feedback" class="feedback"></p>
+
+            <div class="actions">
+                <button id="nextBtn" disabled>Question suivante</button>
+                <button id="restartBtn" class="secondary">Recommencer</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
