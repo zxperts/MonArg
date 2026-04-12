@@ -146,6 +146,41 @@ body {
     gap: 12px;
 }
 
+.panel-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.level-switch {
+    margin: 14px 0 8px;
+    display: flex;
+    gap: 10px;
+}
+
+.level-btn {
+    border: 1px solid #d6e0ec;
+    background: #f7f9fc;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.level-btn:hover,
+.level-btn:focus-visible {
+    border-color: var(--primary);
+    background: #eef4fb;
+}
+
+.level-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary-dark);
+}
+
 .panel-head h2,
 .bank-group h3 {
     margin: 0;
@@ -245,7 +280,7 @@ body {
 .map-stage {
     position: relative;
     width: 100%;
-    aspect-ratio: 450 / 400;
+    aspect-ratio: 550 / 400;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 18px;
@@ -256,16 +291,16 @@ body {
     display: block;
     position: absolute;
     top: -50%;
-    left: -33.3333%;
-    width: 216%;
+    left: -27.2727%;
+    width: 176.7273%;
     height: 168.25%;
 }
 
 .drop-layer {
     position: absolute;
     top: -50%;
-    left: -33.3333%;
-    width: 216%;
+    left: -27.2727%;
+    width: 176.7273%;
     height: 168.25%;
 }
 
