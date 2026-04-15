@@ -1,15 +1,28 @@
-const locations = [
-    { key: 'frankrijk', country: 'Frankrijk', capital: 'Parijs', french: 'France', x: 350, y: 400, capitalPlacement: 'below' },
-    { key: 'denemarken', country: 'Denemarken', capital: 'Kopenhagen', french: 'Danemark', x: 425, y: 300, capitalPlacement: 'left' },
-    { key: 'duitsland', country: 'Duitsland', capital: 'Berlijn', french: 'Allemagne', x: 450, y: 360, capitalPlacement: 'left' },
-    { key: 'italie', country: 'Italië', capital: 'Rome', french: 'Italie', x: 470, y: 474, capitalPlacement: 'left' },
-    { key: 'belgie', country: 'België', capital: 'Brussel', french: 'Belgique', x: 350, y: 380, capitalPlacement: 'left' },
-    { key: 'ierland', country: 'Ierland', capital: 'Dublin', french: 'Irlande', x: 220, y: 330, capitalPlacement: 'left' },
-    { key: 'luxemburg', country: 'Luxemburg', capital: 'Luxemburg', french: 'Luxembourg', x: 385, y: 390, capitalPlacement: 'below' },
-    { key: 'griekenland', country: 'Griekenland', capital: 'Athene', french: 'Grèce', x: 575, y: 510, capitalPlacement: 'below' },
-    { key: 'malta', country: 'Malta', capital: 'Valletta', french: 'Malte', x: 422, y: 535, capitalPlacement: 'below' },
-    { key: 'nederland', country: 'Nederland', capital: 'Amsterdam', french: 'Pays-Bas', x: 380, y: 358, capitalPlacement: 'left' }
-];
+const levelLocations = {
+    1: [
+        { key: 'frankrijk', country: 'Frankrijk', capital: 'Parijs', french: 'France', x: 350, y: 400, capitalPlacement: 'below' },
+        { key: 'denemarken', country: 'Denemarken', capital: 'Kopenhagen', french: 'Danemark', x: 425, y: 300, capitalPlacement: 'left' },
+        { key: 'duitsland', country: 'Duitsland', capital: 'Berlijn', french: 'Allemagne', x: 450, y: 360, capitalPlacement: 'left' },
+        { key: 'italie', country: 'Italië', capital: 'Rome', french: 'Italie', x: 470, y: 474, capitalPlacement: 'left' },
+        { key: 'belgie', country: 'België', capital: 'Brussel', french: 'Belgique', x: 350, y: 380, capitalPlacement: 'left' },
+        { key: 'ierland', country: 'Ierland', capital: 'Dublin', french: 'Irlande', x: 220, y: 330, capitalPlacement: 'left' },
+        { key: 'luxemburg', country: 'Luxemburg', capital: 'Luxemburg', french: 'Luxembourg', x: 385, y: 390, capitalPlacement: 'below' },
+        { key: 'griekenland', country: 'Griekenland', capital: 'Athene', french: 'Grèce', x: 575, y: 510, capitalPlacement: 'below' },
+        { key: 'malta', country: 'Malta', capital: 'Valletta', french: 'Malte', x: 422, y: 535, capitalPlacement: 'below' },
+        { key: 'nederland', country: 'Nederland', capital: 'Amsterdam', french: 'Pays-Bas', x: 380, y: 358, capitalPlacement: 'left' }
+    ],
+    2: [
+        { key: 'estland', country: 'Estland', capital: 'Tallinn', french: 'Estonie', x: 625, y: 277, capitalPlacement: 'left' },
+        { key: 'finland', country: 'Finland', capital: 'Helsinki', french: 'Finlande', x: 590, y: 250, capitalPlacement: 'below' },
+        { key: 'letland', country: 'Letland', capital: 'Riga', french: 'Lettonie', x: 590, y: 300, capitalPlacement: 'left' },
+        { key: 'litouwen', country: 'Litouwen', capital: 'Vilnius', french: 'Lituanie', x: 625, y: 325, capitalPlacement: 'left' },
+        { key: 'oostenrijk', country: 'Oostenrijk', capital: 'Wenen', french: 'Autriche', x: 495, y: 408, capitalPlacement: 'below' },
+        { key: 'polen', country: 'Polen', capital: 'Warschau', french: 'Pologne', x: 520, y: 355, capitalPlacement: 'below' },
+        { key: 'portugal', country: 'Portugal', capital: 'Lissabon', french: 'Portugal', x: 200, y: 530, capitalPlacement: 'left' },
+        { key: 'spanje', country: 'Spanje', capital: 'Madrid', french: 'Espagne', x: 260, y: 510, capitalPlacement: 'below' },
+        { key: 'zweden', country: 'Zweden', capital: 'Stockholm', french: 'Suède', x: 530, y: 270, capitalPlacement: 'left' }
+    ]
+};
 
 const dropLayer = document.getElementById('dropLayer');
 const countryBank = document.getElementById('countryBank');
@@ -19,11 +32,18 @@ const completedCountriesElement = document.getElementById('completedCountries');
 const statusTextElement = document.getElementById('statusText');
 const mapFeedbackElement = document.getElementById('mapFeedback');
 const newMapGameButton = document.getElementById('newMapGameButton');
+const levelButtons = document.querySelectorAll('.level-btn');
+
+let currentLevel = 1;
+
+function getCurrentLocations() {
+    return levelLocations[currentLevel];
+}
 
 const state = {
     correctSlots: 0,
     completedCountries: 0,
-    totalSlots: locations.length * 2
+    totalSlots: getCurrentLocations().length * 2
 };
 
 let selectedChip = null;
@@ -65,6 +85,7 @@ function setFeedback(message, type = '') {
 }
 
 function updateScoreboard() {
+    const locations = getCurrentLocations();
     placedCountElement.textContent = `${state.correctSlots} / ${state.totalSlots}`;
     completedCountriesElement.textContent = `${state.completedCountries} / ${locations.length}`;
 
@@ -109,6 +130,7 @@ function createChip(label, itemId, kind) {
 }
 
 function renderBanks() {
+    const locations = getCurrentLocations();
     countryBank.innerHTML = '';
     capitalBank.innerHTML = '';
 
@@ -245,6 +267,7 @@ function createSlot(label, accept) {
 }
 
 function renderDropPoints() {
+    const locations = getCurrentLocations();
     dropLayer.innerHTML = '';
 
     locations.forEach((location) => {
@@ -278,13 +301,36 @@ function renderDropPoints() {
 }
 
 function restartMapGame() {
+    const locations = getCurrentLocations();
     state.correctSlots = 0;
     state.completedCountries = 0;
+    state.totalSlots = locations.length * 2;
     renderBanks();
     renderDropPoints();
     updateScoreboard();
     setFeedback('Begin met slepen.', '');
 }
+
+function setLevel(level, shouldAnnounce = false) {
+    if (!levelLocations[level] || level === currentLevel) return;
+
+    currentLevel = level;
+    levelButtons.forEach((button) => {
+        button.classList.toggle('active', Number(button.dataset.level) === currentLevel);
+    });
+
+    restartMapGame();
+
+    if (shouldAnnounce) {
+        setFeedback(`Niveau ${level} geladen. Begin met slepen.`, '');
+    }
+}
+
+levelButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        setLevel(Number(button.dataset.level), true);
+    });
+});
 
 newMapGameButton.addEventListener('click', restartMapGame);
 
@@ -302,9 +348,13 @@ const GRID_H = MAP_H;
 const GRID_MINOR = 50;
 const GRID_MAJOR = 100;
 const FOCUS_MIN_X = 150;
-const FOCUS_MAX_X = 600;
+const FOCUS_MAX_X = 900;
 const FOCUS_MIN_Y = 200;
 const FOCUS_MAX_Y = 600;
+
+function coordinateRangeText() {
+    return `x: — (${FOCUS_MIN_X}–${FOCUS_MAX_X})\ny: — (${FOCUS_MIN_Y}–${FOCUS_MAX_Y})`;
+}
 
 function drawGrid() {
     gridCanvas.width = GRID_W;
@@ -376,7 +426,7 @@ toggleGridBtn.addEventListener('click', () => {
     toggleGridBtn.textContent = gridVisible ? '📐 Verbergen' : '📐 Rooster';
     if (gridVisible) {
         drawGrid();
-        coordDisplay.textContent = `x: — (150–600)\ny: — (200–600)`;
+        coordDisplay.textContent = coordinateRangeText();
     }
 });
 
@@ -389,9 +439,9 @@ mapStage.addEventListener('mousemove', (e) => {
     const y = Math.round(FOCUS_MIN_Y + relativeY * (FOCUS_MAX_Y - FOCUS_MIN_Y));
     const clampedX = Math.min(Math.max(x, FOCUS_MIN_X), FOCUS_MAX_X);
     const clampedY = Math.min(Math.max(y, FOCUS_MIN_Y), FOCUS_MAX_Y);
-    coordDisplay.textContent = `x: ${clampedX} (150–600)\ny: ${clampedY} (200–600)`;
+    coordDisplay.textContent = `x: ${clampedX} (${FOCUS_MIN_X}–${FOCUS_MAX_X})\ny: ${clampedY} (${FOCUS_MIN_Y}–${FOCUS_MAX_Y})`;
 });
 
 mapStage.addEventListener('mouseleave', () => {
-    coordDisplay.textContent = 'x: — (150–600)\ny: — (200–600)';
+    coordDisplay.textContent = coordinateRangeText();
 });
