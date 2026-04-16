@@ -365,12 +365,32 @@ function startGame() {
 newGameButton.addEventListener('click', startGame);
 startGame();
 
-// ── Grille de repérage ────────────────────────────────────────
+// ── Toggle pinçons ────────────────────────────────────────────
+const togglePinsBtn = document.getElementById('togglePinsBtn');
+let pinsVisible = true;
+
+function setPinsVisible(visible) {
+    pinsVisible = visible;
+    dropLayer.classList.toggle('pins-hidden', !visible);
+    togglePinsBtn.textContent = visible ? '📍 Masquer pinçons' : '📍 Afficher pinçons';
+    togglePinsBtn.classList.toggle('active', !visible);
+}
+
+togglePinsBtn.addEventListener('click', () => setPinsVisible(!pinsVisible));
+
+// ── Grille de repérage ────────────────────────────────────────────
 const gridCanvas    = document.getElementById('gridCanvas');
 const gridCtx       = gridCanvas.getContext('2d');
 const coordDisplay  = document.getElementById('coordDisplay');
 const toggleGridBtn = document.getElementById('toggleGridBtn');
 const mapStage      = document.querySelector('.map-stage');
+
+// Clic sur la carte en dehors d'un pinçon → bascule aussi
+mapStage.addEventListener('click', (e) => {
+    if (!e.target.closest('.map-point')) {
+        setPinsVisible(!pinsVisible);
+    }
+});
 
 const GRID_W     = MAP_W;
 const GRID_H     = MAP_H;

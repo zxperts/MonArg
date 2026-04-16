@@ -275,6 +275,13 @@ body {
     position: absolute;
     width: 0;
     height: 0;
+    transition: opacity .25s ease;
+}
+
+/* ── Toggle masquage pinçons ── */
+.pins-hidden .map-point {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ── Punaises ───────────────────────────────────────────────── */
