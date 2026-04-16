@@ -174,10 +174,17 @@ function renderBanks() {
     countryBank.innerHTML = '';
     capitalBank.innerHTML = '';
 
-    shuffle(locations).forEach((loc) =>
+    const byCountry = [...locations].sort((a, b) =>
+        a.country.localeCompare(b.country, 'fr', { sensitivity: 'base' })
+    );
+    byCountry.forEach((loc) =>
         countryBank.appendChild(createChip(loc.country, `country-${loc.key}`, 'country'))
     );
-    shuffle(locations).forEach((loc) =>
+
+    const byCapital = [...locations].sort((a, b) =>
+        a.capital.localeCompare(b.capital, 'fr', { sensitivity: 'base' })
+    );
+    byCapital.forEach((loc) =>
         capitalBank.appendChild(createChip(loc.capital, `capital-${loc.key}`, 'capital'))
     );
 }
