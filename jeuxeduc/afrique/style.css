@@ -290,7 +290,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 38px;
+    width: auto;
+    min-width: 38px;
     transform: translate(-50%, -100%);
     cursor: pointer;
     z-index: 5;
@@ -305,9 +306,10 @@ body {
 }
 
 .pin-head {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
+    width: auto;
+    min-width: 34px;
+    height: 34px;
+    border-radius: 17px;
     background: #c0392b;
     border: 2.5px solid rgba(255,255,255,0.9);
     display: flex;
@@ -318,17 +320,18 @@ body {
     font-weight: 800;
     text-align: center;
     line-height: 1.15;
-    overflow: hidden;
-    word-break: break-word;
-    padding: 2px;
+    overflow: visible;
+    word-wrap: nowrap;
+    padding: 0 8px;
     transition: background 0.2s ease;
+    white-space: nowrap;
 }
 
 .pin-tail {
     width: 0;
     height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
     border-top: 16px solid #c0392b;
     margin-top: -2px;
     transition: border-top-color 0.2s ease;
