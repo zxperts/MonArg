@@ -1,0 +1,356 @@
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --border: #d7dfed;
+  --edge-color: #94a3b8;
+  --edge-sibling: #f59e0b;
+  --edge-spouse: #db2777;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+h1 { margin: 0; }
+.muted { color: var(--muted); font-size: 13px; }
+
+.toolbar {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  align-items: center;
+}
+
+.toolbar label { font-size: 14px; }
+
+.toolbar select,
+.toolbar button {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+}
+
+.toolbar .primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Zone principale */
+.tree-zone {
+  position: relative;
+  margin-top: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: auto;
+  min-height: 540px;
+}
+
+/* SVG arêtes — au-dessus du fond, en dessous des nœuds */
+#edgeSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Conteneur des nœuds */
+#treeNodes {
+  position: relative;
+}
+
+/* Nœud */
+.node {
+  position: absolute;
+  width: 160px;
+  background: #f8fbff;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  user-select: none;
+  z-index: 2;
+}
+
+.node:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+  z-index: 10;
+}
+
+.node.selected {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.18);
+}
+
+.node .name  { font-weight: 700; font-size: 14px; }
+.node .date  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.node-edit-btn {
+  position: absolute;
+  bottom: -11px;
+  right: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  line-height: 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  z-index: 25;
+}
+
+.node:hover .node-edit-btn,
+.node:focus-within .node-edit-btn {
+  opacity: 1;
+}
+
+.node-edit-btn:hover {
+  background: #eff6ff;
+}
+
+/* Boutons + : masqués par défaut, visibles au survol du nœud */
+.plus {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #93c5fd;
+  background: #fff;
+  color: var(--primary);
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 19px;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+  z-index: 20;
+}
+
+/* Apparition au survol */
+.node:hover .plus,
+.node:focus-within .plus {
+  opacity: 1;
+}
+
+.plus:hover { background: #eff6ff; }
+
+.plus.top    { top: -11px;    left: 50%;  transform: translateX(-50%); }
+.plus.bottom { bottom: -11px; left: 50%;  transform: translateX(-50%); }
+.plus.left   { left: -11px;   top: 50%;   transform: translateY(-50%); }
+.plus.right  { right: -11px;  top: 50%;   transform: translateY(-50%); }
+
+/* Bouton conjoint — coin supérieur droit */
+.plus.spouse {
+  top: -11px;
+  right: -11px;
+  border-color: #f9a8d4;
+  color: #db2777;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+/* Nœud conjoint — légère teinte rose */
+.node.conjoint {
+  background: #fff0f6;
+  border-color: #f9a8d4;
+}
+.node.conjoint:hover {
+  border-color: var(--edge-spouse);
+  box-shadow: 0 0 0 3px rgba(219,39,119,0.12);
+}
+
+.node.sex-homme {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.node.sex-femme {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.node.sex-autre {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+}
+
+/* Zone de survol positionnée sur la relation conjugale */
+.couple-child-zone {
+  position: absolute;
+  height: 18px;
+  z-index: 18;
+}
+
+/* Bouton + enfant du couple (caché hors survol de la relation) */
+.couple-child-btn {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid #db2777;
+  background: #fff0f6;
+  color: #db2777;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+  padding: 0;
+  z-index: 20;
+  opacity: 0;
+  pointer-events: none;
+  transition: background 0.15s, transform 0.1s, opacity 0.15s;
+}
+
+.couple-child-zone:hover .couple-child-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.couple-child-btn:hover { background: #fce7f3; transform: scale(1.15); }
+
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 120px 0;
+}
+
+.choice-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.choice-modal.hidden {
+  display: none;
+}
+
+.choice-card {
+  width: min(620px, 92vw);
+  max-height: 82vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.choice-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.choice-subtitle {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.choice-list {
+  display: grid;
+  gap: 8px;
+}
+
+.choice-search {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.choice-btn {
+  text-align: left;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.choice-btn:hover {
+  background: #f8fbff;
+}
+
+.choice-btn.danger {
+  border-color: #fecaca;
+  background: #fff5f5;
+  color: #b91c1c;
+}
+
+.person-form {
+  display: grid;
+  gap: 10px;
+}
+
+.person-form label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.person-form input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.person-form select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.person-form-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.choice-btn.primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
