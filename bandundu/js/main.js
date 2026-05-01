@@ -151,30 +151,69 @@ const teamMembers = [
     }
 ];
 
+function getProjectStartOrderValue(startDate = '') {
+    if (!startDate) {
+        return Number.NEGATIVE_INFINITY;
+    }
+
+    const normalized = startDate
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const yearMatch = normalized.match(/\b(19|20)\d{2}\b/);
+    if (!yearMatch) {
+        return Number.NEGATIVE_INFINITY;
+    }
+
+    const monthIndexByName = {
+        janvier: 0,
+        fevrier: 1,
+        mars: 2,
+        avril: 3,
+        mai: 4,
+        juin: 5,
+        juillet: 6,
+        aout: 7,
+        septembre: 8,
+        octobre: 9,
+        novembre: 10,
+        decembre: 11
+    };
+
+    const monthIndex = Object.keys(monthIndexByName).find(month => normalized.includes(month));
+    const year = Number.parseInt(yearMatch[0], 10);
+    const month = monthIndex ? monthIndexByName[monthIndex] : 11;
+
+    return Date.UTC(year, month, 1);
+}
+
 
 // Function to load projects
 function loadProjects(category = 'all') {
     const projectsGrid = document.querySelector('.projects-grid');
     projectsGrid.innerHTML = ''; // Clear existing projects
-    
-    projects.forEach(project => {
-        if (category === 'all' || project.category === category) {
-            const projectCard = document.createElement('div');
-            projectCard.className = 'project-card';
-            projectCard.innerHTML = `
-                <img src="${project.image}" alt="${project.title}">
-                <div class="project-info">
-                    <h3>${project.title}</h3>
-                    <div class="project-meta">
-                        ${project.location ? `<span class="project-location"><i class="fas fa-map-marker-alt"></i> ${project.location}</span>` : ''}
-                        ${project.startDate ? `<span class="project-date"><i class="fas fa-calendar-alt"></i> ${project.startDate}</span>` : ''}
-                    </div>
-                    <p>${project.description.substring(0, 150)}...</p>
+
+    const sortedProjects = projects
+        .filter(project => category === 'all' || project.category === category)
+        .sort((a, b) => getProjectStartOrderValue(b.startDate) - getProjectStartOrderValue(a.startDate));
+
+    sortedProjects.forEach(project => {
+        const projectCard = document.createElement('div');
+        projectCard.className = 'project-card';
+        projectCard.innerHTML = `
+            <img src="${project.image}" alt="${project.title}">
+            <div class="project-info">
+                <h3>${project.title}</h3>
+                <div class="project-meta">
+                    ${project.location ? `<span class="project-location"><i class="fas fa-map-marker-alt"></i> ${project.location}</span>` : ''}
+                    ${project.startDate ? `<span class="project-date"><i class="fas fa-calendar-alt"></i> ${project.startDate}</span>` : ''}
                 </div>
-            `;
-            projectCard.addEventListener('click', () => openProjectModal(project));
-            projectsGrid.appendChild(projectCard);
-        }
+                <p>${project.description.substring(0, 150)}...</p>
+            </div>
+        `;
+        projectCard.addEventListener('click', () => openProjectModal(project));
+        projectsGrid.appendChild(projectCard);
     });
 }
 
