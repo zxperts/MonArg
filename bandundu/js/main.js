@@ -13,6 +13,8 @@ const projects = [
     {
         title: "Accès à l'eau potable",
         description: "Un puits a été érigé au sein de l'établissement scolaire Santa Rosa, garantissant un accès continu à une eau potable de qualité pour les élèves et le personnel. Cette ressource précieuse, puisée directement d'une nappe phréatique souterraine, assure non seulement la sécurité sanitaire au sein de l'école mais s'étend également à la communauté avoisinante. En rendant cette eau accessible à tous, nous contribuons significativement à pallier les défis sanitaires engendrés par l'indisponibilité fréquente de l'eau dans le quartier Ufuri à Bandundu.",
+        location: "Quartier Ufuri, Bandundu",
+        startDate: "2020",
         folder: "water",
         image: "images/projects/water/Techniques de pêche.png",
         category: "infrastructure",
@@ -24,6 +26,8 @@ const projects = [
     {
         title: "Formation en Coupe et Couture",
         description: "La formation en coupe et couture est réalisée au centre NTOBWAVE à Bandundu. L'objectif étant qu'après leurs formations, les filles mères célibataires puissent se réinsérer socialement en se constituant en groupes ou en coopérative pour qu'elles puissent commencer une activité professionnelle. Telema Bandundu fourni et continue de fournir des machines à coudre pour les formations. Les machines sont également disponibles pour les filles au début leurs activités professionnelles.",
+        location: "Centre NTOBWAVE, Bandundu",
+        startDate: "2018",
         folder: "sewing",
         image: "images/projects/water/VueAvion.png",
         category: "formation",
@@ -35,6 +39,8 @@ const projects = [
     {
         title: "Plaine de Jeu",
         description: "Telema Bandundu a contribué à la construction d'une plaine de jeu équipée d'une trampoline, de deux balançoires ainsi que d'un bac à sable, offrant aux enfants un espace de loisirs sécurisé.",
+        location: "Bandundu",
+        startDate: "2019",
         folder: "playground",
         image: "images/projects/playground/Enfant.jpeg",
         category: "infrastructure",
@@ -46,6 +52,8 @@ const projects = [
     {
         title: "Formation en Informatique",
         description: "Le centre NTOMBWA de Bandundu dispense des cours de base sur l'utilisation de l'ordinateur aux jeunes désœuvrés de la ville. Afin d'accueillir davantage de jeunes, nous sommes à la recherche de dons d'ordinateurs.",
+        location: "Centre NTOMBWA, Bandundu",
+        startDate: "2017",
         folder: "computer",
         image: "images/projects/computer/Enseignement.png",
         category: "formation",
@@ -57,6 +65,8 @@ const projects = [
     {
         title: "Projet Agroforestier",
         description: "Plantation d'arbres fruitiers et culture vivrière dans la savane N KOWA DIMA NKOWA à 13 km de Bandundu-Centre. Ce projet est actuellement en phase d'étude.",
+        location: "Savane N'Kowa Dima Nkowa, 13 km de Bandundu",
+        startDate: "2022",
         folder: "agroforestry",
         image: "images/projects/agroforestry/Techniques de pêche.png",
         category: "environnement",
@@ -68,11 +78,26 @@ const projects = [
     {
         title: "Formation en Boulangerie",
         description: "Formation des filles mères célibataires en pâtisserie et boulangerie. Création d'une boulangerie en vue de financer les activités de la maison de jeunesse de Bandundu.",
+        location: "Maison de Jeunesse, Bandundu",
+        startDate: "2021",
         folder: "bakery",
         image: "images/projects/bakery/construction.jpeg",
         category: "formation",
         gallery: [
             "images/projects/bakery/construction.jpeg",
+            "images/projects/water/VueAvion.png"
+        ]
+    },
+    {
+        title: "Accès durable à l'eau potable et aux installations sanitaires",
+        description: "Projet d'accès durable à l'eau potable et aux installations sanitaires pour les filles-mères célibataires et les jeunes désœuvrés du centre de réinsertion socioprofessionnelle Destin en main à Kimbanseke (Kinshasa). Le projet prévoit un captage d'eau par forage, une citerne de réserve de 5000 L en hauteur, la construction de latrines et de douches à chasse d'eau, un mini-réseau de distribution, des fosses septiques et des puits perdus. Un programme d'éducation à l'hygiène et à la santé est également inclus.",
+        location: "Centre Destin en main, rue Ngandaketi n°132 Bis, quartier Mikondo, Kimbanseke (Kinshasa)",
+        startDate: "Août 2025",
+        folder: "water",
+        image: "images/projects/water/Techniques de pêche.png",
+        category: "infrastructure",
+        gallery: [
+            "images/projects/water/Techniques de pêche.png",
             "images/projects/water/VueAvion.png"
         ]
     }
@@ -146,6 +171,10 @@ function loadProjects(category = 'all') {
                 <img src="${project.image}" alt="${project.title}">
                 <div class="project-info">
                     <h3>${project.title}</h3>
+                    <div class="project-meta">
+                        ${project.location ? `<span class="project-location"><i class="fas fa-map-marker-alt"></i> ${project.location}</span>` : ''}
+                        ${project.startDate ? `<span class="project-date"><i class="fas fa-calendar-alt"></i> ${project.startDate}</span>` : ''}
+                    </div>
                     <p>${project.description.substring(0, 150)}...</p>
                 </div>
             `;

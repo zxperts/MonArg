@@ -285,6 +285,29 @@ nav {
     margin-bottom: 0.5rem;
 }
 
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-location,
+.project-date {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.project-location i,
+.project-date i {
+    color: var(--primary-color);
+    font-size: 0.78rem;
+}
+
 /* Team Section */
 .team {
     padding: 6rem 5%;
