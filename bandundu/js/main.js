@@ -107,7 +107,7 @@ const projects = [
 const teamMembers = [
     {
         name: "Munsi Paul",
-        role: "Directeur Exécutif",
+        role: "Directeur Exécutif & Chargé des relations publiques",
         image: "images/team/Paul.png",
         social: {
             email: "paulmunsi@yahoo.fr"
@@ -142,15 +142,9 @@ const teamMembers = [
         }
     },
     {
-        name: "Munsi Paul",
-        role: "Chargé des relations publiques",
-        social: {
-            email: "paulmunsi@yahoo.fr"
-        }
-    },
-    {
         name: "Masia Patrick",
         role: "Associé technique et projet",
+        image: "images/team/Masia.jpeg",
         social: {
             email: "bandundu.telema@gmail.com"
         }
