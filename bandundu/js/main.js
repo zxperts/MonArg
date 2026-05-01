@@ -11,16 +11,16 @@ window.addEventListener('scroll', function() {
 // Sample data for projects
 const projects = [
     {
-        title: "Accès à l'eau potable",
+        title: "Accès à l'eau potable au sein de l'établissement scolaire Santa Rosa",
         description: "Un puits a été érigé au sein de l'établissement scolaire Santa Rosa, garantissant un accès continu à une eau potable de qualité pour les élèves et le personnel. Cette ressource précieuse, puisée directement d'une nappe phréatique souterraine, assure non seulement la sécurité sanitaire au sein de l'école mais s'étend également à la communauté avoisinante. En rendant cette eau accessible à tous, nous contribuons significativement à pallier les défis sanitaires engendrés par l'indisponibilité fréquente de l'eau dans le quartier Ufuri à Bandundu.",
         location: "Quartier Ufuri, Bandundu",
         startDate: "2020",
         folder: "water",
-        image: "images/projects/water/Techniques de pêche.png",
+        image: "images/projects/SantaRosa/SantaRosa1.png",
         category: "infrastructure",
         gallery: [
-            "images/projects/water/Techniques de pêche.png",
-            "images/projects/water/VueAvion.png"
+            "images/projects/SantaRosa/SantaRosa1.png",
+            "images/projects/SantaRosa/SantaRosa2.png"
         ]
     },
     {
