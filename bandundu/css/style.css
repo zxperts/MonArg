@@ -16,6 +16,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--text-color);
 }
@@ -297,7 +298,7 @@ nav {
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.82rem;
+    font-size: 0.875rem;
     color: #666;
     font-weight: 500;
 }
@@ -837,40 +838,184 @@ nav {
     }
 }
 
-/* Petits écrans */
+/* Petits écrans (téléphones) */
 @media (max-width: 480px) {
-    .hero h1 {
-        font-size: 1.8rem;
+    /* Navigation */
+    .logo {
+        font-size: 1.2rem;
     }
 
-    .hero p {
-        font-size: 1rem;
-    }
-
-    .section {
-        padding: 3rem 1rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .mission, .vision {
-        padding: 1.5rem;
-    }
-
-    .contact-info {
-        padding: 1.5rem;
+    nav {
+        padding: 1rem 4%;
     }
 
     .language-selector button {
-        padding: 0.2rem 0.4rem;
+        padding: 0.25rem 0.45rem;
         font-size: 0.8rem;
+    }
+
+    /* Hero */
+    .hero {
+        height: auto;
+        min-height: 45vh;
+        padding-top: 70px;
+        padding-bottom: 2rem;
+    }
+
+    .hero-content {
+        width: 92%;
+        padding: 1.2rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    /* Sections générales */
+    .about,
+    .projects,
+    .team,
+    .contact {
+        padding: 3.5rem 4%;
+    }
+
+    /* Titres de section — sélecteurs renforcés pour surcharger les 2.5rem */
+    .about h2,
+    .projects h2,
+    .team h2,
+    .contact h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.8rem;
+    }
+
+    /* À propos */
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
+
+    .mission, .vision {
+        padding: 1.25rem;
+    }
+
+    .mission h3, .vision h3 {
+        font-size: 1.2rem;
+    }
+
+    .mission p, .vision p {
+        font-size: 0.95rem;
+        line-height: 1.65;
+    }
+
+    /* Projets */
+    .project-categories {
+        gap: 0.4rem;
+    }
+
+    .category-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.875rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        padding: 0.25rem;
+    }
+
+    .project-card img {
+        height: 180px;
+    }
+
+    .project-info {
+        padding: 1rem;
+    }
+
+    .project-info h3 {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .project-info p {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .project-location,
+    .project-date {
+        font-size: 0.82rem;
+    }
+
+    /* Équipe */
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        padding: 0.25rem;
+    }
+
+    .team-member {
+        max-width: 100%;
+    }
+
+    .team-member img {
+        height: 220px;
+    }
+
+    .team-member-info {
+        padding: 1rem;
+    }
+
+    .team-member-info h3 {
+        font-size: 1.05rem;
+    }
+
+    .team-member-info p {
+        font-size: 0.9rem;
+    }
+
+    /* Contact */
+    .contact-info {
+        padding: 1.25rem;
+    }
+
+    .contact-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-info p {
+        font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 97%;
+        margin: 10px auto;
+        padding: 0.875rem;
+    }
+
+    #modalTitle {
+        font-size: 1.1rem;
+        padding-right: 2rem;
+    }
+
+    #modalDescription {
+        font-size: 0.9rem;
+        line-height: 1.65;
+    }
+
+    .project-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .project-gallery img {
+        height: 160px;
     }
 }
 
