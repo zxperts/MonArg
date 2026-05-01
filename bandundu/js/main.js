@@ -94,11 +94,14 @@ const projects = [
         location: "Centre Destin en main, rue Ngandaketi n°132 Bis, quartier Mikondo, Kimbanseke (Kinshasa)",
         startDate: "Août 2025",
         folder: "water",
-        image: "images/projects/water/Techniques de pêche.png",
+        image: "images/projects/DestinEnMain/DestinEnMain01.jpeg",
         category: "infrastructure",
         gallery: [
-            "images/projects/water/Techniques de pêche.png",
-            "images/projects/water/VueAvion.png"
+            "images/projects/DestinEnMain/DestinEnMain01.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain02.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain03.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain04.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain05.jpeg"
         ]
     }
 ];
