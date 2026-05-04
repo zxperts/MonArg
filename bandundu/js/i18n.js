@@ -14,7 +14,7 @@ const translations = {
         about: {
             title: "À propos de nous",
             mission: "Notre Mission",
-            description: "L'objectif de notre ASBL est de favoriser la réinsertion socioprofessionnelle des mères célibataires et des jeunes en difficulté. Nous proposons des formations dans divers métiers tels que la couture, la papeterie, la menuiserie, la maçonnerie et l'électricité.\n\nÀ la fin de leur formation, nous les soutenons dans la création de leur propre emploi. Nous les accompagnons pendant un an, puis ils pourront s'organisent en coopératives ou en micro-entreprises dans leurs domaines respectifs.",
+            description: "L'objectif de notre ASBL est de favoriser la réinsertion socioprofessionnelle des mères célibataires et des jeunes en difficulté. Nous proposons des formations dans divers métiers tels que la couture, la pâtisserie, la menuiserie, la maçonnerie et l'électricité.\n\nÀ la fin de leur formation, nous les soutenons dans la création de leur propre emploi. Nous les accompagnons pendant un an, puis ils pourront s'organisent en coopératives ou en micro-entreprises dans leurs domaines respectifs.",
             vision: "Nos engagements",
             vision_text: "Par ailleurs, nous combattons le réchauffement climatique en menant des projets agroforestiers dans les environs de la ville de Bandundu."
         },

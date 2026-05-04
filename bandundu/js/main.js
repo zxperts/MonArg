@@ -101,7 +101,11 @@ const projects = [
             "images/projects/DestinEnMain/DestinEnMain02.jpeg",
             "images/projects/DestinEnMain/DestinEnMain03.jpeg",
             "images/projects/DestinEnMain/DestinEnMain04.jpeg",
-            "images/projects/DestinEnMain/DestinEnMain05.jpeg"
+            "images/projects/DestinEnMain/DestinEnMain05.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain06.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain07.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain08.jpeg",
+            "images/projects/DestinEnMain/DestinEnMain09.jpeg"
         ]
     }
 ];
