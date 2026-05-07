@@ -495,7 +495,7 @@ nav {
     gap: 1rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .contact-container {
         grid-template-columns: 1fr;
     }
@@ -514,7 +514,7 @@ nav {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .hero h1 {
         font-size: 2.5rem;
     }
@@ -577,7 +577,7 @@ nav {
     font-size: 1.5rem;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .about-content {
         grid-template-columns: 1fr;
     }
@@ -1020,7 +1020,7 @@ nav {
 }
 
 /* Ajustements pour les petits écrans et tablettes */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .about-content,
     .projects-grid,
     .team-grid {
