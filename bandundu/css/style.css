@@ -738,6 +738,11 @@ nav {
 
 /* Menu mobile */
 @media (max-width: 968px) {
+    body {
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
     .nav-links {
         position: fixed;
         top: 80px;
@@ -763,6 +768,10 @@ nav {
         right: 80px;
     }
 
+    .nav-links li a {
+        font-size: 1.25rem;
+    }
+
     /* Hero section adjustments */
     .hero {
         height: 50vh;
@@ -775,6 +784,26 @@ nav {
 
     .hero h1 {
         font-size: 2rem;
+    }
+
+    .hero p,
+    .mission p,
+    .vision p,
+    .project-info p,
+    .team-member-info p,
+    .contact-info p,
+    .form-group label,
+    .form-group input,
+    .form-group textarea,
+    #contact-form button,
+    footer p {
+        font-size: 1rem;
+    }
+
+    .project-location,
+    .project-date,
+    .category-btn {
+        font-size: 0.95rem;
     }
 
     /* Projects section */
@@ -840,9 +869,14 @@ nav {
 
 /* Petits écrans (téléphones) */
 @media (max-width: 480px) {
+    body {
+        font-size: 18px;
+        line-height: 1.75;
+    }
+
     /* Navigation */
     .logo {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
     }
 
     nav {
@@ -851,7 +885,7 @@ nav {
 
     .language-selector button {
         padding: 0.25rem 0.45rem;
-        font-size: 0.8rem;
+        font-size: 0.95rem;
     }
 
     /* Hero */
@@ -868,12 +902,12 @@ nav {
     }
 
     .hero h1 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         line-height: 1.3;
     }
 
     .hero p {
-        font-size: 0.95rem;
+        font-size: 1.1rem;
     }
 
     /* Sections générales */
@@ -889,7 +923,7 @@ nav {
     .projects h2,
     .team h2,
     .contact h2 {
-        font-size: 1.7rem;
+        font-size: 2rem;
         margin-bottom: 1.8rem;
     }
 
@@ -905,11 +939,11 @@ nav {
     }
 
     .mission h3, .vision h3 {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .mission p, .vision p {
-        font-size: 0.95rem;
+        font-size: 1.05rem;
         line-height: 1.65;
     }
 
@@ -920,7 +954,7 @@ nav {
 
     .category-btn {
         padding: 0.4rem 0.9rem;
-        font-size: 0.875rem;
+        font-size: 1rem;
     }
 
     .projects-grid {
@@ -938,18 +972,18 @@ nav {
     }
 
     .project-info h3 {
-        font-size: 1rem;
+        font-size: 1.15rem;
         line-height: 1.4;
     }
 
     .project-info p {
-        font-size: 0.9rem;
+        font-size: 1rem;
         line-height: 1.6;
     }
 
     .project-location,
     .project-date {
-        font-size: 0.82rem;
+        font-size: 0.95rem;
     }
 
     /* Équipe */
@@ -972,11 +1006,11 @@ nav {
     }
 
     .team-member-info h3 {
-        font-size: 1.05rem;
+        font-size: 1.2rem;
     }
 
     .team-member-info p {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
 
     /* Contact */
@@ -985,12 +1019,19 @@ nav {
     }
 
     .contact-info h3 {
-        font-size: 1.2rem;
+        font-size: 1.35rem;
         margin-bottom: 1rem;
     }
 
     .contact-info p {
-        font-size: 0.9rem;
+        font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group label,
+    #contact-form button {
+        font-size: 1rem;
     }
 
     /* Modal */
@@ -1001,12 +1042,12 @@ nav {
     }
 
     #modalTitle {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         padding-right: 2rem;
     }
 
     #modalDescription {
-        font-size: 0.9rem;
+        font-size: 1rem;
         line-height: 1.65;
     }
 
