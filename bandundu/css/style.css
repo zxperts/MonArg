@@ -1019,14 +1019,20 @@ nav {
     }
 }
 
-/* Ajustements pour les tablettes */
-@media (min-width: 481px) and (max-width: 768px) {
-    .projects-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* Ajustements pour les petits écrans et tablettes */
+@media (max-width: 768px) {
+    .about-content,
+    .projects-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
     }
 
-    .team-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .mission,
+    .vision,
+    .project-card,
+    .team-member {
+        width: 100%;
+        max-width: 100%;
     }
 }
 
