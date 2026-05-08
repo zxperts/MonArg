@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Bandundu Telema ASBL - plante et gouttes d'eau">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a4a"/>
+      <stop offset="100%" stop-color="#2d7a52"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8ef9d"/>
+      <stop offset="58%" stop-color="#5aa84a"/>
+      <stop offset="100%" stop-color="#2f6b37"/>
+    </linearGradient>
+    <linearGradient id="drop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#d2ebff"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg)"/>
+
+  <!-- Plusieurs gouttes d'eau -->
+  <path d="M18 13 C16.8 14.8,15.9 16.1,15.9 17.5 C15.9 18.9,17 20,18.4 20 C19.8 20,20.9 18.9,20.9 17.5 C20.9 16.1,19.8 14.8,18 13 Z" fill="url(#drop)" opacity="0.95"/>
+  <path d="M26.5 10.8 C25.4 12.4,24.5 13.6,24.5 14.9 C24.5 16.2,25.6 17.2,26.9 17.2 C28.2 17.2,29.2 16.2,29.2 14.9 C29.2 13.6,28.2 12.4,26.5 10.8 Z" fill="url(#drop)"/>
+  <path d="M32 12.2 C30.8 14,29.8 15.3,29.8 16.8 C29.8 18.3,31 19.5,32.5 19.5 C34 19.5,35.2 18.3,35.2 16.8 C35.2 15.3,34 14,32 12.2 Z" fill="url(#drop)" opacity="0.96"/>
+  <path d="M38.8 10.6 C37.7 12.2,36.8 13.4,36.8 14.7 C36.8 15.9,37.8 17,39 17 C40.3 17,41.3 15.9,41.3 14.7 C41.3 13.4,40.3 12.2,38.8 10.6 Z" fill="url(#drop)"/>
+  <path d="M46.2 13 C45 14.8,44.1 16.1,44.1 17.5 C44.1 18.9,45.2 20,46.6 20 C48 20,49.1 18.9,49.1 17.5 C49.1 16.1,48 14.8,46.2 13 Z" fill="url(#drop)" opacity="0.95"/>
+  <path d="M22.4 21.8 C21.7 22.8,21.1 23.6,21.1 24.5 C21.1 25.4,21.8 26.1,22.7 26.1 C23.6 26.1,24.3 25.4,24.3 24.5 C24.3 23.6,23.6 22.8,22.4 21.8 Z" fill="url(#drop)" opacity="0.85"/>
+  <path d="M41.6 21.4 C40.9 22.4,40.3 23.2,40.3 24.1 C40.3 25,41 25.7,41.9 25.7 C42.8 25.7,43.5 25,43.5 24.1 C43.5 23.2,42.8 22.4,41.6 21.4 Z" fill="url(#drop)" opacity="0.85"/>
+
+  <!-- Plante type Philodendron Rojo Congo (sans terre) -->
+  <path d="M32 46 C31.9 41.5,31.9 37.2,32 33.2" stroke="#e5f7dd" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path d="M32 33.8 C37.6 28.6,44 27.8,48.2 31 C44.1 37.8,38 39.1,32 33.8 Z" fill="url(#leaf)"/>
+  <path d="M32 33.8 C26.4 28.6,20 27.8,15.8 31 C19.9 37.8,26 39.1,32 33.8 Z" fill="url(#leaf)"/>
+  <path d="M32 29.8 C35.8 25.4,40 24.7,42.9 27 C40.1 32.5,36.1 33.8,32 29.8 Z" fill="url(#leaf)" opacity="0.96"/>
+  <path d="M32 29.8 C28.2 25.4,24 24.7,21.1 27 C23.9 32.5,27.9 33.8,32 29.8 Z" fill="url(#leaf)" opacity="0.96"/>
+  <ellipse cx="32" cy="28.8" rx="2.5" ry="3.5" fill="#4f9b4a"/>
+
+</svg>
