@@ -21,6 +21,12 @@ body {
     color: var(--text-color);
 }
 
+/* Images fluides sur tous les écrans */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Header and Navigation */
 header {
     background-color: rgba(255, 255, 255, 0.95);
@@ -738,8 +744,11 @@ nav {
 
 /* Menu mobile */
 @media (max-width: 968px) {
+    html {
+        font-size: 19px;
+    }
+
     body {
-        font-size: 17px;
         line-height: 1.7;
     }
 
@@ -869,8 +878,11 @@ nav {
 
 /* Petits écrans (téléphones) */
 @media (max-width: 480px) {
+    html {
+        font-size: 22px;
+    }
+
     body {
-        font-size: 18px;
         line-height: 1.75;
     }
 
@@ -1166,5 +1178,13 @@ nav {
     .contact h2 {
         font-size: 2rem;
         margin-bottom: 2rem;
+    }
+}
+
+/* Renfort mobile: évite les débordements horizontaux */
+@media screen and (max-width: 768px) {
+    html,
+    body {
+        overflow-x: hidden;
     }
 }
