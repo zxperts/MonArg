@@ -14,9 +14,13 @@
     --transition: all 0.3s ease;
 }
 
+html {
+    font-size: 16px; /* base rem : 1rem = 16px */
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--text-color);
 }
@@ -129,7 +133,7 @@ nav {
 }
 
 /* Media Queries */
-@media (max-width: 968px) {
+@media (max-width: 1080px) {
     .menu-toggle {
         display: flex;
     }
@@ -743,9 +747,9 @@ nav {
 /* Ajustements pour le responsive design */
 
 /* Menu mobile */
-@media (max-width: 968px) {
+@media (max-width: 1080px) {
     html {
-        font-size: 19px;
+        font-size: 1.1875rem; /* 19px équivalent */
     }
 
     body {
@@ -879,7 +883,7 @@ nav {
 /* Petits écrans (téléphones) */
 @media (max-width: 480px) {
     html {
-        font-size: 22px;
+        font-size: 1.375rem; /* 22px équivalent */
     }
 
     body {
@@ -1111,7 +1115,7 @@ nav {
 
     .form-group input,
     .form-group textarea {
-        font-size: 16px; /* Évite le zoom automatique sur iOS */
+        font-size: 1rem; /* Évite le zoom automatique sur iOS */
     }
 }
 
@@ -1131,7 +1135,7 @@ nav {
 }
 
 /* Contact Section */
-@media (max-width: 968px) {
+@media (max-width: 1080px) {
     .contact-container {
         grid-template-columns: 1fr;
         padding: 1rem;
@@ -1182,7 +1186,7 @@ nav {
 }
 
 /* Renfort mobile: évite les débordements horizontaux */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1080px) {
     html,
     body {
         overflow-x: hidden;
