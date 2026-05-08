@@ -90,7 +90,7 @@ const projects = [
     },
     {
         title: "Accès durable à l'eau potable et aux installations sanitaires",
-        description: "Projet d'accès durable à l'eau potable et aux installations sanitaires pour les filles-mères célibataires et les jeunes désœuvrés du centre de réinsertion socioprofessionnelle Destin en main à Kimbanseke (Kinshasa). Le projet prévoit un captage d'eau par forage, une citerne de réserve de 5000 L en hauteur, la construction de latrines et de douches à chasse d'eau, un mini-réseau de distribution, des fosses septiques et des puits perdus. Un programme d'éducation à l'hygiène et à la santé est également inclus.",
+        description: "« Destin en Main » est un centre de formation socioprofessionnelle destiné aux mères célibataires. Situé dans le quartier de Mikondo, dans la municipalité de Kimbanseke (Kinshasa), le centre dispose de salles de classe équipées pour des cours pratiques de coupe, de couture et de boulangerie-pâtisserie.\n\nAfin d'améliorer les conditions de vie et d'hygiène des bénéficiaires, un projet d'accès durable à l'eau potable et aux installations sanitaires y est en cours. Il prévoit notamment un captage d'eau par forage, une citerne de réserve de 5 000 L en hauteur, la construction de latrines et de douches à chasse d'eau, un mini-réseau de distribution, des fosses septiques et des puits perdus. Un programme d'éducation à l'hygiène et à la santé est également inclus.",
         location: "Centre Destin en main, rue Ngandaketi n°132 Bis, quartier Mikondo, Kimbanseke (Kinshasa)",
         startDate: "Août 2025",
         folder: "water",
