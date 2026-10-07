@@ -1,14 +1,31 @@
 const countries = [
     { country: 'België', capital: 'Brussel', french: 'Belgique' },
+    { country: 'Bulgarije', capital: 'Sofia', french: 'Bulgarie' },
+    { country: 'Cyprus', capital: 'Nicosia', french: 'Chypre' },
+    { country: 'Croatië', capital: 'Zagreb', french: 'Croatie' },
     { country: 'Denemarken', capital: 'Kopenhagen', french: 'Danemark' },
     { country: 'Duitsland', capital: 'Berlijn', french: 'Allemagne' },
+    { country: 'Estland', capital: 'Tallinn', french: 'Estonie' },
+    { country: 'Finland', capital: 'Helsinki', french: 'Finlande' },
     { country: 'Frankrijk', capital: 'Parijs', french: 'France' },
     { country: 'Griekenland', capital: 'Athene', french: 'Grèce' },
+    { country: 'Hongarije', capital: 'Boedapest', french: 'Hongrie' },
     { country: 'Ierland', capital: 'Dublin', french: 'Irlande' },
     { country: 'Italië', capital: 'Rome', french: 'Italie' },
+    { country: 'Letland', capital: 'Riga', french: 'Lettonie' },
+    { country: 'Litouwen', capital: 'Vilnius', french: 'Lituanie' },
     { country: 'Luxemburg', capital: 'Luxemburg', french: 'Luxembourg' },
     { country: 'Malta', capital: 'Valletta', french: 'Malte' },
-    { country: 'Nederland', capital: 'Amsterdam', french: 'Pays-Bas' }
+    { country: 'Nederland', capital: 'Amsterdam', french: 'Pays-Bas' },
+    { country: 'Oostenrijk', capital: 'Wenen', french: 'Autriche' },
+    { country: 'Polen', capital: 'Warschau', french: 'Pologne' },
+    { country: 'Portugal', capital: 'Lissabon', french: 'Portugal' },
+    { country: 'Roemenië', capital: 'Boekarest', french: 'Roumanie' },
+    { country: 'Slovakije', capital: 'Bratislava', french: 'Slovaquie' },
+    { country: 'Slovenië', capital: 'Ljubljana', french: 'Slovénie' },
+    { country: 'Spanje', capital: 'Madrid', french: 'Espagne' },
+    { country: 'Tsjechië', capital: 'Praag', french: 'Tchéquie' },
+    { country: 'Zweden', capital: 'Stockholm', french: 'Suède' }
 ];
 
 const state = {
