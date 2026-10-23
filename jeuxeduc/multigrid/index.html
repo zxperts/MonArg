@@ -320,6 +320,79 @@
             margin: 5px 0;
             min-height: 20px;
         }
+
+        .answer-settings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        #numericAnswer {
+            width: min(300px, 100%);
+        }
+
+        #grid[hidden], #numericAnswer[hidden] {
+            display: none;
+        }
+
+        #answerDisplay {
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 60px;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            background: white;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        #answerFeedback {
+            min-height: 48px;
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        #answerFeedback.success {
+            color: #166534;
+            background-color: #dcfce7;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #answerKeys {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            min-width: 0;
+        }
+
+        #answerKeys button {
+            min-height: 60px;
+            margin: 0;
+            padding: 10px;
+            font-size: 24px;
+            background: #3498db;
+            transition: background-color 0.2s;
+        }
+
+        #answerKeys button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #answerKeys button:focus-visible {
+            outline: 3px solid #2c3e50;
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
@@ -337,9 +410,15 @@
         <div class="number-selection" id="numberSelection">
             <!-- Les boutons seront générés dynamiquement -->
         </div>
-        <div class="checkbox-container">
-            <div class="custom-checkbox" id="expertCheckbox" onclick="toggleMode()"></div>
-            <label for="expertCheckbox">Mode Expert</label>
+        <div class="answer-settings">
+            <div class="checkbox-container">
+                <div class="custom-checkbox" id="expertCheckbox" onclick="toggleMode()"></div>
+                <label for="expertCheckbox">Mode Expert</label>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="numericMode" onchange="updateAnswerMode()">
+                <label for="numericMode">Pavé numérique</label>
+            </div>
         </div>
         <button class="voice-button" id="voiceButton" onclick="toggleVoiceRecognition()">
             🎤 Réponse vocale
@@ -349,6 +428,24 @@
 
     <div id="currentCalculation"></div>
     <div id="grid"></div>
+    <section id="numericAnswer" aria-label="Réponse au calcul" hidden>
+        <output id="answerDisplay" aria-label="Réponse saisie" aria-live="polite"></output>
+        <p id="answerFeedback" role="status"></p>
+        <fieldset id="answerKeys" aria-label="Pavé numérique" disabled>
+            <button type="button" onclick="appendDigit('1')">1</button>
+            <button type="button" onclick="appendDigit('2')">2</button>
+            <button type="button" onclick="appendDigit('3')">3</button>
+            <button type="button" onclick="appendDigit('4')">4</button>
+            <button type="button" onclick="appendDigit('5')">5</button>
+            <button type="button" onclick="appendDigit('6')">6</button>
+            <button type="button" onclick="appendDigit('7')">7</button>
+            <button type="button" onclick="appendDigit('8')">8</button>
+            <button type="button" onclick="appendDigit('9')">9</button>
+            <button type="button" onclick="eraseDigit()" aria-label="Effacer le dernier chiffre" title="Effacer le dernier chiffre">&#9003;</button>
+            <button type="button" onclick="appendDigit('0')">0</button>
+            <button type="button" onclick="submitNumericAnswer()" aria-label="Valider la réponse" title="Valider la réponse">&#10003;</button>
+        </fieldset>
+    </section>
 
     <script>
         let currentTable;
@@ -358,6 +455,45 @@
         let expertMode = false;
         let recognition = null;
         let isListening = false;
+        let enteredAnswer = '';
+
+        function updateAnswerMode() {
+            const numericMode = document.getElementById('numericMode').checked;
+            document.getElementById('grid').hidden = numericMode;
+            document.getElementById('numericAnswer').hidden = !numericMode;
+        }
+
+        function resetNumericAnswer() {
+            enteredAnswer = '';
+            document.getElementById('answerDisplay').textContent = '';
+            document.getElementById('answerFeedback').textContent = '';
+            document.getElementById('answerFeedback').classList.remove('success');
+        }
+
+        function appendDigit(digit) {
+            if (!currentTable || currentStepIndex >= steps.length || enteredAnswer.length >= 3) return;
+            enteredAnswer = enteredAnswer === '0' ? digit : enteredAnswer + digit;
+            document.getElementById('answerDisplay').textContent = enteredAnswer;
+            document.getElementById('answerFeedback').textContent = '';
+            document.getElementById('answerFeedback').classList.remove('success');
+            if (Number(enteredAnswer) === currentTable * steps[currentStepIndex]) {
+                submitNumericAnswer();
+            }
+        }
+
+        function eraseDigit() {
+            enteredAnswer = enteredAnswer.slice(0, -1);
+            document.getElementById('answerDisplay').textContent = enteredAnswer;
+            document.getElementById('answerFeedback').textContent = '';
+            document.getElementById('answerFeedback').classList.remove('success');
+        }
+
+        function submitNumericAnswer() {
+            if (enteredAnswer === '') return;
+            const answer = Number(enteredAnswer);
+            const cell = document.getElementById('grid').children[answer - 1];
+            checkAnswer(answer, cell);
+        }
 
         function generateNumberButtons() {
             const numberSelection = document.getElementById('numberSelection');
@@ -377,12 +513,15 @@
             startTime = new Date(); // Démarrer le chronomètre
             startGame();
             // Scroll automatique vers la grille
-            document.getElementById('grid').scrollIntoView({ behavior: 'smooth' });
+            const answerArea = document.getElementById('numericMode').checked ? 'numericAnswer' : 'grid';
+            document.getElementById(answerArea).scrollIntoView({ behavior: 'smooth' });
         }
 
         function startGame() {
             steps = shuffleArray([...Array(10).keys()].map(i => i + 1));
             currentStepIndex = 0;
+            resetNumericAnswer();
+            document.getElementById('answerKeys').disabled = false;
             
             const grid = document.getElementById('grid');
             grid.innerHTML = '';
@@ -397,9 +536,13 @@
         }
 
         function checkAnswer(num, cell) {
+            if (!currentTable || currentStepIndex >= steps.length) return;
             if (num === currentTable * steps[currentStepIndex]) {
                 cell.classList.remove('incorrect');
                 cell.classList.add('correct');
+                resetNumericAnswer();
+                document.getElementById('answerFeedback').textContent = 'Bonne réponse !';
+                document.getElementById('answerFeedback').classList.add('success');
                 
                 // En mode expert, retirer la couleur après 2 secondes
                 if (expertMode) {
@@ -410,6 +553,8 @@
                 
                 currentStepIndex++;
                 if (currentStepIndex >= steps.length) {
+                    document.getElementById('answerKeys').disabled = true;
+                    document.getElementById('currentCalculation').textContent = 'Table terminée !';
                     const endTime = new Date();
                     const elapsedTime = (endTime - startTime) / 1000; // Temps en secondes
                     if (elapsedTime < 30) {
@@ -418,10 +563,12 @@
                         showModal(`Vous avez terminé la table de ${currentTable}`, elapsedTime);
                     }
                 } else {
-                    updateCalculationDisplay();
+                    updateCalculationDisplay(document.getElementById('numericMode').checked);
                 }
             } else {
-                if (!cell.classList.contains('correct')) {
+                document.getElementById('answerFeedback').textContent = 'Pas encore, réessaie !';
+                document.getElementById('answerFeedback').classList.remove('success');
+                if (cell && !cell.classList.contains('correct')) {
                     cell.classList.add('incorrect');
                     
                     // En mode expert, retirer la couleur après 2 secondes
@@ -434,9 +581,19 @@
             }
         }
 
-        function updateCalculationDisplay() {
+        function updateCalculationDisplay(animateTransition = false) {
             const calculationDisplay = document.getElementById('currentCalculation');
+            calculationDisplay.getAnimations().forEach(animation => animation.cancel());
             calculationDisplay.textContent = `${currentTable} x ${steps[currentStepIndex]} = ?`;
+            if (animateTransition) {
+                const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                calculationDisplay.animate([
+                    { backgroundColor: '#dcfce7', color: '#166534', transform: reducedMotion ? 'none' : 'translateY(6px) scale(0.96)' },
+                    { backgroundColor: '#fef08a', color: '#166534', transform: reducedMotion ? 'none' : 'translateY(-3px) scale(1.04)', offset: 0.45 },
+                    { backgroundColor: '#e0f2fe', color: '#075985', transform: 'none', offset: 0.75 },
+                    { backgroundColor: 'transparent', color: '#2c3e50', transform: 'none' }
+                ], { duration: reducedMotion ? 150 : 650, easing: 'ease-out' });
+            }
         }
 
         function shuffleArray(array) {
