@@ -6,6 +6,24 @@ let questions = [];
 let answers = [];
 let answered = false;
 let nextQuestionTimer = null;
+let preferredVoice = null;
+let activeUtterance = null;
+
+function refreshVoice() {
+    const frenchVoices = window.speechSynthesis.getVoices()
+        .filter(voice => /^fr(?:[-_]|$)/i.test(voice.lang));
+    function voicePriority(voice) {
+        const description = `${voice.name} ${voice.voiceURI}`;
+        let priority = 0;
+        if (/premium/i.test(description)) priority += 200;
+        else if (/enhanced|améliorée?|amelioree?/i.test(description)) priority += 100;
+        if (/compact/i.test(description)) priority -= 50;
+        if (/^fr[-_]FR$/i.test(voice.lang)) priority += 20;
+        if (voice.default) priority += 5;
+        return priority;
+    }
+    preferredVoice = frenchVoices.sort((first, second) => voicePriority(second) - voicePriority(first))[0] || null;
+}
 
 function advanceQuestion() {
     clearTimeout(nextQuestionTimer);
@@ -18,13 +36,22 @@ function advanceQuestion() {
 function speakWord() {
     if (!speechAvailable) return;
     window.speechSynthesis.cancel();
+    refreshVoice();
     const current = questions[answers.length - (answered ? 1 : 0)];
     const utterance = new SpeechSynthesisUtterance(`${current.article} ${current.word}`);
-    utterance.lang = 'fr-FR';
-    utterance.rate = 0.8;
-    const voice = window.speechSynthesis.getVoices().find(candidate => candidate.lang.startsWith('fr'));
-    if (voice) utterance.voice = voice;
+    utterance.lang = preferredVoice ? preferredVoice.lang : 'fr-FR';
+    utterance.rate = 0.9;
+    if (preferredVoice) utterance.voice = preferredVoice;
+    activeUtterance = utterance;
+    utterance.onend = () => {
+        if (activeUtterance === utterance) activeUtterance = null;
+    };
     utterance.onerror = event => {
+        if (activeUtterance === utterance) activeUtterance = null;
+        if (event.error === 'not-allowed') {
+            elements.feedback.textContent = 'Touchez le bouton Écouter pour lancer la lecture du mot.';
+            return;
+        }
         if (event.error !== 'interrupted' && event.error !== 'canceled') {
             elements.feedback.textContent = "Lecture vocale indisponible. Vérifiez qu'une voix française est installée et réessayez.";
         }
@@ -147,6 +174,10 @@ elements.answerForm.addEventListener('submit', event => { event.preventDefault()
 elements.skip.addEventListener('click', () => submitAnswer(true));
 elements.next.addEventListener('click', advanceQuestion);
 elements.restart.addEventListener('click', restartGame);
+if (speechAvailable) {
+    window.speechSynthesis.addEventListener('voiceschanged', refreshVoice);
+    refreshVoice();
+}
 window.addEventListener('pagehide', () => {
     clearTimeout(nextQuestionTimer);
     if (speechAvailable) window.speechSynthesis.cancel();
