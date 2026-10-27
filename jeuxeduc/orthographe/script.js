@@ -25,8 +25,8 @@ const externalSpeech = createExternalSpeech(reason => {
 
 function stopSpeech() {
     externalSpeech.stop();
-    if (speechAvailable) window.speechSynthesis.cancel();
     activeUtterance = null;
+    if (speechAvailable) window.speechSynthesis.cancel();
 }
 
 function refreshVoice() {
@@ -36,10 +36,11 @@ function refreshVoice() {
         const description = `${voice.name} ${voice.voiceURI}`;
         let priority = 0;
         if (/premium/i.test(description)) priority += 200;
-        else if (/enhanced|améliorée?|amelioree?/i.test(description)) priority += 100;
+        else if (/enhanced|améliorée?|amelioree?|neural|natural|naturelle/i.test(description)) priority += 100;
         if (/compact/i.test(description)) priority -= 50;
         if (/^fr[-_]FR$/i.test(voice.lang)) priority += 20;
         if (voice.default) priority += 5;
+        if (voice.localService) priority += 2;
         return priority;
     }
     preferredVoice = frenchVoices.sort((first, second) => voicePriority(second) - voicePriority(first))[0] || null;
@@ -65,20 +66,28 @@ function speakWord() {
 }
 
 function speakDeviceWord() {
-    if (!speechAvailable) return;
+    if (!speechAvailable) {
+        elements.voiceStatus.textContent = 'Voix de l’appareil indisponible. Choisissez une voix externe.';
+        return;
+    }
+    const current = questions[answers.length - (answered ? 1 : 0)];
+    if (!current) return;
+    activeUtterance = null;
     window.speechSynthesis.cancel();
     refreshVoice();
-    const current = questions[answers.length - (answered ? 1 : 0)];
     const utterance = new SpeechSynthesisUtterance(`${current.article} ${current.word}`);
     utterance.lang = preferredVoice ? preferredVoice.lang : 'fr-FR';
     utterance.rate = 0.9;
+    utterance.pitch = 1;
+    utterance.volume = 1;
     if (preferredVoice) utterance.voice = preferredVoice;
     activeUtterance = utterance;
     utterance.onend = () => {
         if (activeUtterance === utterance) activeUtterance = null;
     };
     utterance.onerror = event => {
-        if (activeUtterance === utterance) activeUtterance = null;
+        if (activeUtterance !== utterance) return;
+        activeUtterance = null;
         if (event.error === 'not-allowed') {
             elements.feedback.textContent = 'Touchez le bouton Écouter pour lancer la lecture du mot.';
             return;
@@ -87,7 +96,13 @@ function speakDeviceWord() {
             elements.feedback.textContent = "Lecture vocale indisponible. Vérifiez qu'une voix française est installée et réessayez.";
         }
     };
-    window.speechSynthesis.speak(utterance);
+    try {
+        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+        window.speechSynthesis.speak(utterance);
+        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+    } catch (error) {
+        utterance.onerror({ error: error.name === 'NotAllowedError' ? 'not-allowed' : 'synthesis-failed' });
+    }
 }
 
 function updateLetterChoices() {

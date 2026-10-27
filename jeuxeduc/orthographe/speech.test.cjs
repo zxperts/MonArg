@@ -7,6 +7,7 @@ const elements = new Map();
 const speechListeners = {};
 let voices = [];
 let spoken = null;
+let resumeCount = 0;
 function createElement() {
     return {
         value: '', children: [], listeners: {},
@@ -18,6 +19,8 @@ function createElement() {
 }
 const speechSynthesis = {
     cancel() {},
+    paused: false,
+    resume() { this.paused = false; resumeCount++; },
     getVoices() { return voices; },
     speak(utterance) { spoken = utterance; },
     addEventListener(type, handler) { speechListeners[type] = handler; }
@@ -69,6 +72,8 @@ const previous = spoken;
 voices.push(premium);
 run('speakWord()');
 assert.equal(spoken.voice, premium);
+previous.onerror({ error: 'not-allowed' });
+assert.equal(elements.get('feedback').textContent, '');
 previous.onend();
 assert.equal(run('activeUtterance'), spoken);
 spoken.onend();
@@ -82,4 +87,23 @@ run('speakWord()');
 assert.equal(spoken.lang, 'fr-CA');
 spoken.onerror({ error: 'not-allowed' });
 assert.match(elements.get('feedback').textContent, /Écouter/);
-console.log('OK : voix différées, priorité Premium/Améliorée, langue, débit et reprise manuelle Safari.');
+voices = [compact, { name: 'French Natural', lang: 'fr-FR' }];
+run('speakWord()');
+assert.equal(spoken.voice, voices[1]);
+voices = [{ name: 'French', lang: 'fr-FR', localService: false },
+    { name: 'French installed', lang: 'fr-FR', localService: true }];
+speechSynthesis.paused = true;
+run('speakWord()');
+assert.equal(spoken.voice, voices[1]);
+assert.equal(resumeCount, 1);
+assert.equal(spoken.pitch, 1);
+assert.equal(spoken.volume, 1);
+const cancelled = spoken;
+run('stopSpeech()');
+elements.get('feedback').textContent = '';
+cancelled.onerror({ error: 'synthesis-failed' });
+assert.equal(elements.get('feedback').textContent, '');
+speechSynthesis.speak = () => { throw { name: 'NotAllowedError' }; };
+run('speakWord()');
+assert.match(elements.get('feedback').textContent, /Écouter/);
+console.log('OK : qualité des voix, voix installées, reprise Safari, erreurs périmées et autorisation tactile.');
