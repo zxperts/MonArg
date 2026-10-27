@@ -13,7 +13,7 @@ body {
     background: linear-gradient(135deg, #e6f4ec, #edf5fd);
 }
 .container { max-width: 920px; margin: auto; padding: 20px; }
-nav { display: flex; gap: 20px; padding: 10px 0; }
+nav { display: flex; flex-wrap: wrap; gap: 20px; padding: 10px 0; }
 nav a { color: var(--blue); font-weight: 600; }
 header { text-align: center; padding: 8px 0 16px; }
 .school-art { font-size: 36px; }

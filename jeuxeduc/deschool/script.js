@@ -9,9 +9,10 @@ let errors = 0;
 let selection = { source: null, target: null };
 
 function updateStats() {
-    elements.round.textContent = `${round + 1} / 4`;
+    elements.round.textContent = `${round + 1} / ${Math.ceil(schoolWords.length / 7)}`;
     elements.matched.textContent = `${matched} / ${schoolWords.length}`;
     elements.errors.textContent = String(errors);
+    elements.progress.max = schoolWords.length;
     elements.progress.value = matched;
 }
 
@@ -47,7 +48,7 @@ function selectWord(side, button) {
     selection = { source: null, target: null };
     updateStats();
     if (matched === schoolWords.length) {
-        elements.feedback.textContent = `Bravo ! Les 28 paires sont réunies. Erreurs : ${errors}.`;
+        elements.feedback.textContent = `Bravo ! Les ${schoolWords.length} paires sont réunies. Erreurs : ${errors}.`;
         elements.restart.focus();
     } else if (matched === (round + 1) * 7) {
         elements.next.hidden = false;
@@ -63,7 +64,7 @@ function renderRound() {
     const targetLanguage = direction === 'fr' ? 'nl' : 'fr';
     elements.sourceTitle.textContent = direction === 'fr' ? 'Français' : 'Néerlandais';
     elements.targetTitle.textContent = direction === 'fr' ? 'Néerlandais' : 'Français';
-    const indexes = Array.from({ length: 7 }, (_, index) => round * 7 + index);
+    const indexes = Array.from({ length: Math.min(7, deck.length - round * 7) }, (_, index) => round * 7 + index);
     for (const side of ['source', 'target']) {
         elements[side].replaceChildren();
         const language = side === 'source' ? direction : targetLanguage;
