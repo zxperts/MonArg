@@ -36,6 +36,7 @@ const context = vm.createContext({
     spellingWords: [{ word: 'école', article: 'une' }],
     shuffleWords: words => words, wordEmojis: {}, createLetterChoices: () => []
 });
+vm.runInContext(fs.readFileSync(path.join(__dirname, 'external-speech.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'script.js'), 'utf8'), context);
 const run = code => vm.runInContext(code, context);
 run('speakWord()');

@@ -10,6 +10,19 @@
     <nav><a href="../">Accueil</a><span>Français / Orthographe</span></nav>
     <main>
         <header><p class="eyebrow">La dictée des mots</p><h1>Orthographe</h1></header>
+        <div class="voice-settings">
+            <label for="voiceSource">Voix de la dictée</label>
+            <select id="voiceSource" aria-controls="externalVoiceSettings">
+                <option value="device">Voix de l’appareil</option>
+                <option value="external">Voix externe (API)</option>
+            </select>
+            <div id="externalVoiceSettings" hidden>
+                <label for="voiceUrl">URL audio HTTPS avec {text} et, si nécessaire, {lang}</label>
+                <input id="voiceUrl" type="url" placeholder="https://votre-serveur.fr/tts?text={text}&amp;lang={lang}" autocomplete="off" spellcheck="false" aria-describedby="voicePrivacy">
+                <p id="voicePrivacy">Le texte dicté est envoyé au service choisi. Aucune clé API ne doit figurer dans cette URL : utilisez un relais serveur si une clé est nécessaire.</p>
+            </div>
+            <p id="voiceStatus" role="status"></p>
+        </div>
         <div class="stats">
             <span>Mot <strong id="position">1 / 20</strong></span>
             <span>Score <strong id="score">0 / 20</strong></span>
@@ -46,6 +59,7 @@
     <script src="words.js"></script>
     <script src="core.js"></script>
     <script src="emojis.js"></script>
+    <script src="external-speech.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

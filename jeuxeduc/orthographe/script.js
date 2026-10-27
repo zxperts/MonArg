@@ -1,6 +1,7 @@
 const elements = Object.fromEntries(['position', 'score', 'progress', 'game', 'results', 'prompt',
     'listen', 'answerForm', 'answer', 'validate', 'skip', 'feedback', 'next', 'resultTitle',
-    'review', 'restart', 'wordEmoji', 'listeningArt', 'letterChoices', 'eraseLetter'].map(name => [name, document.getElementById(name)]));
+    'review', 'restart', 'wordEmoji', 'listeningArt', 'letterChoices', 'eraseLetter',
+    'voiceSource', 'externalVoiceSettings', 'voiceUrl', 'voiceStatus'].map(name => [name, document.getElementById(name)]));
 const speechAvailable = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 let questions = [];
 let answers = [];
@@ -8,6 +9,25 @@ let answered = false;
 let nextQuestionTimer = null;
 let preferredVoice = null;
 let activeUtterance = null;
+const externalSpeech = createExternalSpeech(reason => {
+    if (reason === 'permission') {
+        elements.voiceStatus.textContent = 'Touchez Écouter le mot pour autoriser la lecture audio.';
+        return;
+    }
+    elements.voiceStatus.textContent = reason === 'configuration'
+        ? 'Indiquez une URL audio HTTPS contenant {text}.'
+        : 'Service vocal externe indisponible.';
+    if (speechAvailable) {
+        elements.voiceStatus.textContent += ' Lecture avec la voix de l’appareil.';
+        speakDeviceWord();
+    }
+});
+
+function stopSpeech() {
+    externalSpeech.stop();
+    if (speechAvailable) window.speechSynthesis.cancel();
+    activeUtterance = null;
+}
 
 function refreshVoice() {
     const frenchVoices = window.speechSynthesis.getVoices()
@@ -34,6 +54,17 @@ function advanceQuestion() {
 }
 
 function speakWord() {
+    stopSpeech();
+    elements.voiceStatus.textContent = '';
+    if (elements.voiceSource.value === 'external') {
+        const current = questions[answers.length - (answered ? 1 : 0)];
+        externalSpeech.speak(elements.voiceUrl.value.trim(), `${current.article} ${current.word}`);
+        return;
+    }
+    speakDeviceWord();
+}
+
+function speakDeviceWord() {
     if (!speechAvailable) return;
     window.speechSynthesis.cancel();
     refreshVoice();
@@ -128,7 +159,7 @@ function submitAnswer(skipped) {
 }
 
 function showResults() {
-    window.speechSynthesis.cancel();
+    stopSpeech();
     elements.game.hidden = true;
     elements.results.hidden = false;
     elements.resultTitle.textContent = `Votre résultat : ${answers.filter(answer => answer.correct).length} / 20`;
@@ -145,15 +176,10 @@ function showResults() {
 function restartGame() {
     clearTimeout(nextQuestionTimer);
     nextQuestionTimer = null;
-    if (!speechAvailable) {
-        elements.feedback.textContent = 'Ce navigateur ne propose pas la lecture vocale. Ouvrez ce jeu dans un navigateur compatible, comme Chrome, Edge ou Safari.';
-        elements.answer.disabled = true;
-        elements.validate.disabled = true;
-        elements.skip.disabled = true;
-        elements.listen.disabled = true;
-        return;
+    if (!speechAvailable && elements.voiceSource.value !== 'external') {
+        elements.voiceStatus.textContent = 'Voix de l’appareil indisponible. Choisissez une voix externe.';
     }
-    window.speechSynthesis.cancel();
+    stopSpeech();
     questions = shuffleWords(spellingWords).slice(0, 20);
     answers = [];
     elements.game.hidden = false;
@@ -174,12 +200,21 @@ elements.answerForm.addEventListener('submit', event => { event.preventDefault()
 elements.skip.addEventListener('click', () => submitAnswer(true));
 elements.next.addEventListener('click', advanceQuestion);
 elements.restart.addEventListener('click', restartGame);
+elements.voiceSource.addEventListener('change', () => {
+    stopSpeech();
+    elements.externalVoiceSettings.hidden = elements.voiceSource.value !== 'external';
+    elements.voiceStatus.textContent = '';
+});
+elements.voiceUrl.addEventListener('input', () => {
+    stopSpeech();
+    elements.voiceStatus.textContent = '';
+});
 if (speechAvailable) {
     window.speechSynthesis.addEventListener('voiceschanged', refreshVoice);
     refreshVoice();
 }
 window.addEventListener('pagehide', () => {
     clearTimeout(nextQuestionTimer);
-    if (speechAvailable) window.speechSynthesis.cancel();
+    stopSpeech();
 });
 restartGame();
