@@ -1,0 +1,53 @@
+:root {
+    --ink: #263c3a;
+    --green: #15765c;
+    --blue: #286ca0;
+    --line: #c9ddd7;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e6f4ec, #edf5fd);
+}
+.container { max-width: 920px; margin: auto; padding: 20px; }
+nav { display: flex; gap: 20px; padding: 10px 0; }
+nav a { color: var(--blue); font-weight: 600; }
+header { text-align: center; padding: 8px 0 16px; }
+.school-art { font-size: 36px; }
+h1 { margin: 6px 0; font-size: 32px; }
+.modes { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px; border: 0; padding: 10px 0 20px; margin: 0; }
+.modes legend { text-align: center; margin-bottom: 8px; font-size: 14px; }
+.modes label { cursor: pointer; }
+input { accent-color: var(--green); }
+.stats { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 16px 0; border-top: 1px solid var(--line); }
+progress { width: 100%; height: 10px; accent-color: var(--green); }
+.board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+h2 { font-size: 18px; margin: 18px 0 12px; }
+.word-list { display: grid; grid-auto-rows: minmax(64px, auto); gap: 8px; }
+button { font: inherit; cursor: pointer; border-radius: 8px; }
+.word {
+    width: 100%; padding: 12px; background: white; border: 2px solid var(--line);
+    color: var(--ink); font-size: 17px; overflow-wrap: anywhere; transition: background-color .15s;
+}
+.word:hover:not(:disabled) { border-color: var(--blue); }
+.word.selected { border-color: var(--blue); background: #e2f1ff; }
+.word.matched { background: #d7f3df; border-color: #79b98c; color: #245b35; }
+button:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+button:disabled { cursor: default; }
+#feedback { min-height: 48px; margin: 16px 0; font-weight: 600; }
+#feedback.good { color: #206237; }
+#feedback.bad { color: #a42b32; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.actions button { padding: 12px 20px; border: 1px solid var(--green); background: var(--green); color: white; }
+.actions .secondary { background: white; color: var(--green); }
+[hidden] { display: none !important; }
+@media (max-width: 540px) {
+    .container { padding: 12px; }
+    .board { gap: 10px; }
+    .word { font-size: 15px; padding: 8px; }
+    .word-list { grid-auto-rows: minmax(80px, auto); }
+    h2 { font-size: 16px; }
+}

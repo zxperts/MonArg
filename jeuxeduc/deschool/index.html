@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De school - Jeux éducatifs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <nav><a href="../">Accueil</a><a href="../dewereld/">De Wereld</a></nav>
+        <header><span class="school-art" aria-hidden="true">🎒 📚 ✏️</span><h1>De school</h1></header>
+        <fieldset class="modes">
+            <legend>Sens des associations</legend>
+            <label><input type="radio" name="direction" value="fr" checked> Français → Néerlandais</label>
+            <label><input type="radio" name="direction" value="nl"> Néerlandais → Français</label>
+        </fieldset>
+        <div class="stats">
+            <span>Manche <strong id="round">1 / 4</strong></span>
+            <span>Paires <strong id="matched">0 / 28</strong></span>
+            <span>Erreurs <strong id="errors">0</strong></span>
+        </div>
+        <progress id="progress" value="0" max="28" aria-label="Paires trouvées"></progress>
+        <div id="board" class="board">
+            <section aria-labelledby="sourceTitle"><h2 id="sourceTitle">Français</h2><div id="source" class="word-list"></div></section>
+            <section aria-labelledby="targetTitle"><h2 id="targetTitle">Néerlandais</h2><div id="target" class="word-list"></div></section>
+        </div>
+        <p id="feedback" role="status" aria-live="polite"></p>
+        <div class="actions">
+            <button type="button" id="next" hidden>Manche suivante</button>
+            <button type="button" id="restart" class="secondary">Recommencer</button>
+        </div>
+    </main>
+    <script src="words.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
