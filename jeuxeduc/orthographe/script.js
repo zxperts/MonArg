@@ -1,6 +1,6 @@
 const elements = Object.fromEntries(['position', 'score', 'progress', 'game', 'results', 'prompt',
     'listen', 'answerForm', 'answer', 'validate', 'skip', 'feedback', 'next', 'resultTitle',
-    'review', 'restart', 'wordEmoji', 'listeningArt', 'letterChoices', 'eraseLetter',
+    'review', 'restart', 'wordEmoji', 'letterChoices', 'eraseLetter',
     'voiceSource', 'externalVoiceSettings', 'voiceUrl', 'voiceStatus'].map(name => [name, document.getElementById(name)]));
 const speechAvailable = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
 let questions = [];
@@ -121,7 +121,6 @@ function showQuestion() {
     const emoji = wordEmojis[questions[answers.length].word];
     elements.wordEmoji.textContent = emoji || '';
     elements.wordEmoji.hidden = !emoji;
-    elements.listeningArt.hidden = Boolean(emoji);
     elements.position.textContent = `${answers.length + 1} / 20`;
     elements.answer.value = '';
     elements.answer.disabled = false;

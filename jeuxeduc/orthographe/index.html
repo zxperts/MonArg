@@ -13,14 +13,15 @@
         <div class="voice-settings">
             <label for="voiceSource">Voix de la dictée</label>
             <select id="voiceSource" aria-controls="externalVoiceSettings">
-                <option value="device">Voix de l’appareil</option>
                 <option value="external" selected>Voix externe (Google Translate)</option>
+                <option value="device">Voix de l’appareil</option>
             </select>
-            <div id="externalVoiceSettings">
+            <details id="externalVoiceSettings">
+                <summary>Réglages de la voix externe</summary>
                 <label for="voiceUrl">URL audio HTTPS avec {text} et, si nécessaire, {lang}</label>
                 <input id="voiceUrl" type="url" value="https://translate.google.com/translate_tts?ie=UTF-8&amp;client=tw-ob&amp;tl=fr&amp;q={text}" placeholder="https://votre-serveur.fr/tts?text={text}&amp;lang={lang}" autocomplete="off" spellcheck="false" aria-describedby="voicePrivacy">
                 <p id="voicePrivacy">Le texte dicté est envoyé à Google par défaut. Ce service non officiel peut être limité ou indisponible ; la voix de l’appareil prend alors le relais. Aucune clé API ne doit figurer dans cette URL.</p>
-            </div>
+            </details>
             <p id="voiceStatus" role="status"></p>
         </div>
         <div class="stats">
@@ -30,7 +31,6 @@
         <progress id="progress" value="0" max="20" aria-label="Progression"></progress>
         <section id="game" aria-label="Dictée">
             <div id="wordEmoji" class="word-emoji" aria-hidden="true" hidden></div>
-            <div id="listeningArt" class="listening-art" aria-hidden="true">Aa<span>é</span></div>
             <h2 id="prompt">Quel est ce nom commun ?</h2>
             <button type="button" id="listen" class="listen">Écouter le mot</button>
             <form id="answerForm" autocomplete="off">

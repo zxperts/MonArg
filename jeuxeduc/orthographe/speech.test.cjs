@@ -9,8 +9,8 @@ let voices = [];
 let spoken = null;
 function createElement() {
     return {
-        value: '', children: [],
-        addEventListener() {}, focus() {},
+        value: '', children: [], listeners: {},
+        addEventListener(type, handler) { this.listeners[type] = handler; }, focus() {},
         replaceChildren() { this.children = []; },
         appendChild(child) { this.children.push(child); },
         querySelectorAll() { return this.children; }
@@ -26,6 +26,7 @@ function SpeechSynthesisUtterance(text) { this.text = text; }
 const context = vm.createContext({
     document: {
         getElementById(id) {
+            if (id === 'listeningArt') return null;
             if (!elements.has(id)) elements.set(id, createElement());
             return elements.get(id);
         },
@@ -34,11 +35,21 @@ const context = vm.createContext({
     window: { speechSynthesis, SpeechSynthesisUtterance, addEventListener() {} },
     SpeechSynthesisUtterance, clearTimeout,
     spellingWords: [{ word: 'école', article: 'une' }],
-    shuffleWords: words => words, wordEmojis: {}, createLetterChoices: () => []
+    shuffleWords: words => words, wordEmojis: {},
+    createLetterChoices: () => Array.from('écoleabdf')
 });
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'external-speech.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, 'script.js'), 'utf8'), context);
 const run = code => vm.runInContext(code, context);
+assert.equal(elements.get('letterChoices').children.length, 9);
+const letterButton = elements.get('letterChoices').children[0];
+assert.equal(letterButton.textContent, 'é');
+letterButton.listeners.click();
+assert.equal(elements.get('answer').value, 'é');
+assert.equal(letterButton.disabled, true);
+elements.get('eraseLetter').listeners.click();
+assert.equal(elements.get('answer').value, '');
+assert.equal(letterButton.disabled, false);
 run('speakWord()');
 assert.equal(spoken.lang, 'fr-FR');
 assert.equal(spoken.voice, undefined);
