@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orthographe - Jeux éducatifs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav><a href="../">Accueil</a><span>Français / Orthographe</span></nav>
+    <main>
+        <header><p class="eyebrow">La dictée des mots</p><h1>Orthographe</h1></header>
+        <div class="stats">
+            <span>Mot <strong id="position">1 / 20</strong></span>
+            <span>Score <strong id="score">0 / 20</strong></span>
+        </div>
+        <progress id="progress" value="0" max="20" aria-label="Progression"></progress>
+        <section id="game" aria-label="Dictée">
+            <div id="wordEmoji" class="word-emoji" aria-hidden="true" hidden></div>
+            <div id="listeningArt" class="listening-art" aria-hidden="true">Aa<span>é</span></div>
+            <h2 id="prompt">Quel est ce nom commun ?</h2>
+            <button type="button" id="listen" class="listen">Écouter le mot</button>
+            <form id="answerForm" autocomplete="off">
+                <label for="answer">Votre réponse</label>
+                <input id="answer" type="text" lang="fr" spellcheck="false" autocapitalize="none" autocorrect="off" required>
+                <div id="letterChoices" class="letter-choices" role="group" aria-label="Lettres disponibles"></div>
+                <button type="button" id="eraseLetter" class="secondary" aria-label="Effacer la dernière lettre" title="Effacer la dernière lettre">&#9003;</button>
+                <div class="actions">
+                    <button type="submit" id="validate">Valider</button>
+                    <button type="button" id="skip" class="secondary">Passer</button>
+                </div>
+            </form>
+            <p id="feedback" role="status"></p>
+            <button type="button" id="next" hidden>Mot suivant</button>
+        </section>
+        <section id="results" hidden aria-label="Bilan">
+            <h2 id="resultTitle"></h2>
+            <ol id="review"></ol>
+            <button type="button" id="restart">Nouvelle dictée</button>
+        </section>
+        <footer>1 000 noms communs au singulier, classés par fréquence dans les livres.
+            Source : <a href="http://www.lexique.org/databases/Lexique383/">Lexique 3.83</a>,
+            B. New et C. Pallier, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
+        </footer>
+    </main>
+    <script src="words.js"></script>
+    <script src="core.js"></script>
+    <script src="emojis.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
