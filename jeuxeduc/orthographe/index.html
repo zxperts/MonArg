@@ -14,12 +14,12 @@
             <label for="voiceSource">Voix de la dictée</label>
             <select id="voiceSource" aria-controls="externalVoiceSettings">
                 <option value="device">Voix de l’appareil</option>
-                <option value="external">Voix externe (API)</option>
+                <option value="external" selected>Voix externe (Google Translate)</option>
             </select>
-            <div id="externalVoiceSettings" hidden>
+            <div id="externalVoiceSettings">
                 <label for="voiceUrl">URL audio HTTPS avec {text} et, si nécessaire, {lang}</label>
-                <input id="voiceUrl" type="url" placeholder="https://votre-serveur.fr/tts?text={text}&amp;lang={lang}" autocomplete="off" spellcheck="false" aria-describedby="voicePrivacy">
-                <p id="voicePrivacy">Le texte dicté est envoyé au service choisi. Aucune clé API ne doit figurer dans cette URL : utilisez un relais serveur si une clé est nécessaire.</p>
+                <input id="voiceUrl" type="url" value="https://translate.google.com/translate_tts?ie=UTF-8&amp;client=tw-ob&amp;tl=fr&amp;q={text}" placeholder="https://votre-serveur.fr/tts?text={text}&amp;lang={lang}" autocomplete="off" spellcheck="false" aria-describedby="voicePrivacy">
+                <p id="voicePrivacy">Le texte dicté est envoyé à Google par défaut. Ce service non officiel peut être limité ou indisponible ; la voix de l’appareil prend alors le relais. Aucune clé API ne doit figurer dans cette URL.</p>
             </div>
             <p id="voiceStatus" role="status"></p>
         </div>
