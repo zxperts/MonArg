@@ -14,7 +14,7 @@ function element() {
     };
 }
 
-for (const [file, count] of [['words.js', 28], ['phrases.js', 17]]) {
+for (const [file, count] of [['words.js', 28], ['phrases.js', 17], ['../dieren/words.js', 15]]) {
     const elements = new Map();
     const radios = ['fr', 'nl'].map(value => Object.assign(element(), { value }));
     const context = vm.createContext({ document: {
